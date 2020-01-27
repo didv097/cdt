@@ -30,14 +30,77 @@
         :headers="computedHeaders"
         :items="companies"
         :sort-desc="[false, true]"
-        multi-sort
-      />
+        :options.sync="options"
+      >
+        <template v-slot:item="company">
+          <tr>
+            <td>
+              <v-tooltip right>
+                <template v-slot:activator="{ on }">
+                  <span dark v-on="on" class="company-badge">
+                    <v-badge right slot="activator" color="green">
+                      <template v-slot:badge>
+                        <v-icon dark>mdi-check</v-icon>
+                      </template>
+                      <span class="d-inline-block text-truncate" style="max-width: 200px; margin-left: 10px;">
+                        {{ company.item.company}}
+                      </span>
+                    </v-badge>
+                  </span>
+                </template>
+                <span>{{ company.item.vrp_status }}</span>
+              </v-tooltip>
+            </td>
+            <td>
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <span dark v-on="on" class="company-badge">
+                    <v-badge right slot="activator" color="blue">
+                      <template v-slot:badge>
+                        <v-icon dark>mdi-water-off</v-icon>
+                      </template>
+                      <span class="d-inline-block text-truncate" style="max-width: 200px; margin-left: 10px;">
+                        {{ company.item.plan_number}}
+                      </span>
+                    </v-badge>
+                  </span>
+                </template>
+                <span> </span>
+              </v-tooltip>
+            </td>
+            <td>
+              <v-tooltip right>
+                <template v-slot:activator="{ on }">
+                  <span dark v-on="on" >
+                    <v-badge bottom bordered overlap slot="activator" color="orange">
+                      <template v-slot:badge>
+                        <v-icon dark>mdi-star</v-icon>
+                      </template>
+                      <span>
+                        <img src="../../assets/security-checked.png" />
+                      </span>
+                    </v-badge>
+                  </span>
+                </template>
+                <span> </span>
+              </v-tooltip>
+            </td>
+            <td>{{ company.item.individuals }}</td>
+            <td>{{ company.item.djs_vessels }}</td>
+            <td>{{ company.item.vrp_vessels }}</td>
+            <td>
+              <img src="../../assets/flags/CO.png"
+              />
+            </td>
+          </tr>
+        </template>
+      </v-data-table>
     </base-material-card>
   </v-container>
 </template>
 
 <script>
-  // Components
+  import axios from 'axios'
 
   export default {
     name: 'Companies',
@@ -74,36 +137,43 @@
           value: 'country'
         },
       ],
-      companies: []
+      companies: [],
+      options: {}
     }),
     methods: {
       async getDataFromApi() {
-        return;
-        this.loading = true
-        // get by search keyword
-        const {sortBy, sortDesc, page, itemsPerPage} = this.options
-        try {
-          if (this.search) {
-            const res = await axios.post(`companies-filter-vrp?query=${this.search}&page=${this.options.page}&per_page=${this.options.itemsPerPage}`, {staticSearch: this.staticSearch})
-            this.companies = res.data.data
-            this.total = res.data.meta ? res.data.meta.total : res.data.total;
+        this.companies = [
+          {
+            company: 'Donjon Marine Company II',
+            plan_number: 10000,
+            djs_coverage: false,
+            individuals: 1,
+            djs_vessels: 0,
+            vrp_vessels: 1,
+            country: 'CO'
+          },
+          {
+            company: 'Accentt',
+            plan_number: 10040,
+            djs_coverage: false,
+            individuals: 1,
+            djs_vessels: 1,
+            vrp_vessels: 0,
+            country: 'US'
           }
-          // get by sort option
-          if (sortBy[0] && !this.search) {
-            const direction = sortDesc[0] ? 'desc' : 'asc'
-            const res = await axios.post(`companies-order?direction=${direction}&sortBy=${sortBy[0]}&page=${this.options.page}&per_page=${this.options.itemsPerPage}`, {staticSearch: this.staticSearch})
-            this.companies = res.data.data
-            this.total = res.data.meta ? res.data.meta.total : res.data.total;
-          }
-          if (!this.search && !sortBy[0]) {
-            const res = await axios.post(`companies?page=${this.options.page}&per_page=${this.options.itemsPerPage}`, {staticSearch: this.staticSearch})
-            this.companies = res.data.data
-            this.total = res.data.meta ? res.data.meta.total : res.data.total;
-          }
-          this.loading = false
-        } catch (error) {
-          console.log(error)
-        }
+        ]
+        // this.loading = true
+        // // get by search keyword
+        // const {sortBy, sortDesc, page, itemsPerPage} = this.options
+        // try {
+        //   const res = await axios.post(`companies?page=${this.options.page}&per_page=${this.options.itemsPerPage}`, {staticSearch: this.staticSearch})
+        //   this.companies = res.data.data
+        //   this.total = res.data.meta ? res.data.meta.total : res.data.total;
+        //   console.log(this.companies)
+        //   this.loading = false
+        // } catch (error) {
+        //   console.error(error)
+        // }
       }
     },
     computed: {
