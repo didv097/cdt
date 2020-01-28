@@ -80,37 +80,37 @@
       async getDataFromApi() {
         this.fleets = [
           {
-            'id':8,
-            'name':'Test Fleet',
-            'vessels_count':1
+            'id': 8,
+            'name': 'Test Fleet',
+            'vessels_count': 1
           },{
-            'id':7,
-            'name':'Fleet 1',
-            'vessels_count':0
+            'id': 7,
+            'name': 'Fleet 1',
+            'vessels_count': 0
           },{
-            'id':6,
-            'name':'This is for testing.',
-            'vessels_count':0
+            'id': 6,
+            'name': 'This is for testing.',
+            'vessels_count': 0
           },{
-            'id':5,
-            'name':'Testing',
-            'vessels_count':2
+            'id': 5,
+            'name': 'Testing',
+            'vessels_count': 2
           },{
-            'id':4,
-            'name':';lloluioiouiou',
-            'vessels_count':0
+            'id': 4,
+            'name': ';lloluioiouiou',
+            'vessels_count': 0
           },{
-            'id':3,
-            'name':'Fleet Test',
-            'vessels_count':1
+            'id': 3,
+            'name': 'Fleet Test',
+            'vessels_count': 1
           },{
-            'id':2,
-            'name':"l;'l;'l;'l;'l';;'l;'ll;l'",
-            'vessels_count':0
+            'id': 2,
+            'name': "l;'l;'l;'l;'l';;'l;'ll;l'",
+            'vessels_count': 0
           },{
-            'id':1,
-            'name':'Military Sealift Command',
-            'vessels_count':1
+            'id': 1,
+            'name': 'Military Sealift Command',
+            'vessels_count': 1
           }
         ]
       },
