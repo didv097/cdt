@@ -34,7 +34,7 @@
         <template v-slot:item="vessel">
           <tr>
             <td>
-              <router-link :to="'/home/vessels/view/' + vessel.item.id">
+              <router-link :to="'/vessels/view/' + vessel.item.id">
                 {{ vessel.item.name}}
               </router-link>
             </td>
@@ -60,8 +60,8 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <span dark v-on="on">
-                    <v-badge bottom bordered overlap slot="activator" :color="vessel.item.response===1 ? 'orange' : 'none'">
-                      <template v-slot:badge>
+                    <v-badge bottom bordered overlap slot="activator" color="orange">
+                      <template v-slot:badge v-if="vessel.item.response===1">
                         <v-icon dark>mdi-star</v-icon>
                       </template>
                       <span>
@@ -106,7 +106,7 @@
                           {{ vessel.item.vrp_status==='Authorized' ? 'mdi-check' : 'mdi-close' }}
                         </v-icon>
                       </template>
-                      <router-link :to="'/home/companies/view/' + vessel.item.company.id" v-if="vessel.item.vrp_plan_number>0">
+                      <router-link :to="'/companies/view/' + vessel.item.company.id" v-if="vessel.item.vrp_plan_number>0">
                         {{ vessel.item.vrp_plan_number }}
                       </router-link>
                       <span v-else>{{ vessel.item.vrp_plan_number }}</span>

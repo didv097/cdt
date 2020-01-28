@@ -43,7 +43,7 @@
                           {{ company.item.vrp_status === 'Authorized' ? 'mdi-check' : company.item.vrp_status === 'Not Authorized' ? 'mdi-close' : 'mdi-link' }}
                         </v-icon>
                       </template>
-                      <router-link :to="company.item.id === -1 ? '/home/companies/view/' + company.item.plan_number + '/vrpexpress' : '/home/companies/view/' + company.item.id">
+                      <router-link :to="company.item.id === -1 ? '/companies/view/' + company.item.plan_number + '/vrpexpress' : '/companies/view/' + company.item.id">
                         {{ company.item.name}}
                       </router-link>
                     </v-badge>
@@ -56,10 +56,10 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <span dark v-on="on" class="company-badge">
-                    <v-badge right slot="activator" :color="company.item.vrp_stats.plan_type==='Tank' ? 'blue' : company.item.vrp_stats.plan_type==='Non-Tank' ? 'red' : 'none'">
-                      <template v-slot:badge>
+                    <v-badge right slot="activator" :color="company.item.vrp_stats.plan_type==='Tank' ? 'blue' : 'red'">
+                      <template v-slot:badge v-if="company.item.vrp_stats.plan_type==='Tank' || company.item.vrp_stats.plan_type==='Non-Tank'">
                         <v-icon dark>
-                          {{ company.item.vrp_stats.plan_type==='Tank' ? 'mdi-water' : company.item.vrp_stats.plan_type==='Non-Tank' ? 'mdi-water-off' : 'none' }}
+                          {{ company.item.vrp_stats.plan_type==='Tank' ? 'mdi-water' : 'mdi-water-off' }}
                         </v-icon>
                       </template>
                       <span>
@@ -75,8 +75,8 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <span dark v-on="on" >
-                    <v-badge bottom bordered overlap slot="activator" :color="company.item.response===1 ? 'orange' : 'none'">
-                      <template v-slot:badge>
+                    <v-badge bottom bordered overlap slot="activator" color="orange">
+                      <template v-slot:badge v-if="company.item.response===1">
                         <v-icon dark>mdi-star</v-icon>
                       </template>
                       <span>
