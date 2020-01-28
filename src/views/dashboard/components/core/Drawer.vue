@@ -97,6 +97,11 @@
           title: 'companies',
           to: '/companies',
         },
+        {
+          icon: 'mdi-ferry',
+          title: 'vessels',
+          to: '/vessels',
+        },
       ],
     }),
 
