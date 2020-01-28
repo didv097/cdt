@@ -54,6 +54,16 @@ export default new Router({
           path: 'individuals',
           component: () => import('@/views/dashboard/Individuals'),
         },
+        {
+          name: 'Fleets',
+          path: 'fleets',
+          component: () => import('@/views/dashboard/Fleets'),
+        },
+        {
+          name: 'System Reports',
+          path: 'reports',
+          component: () => import('@/views/dashboard/Reports'),
+        },
       ],
     },
     {

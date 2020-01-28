@@ -2,10 +2,12 @@
   "avatar": "Brandon Cartagena",
   "companies": "Companies",
   "dashboard": "Dashboard",
+  "fleets": "Fleets",
   "individuals": "Individuals",
   "my-profile": "My Profile",
   "edit-profile": "Edit Profile",
   "register": "Register Page",
   "settings": "Settings",
+  "reports": "System Reports",
   "vessels": "Vessels"
 }

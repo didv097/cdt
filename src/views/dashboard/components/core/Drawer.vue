@@ -107,6 +107,16 @@
           title: 'individuals',
           to: '/individuals',
         },
+        {
+          icon: 'mdi-file-document',
+          title: 'reports',
+          to: '/reports',
+        },
+        {
+          icon: 'mdi-anchor',
+          title: 'fleets',
+          to: '/fleets',
+        },
       ],
     }),
 
