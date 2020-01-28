@@ -102,6 +102,11 @@
           title: 'vessels',
           to: '/vessels',
         },
+        {
+          icon: 'mdi-account-group',
+          title: 'individuals',
+          to: '/individuals',
+        },
       ],
     }),
 

@@ -49,6 +49,11 @@ export default new Router({
           path: 'vessels',
           component: () => import('@/views/dashboard/Vessels'),
         },
+        {
+          name: 'Individuals',
+          path: 'individuals',
+          component: () => import('@/views/dashboard/Individuals'),
+        },
       ],
     },
     {

@@ -2,14 +2,10 @@
   "avatar": "Brandon Cartagena",
   "companies": "Companies",
   "dashboard": "Dashboard",
-  "dtables": "Data Tables",
-  "error": "Error Page",
-  "lock": "Lock Screen Page",
-  "login": "Login Page",
+  "individuals": "Individuals",
   "my-profile": "My Profile",
   "edit-profile": "Edit Profile",
   "register": "Register Page",
   "settings": "Settings",
-  "user": "User Profile",
   "vessels": "Vessels"
 }
