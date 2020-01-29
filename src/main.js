@@ -22,6 +22,18 @@ import './plugins/vue-world-map'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 
+import axios from 'axios'
+import cookies from 'js-cookie'
+
+axios.defaults.baseURL = 'http://35.184.79.169/api/'
+const token = cookies.get('x-access-token')
+if (token) {
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
+} else {
+  delete axios.defaults.headers.common['Authorization']
+}
+
+
 Vue.config.productionTip = false
 
 new Vue({
