@@ -30,6 +30,8 @@
         :headers="computedHeaders"
         :items="fleets"
         :options.sync="options"
+        :server-items-length="total"
+        :loading="loading"
       >
         <template v-slot:item="fleet">
           <tr>
@@ -49,6 +51,7 @@
 </template>
 
 <script>
+  import axios from 'axios'
 
   export default {
     name: 'Fleets',
@@ -58,19 +61,41 @@
       headers: [
         {
           text: 'Name',
-          value: 'name'
+          value: 'name',
         },
         {
           text: 'Vessels',
-          value: 'vessels'
+          value: 'vessels',
         },
       ],
+      staticSearch: {
+        internal: -1,
+      },
       fleets: [],
-      options: {}
+      total: 0,
+      options: {},
+      loading: false,
+      searchTimeout: null,
     }),
     computed: {
       computedHeaders () {
         return this.headers
+      },
+    },
+    watch: {
+      options: {
+        handler () {
+          this.getDataFromApi()
+        },
+        deep: true,
+      },
+      search () {
+        if (this.searchTimeout) {
+          clearTimeout(this.searchTimeout)
+        }
+        this.searchTimeout = setTimeout(() => {
+          this.getDataFromApi()
+        }, 500)
       },
     },
     async mounted () {
@@ -78,41 +103,29 @@
     },
     methods: {
       async getDataFromApi () {
-        this.fleets = [
-          {
-            'id': 8,
-            'name': 'Test Fleet',
-            'vessels_count': 1
-          },{
-            'id': 7,
-            'name': 'Fleet 1',
-            'vessels_count': 0
-          },{
-            'id': 6,
-            'name': 'This is for testing.',
-            'vessels_count': 0
-          },{
-            'id': 5,
-            'name': 'Testing',
-            'vessels_count': 2
-          },{
-            'id': 4,
-            'name': ';lloluioiouiou',
-            'vessels_count': 0
-          },{
-            'id': 3,
-            'name': 'Fleet Test',
-            'vessels_count': 1
-          },{
-            'id': 2,
-            'name': "l;'l;'l;'l;'l';;'l;'ll;l'",
-            'vessels_count': 0
-          },{
-            'id': 1,
-            'name': 'Military Sealift Command',
-            'vessels_count': 1
+        this.loading = true
+        const { sortBy, sortDesc, page, itemsPerPage } = this.options
+        try {
+          if (this.search) {
+            const res = await axios.post(`fleets-filter?query=${this.search}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
+            this.fleets = res.data.data
+            this.total = res.data.meta.total
           }
-        ]
+          if (sortBy[0] && !this.search) {
+            const direction = sortDesc[0] ? 'desc' : 'asc'
+            const res = await axios.post(`fleets-order?direction=${direction}&sortBy=${sortBy[0]}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
+            this.fleets = res.data.data
+            this.total = res.data.meta.total
+          }
+          if (!this.search && !sortBy[0]) {
+            const res = await axios.post(`fleets?page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
+            this.fleets = res.data.data
+            this.total = res.data.meta.total
+          }
+        } catch (error) {
+          console.error(error)
+        }
+        this.loading = false
       },
     },
   }
