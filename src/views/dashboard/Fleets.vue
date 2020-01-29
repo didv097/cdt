@@ -77,7 +77,7 @@
       await this.getDataFromApi()
     },
     methods: {
-      async getDataFromApi() {
+      async getDataFromApi () {
         this.fleets = [
           {
             'id': 8,

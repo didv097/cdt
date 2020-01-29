@@ -43,7 +43,7 @@
                           {{ company.item.vrp_status === 'Authorized' ? 'mdi-check' : company.item.vrp_status === 'Not Authorized' ? 'mdi-close' : 'mdi-link' }}
                         </v-icon>
                       </template>
-                      <router-link :to="company.item.id === -1 ? '/companies/view/' + company.item.plan_number + '/vrpexpress' : '/companies/view/' + company.item.id">
+                      <router-link :to="company.item.id === -1 ? '/companies/' + company.item.plan_number + '/vrpexpress' : '/companies/' + company.item.id">
                         {{ company.item.name}}
                       </router-link>
                     </v-badge>
@@ -166,7 +166,7 @@
       await this.getDataFromApi()
     },
     methods: {
-      async getDataFromApi() {
+      async getDataFromApi () {
         this.companies = [
           {
             'id': 4972,
@@ -420,26 +420,32 @@
             'coverage': 1
           }
         ]
-        // this.loading = true
-        // // get by search keyword
-        // const {sortBy, sortDesc, page, itemsPerPage} = this.options
-        // try {
-        //   const res = await axios.post(`companies?page=${this.options.page}&per_page=${this.options.itemsPerPage}`, {staticSearch: this.staticSearch})
-        //   this.companies = res.data.data
-        //   this.total = res.data.meta ? res.data.meta.total : res.data.total
-        //   console.log(this.companies)
-        //   this.loading = false
-        // } catch (error) {
-        //   console.error(error)
-        // }
+        this.loading = true
+        // get by search keyword
+        const {sortBy, sortDesc, page, itemsPerPage} = this.options
+        try {
+          const res = await axios.post(`http://35.184.79.169/api/companies?page=1&per_page=10`,
+            {staticSearch: {
+              active: -1,
+              resource_provider: -1,
+              vrp_status: -1,
+              networks: []
+          }})
+          this.companies = res.data.data
+          this.total = res.data.meta ? res.data.meta.total : res.data.total
+          console.log(this.companies)
+          this.loading = false
+        } catch (error) {
+          console.error(error)
+        }
       },
       getFlagPath (item) {
         if (item.location.length === 2) {
-          return require('../../assets/flags/' + item.location + '.png')
+          return require('../../../assets/flags/' + item.location + '.png')
         } else if (item.country.length === 2) {
-          return require('../../assets/flags/' + item.country + '.png')
+          return require('../../../assets/flags/' + item.country + '.png')
         }
-        return require('../../assets/flags/US.png')
+        return require('../../../assets/flags/US.png')
       },
     },
   }

@@ -106,7 +106,7 @@
       await this.getDataFromApi()
     },
     methods: {
-      async getDataFromApi() {
+      async getDataFromApi () {
         this.individuals = [
           {
             'id': 4640,

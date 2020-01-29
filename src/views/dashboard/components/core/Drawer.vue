@@ -113,6 +113,11 @@
           to: '/reports',
         },
         {
+          icon: 'mdi-map-search',
+          title: 'map',
+          to: '/map',
+        },
+        {
           icon: 'mdi-anchor',
           title: 'fleets',
           to: '/fleets',

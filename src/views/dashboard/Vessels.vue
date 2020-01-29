@@ -169,7 +169,7 @@
       await this.getDataFromApi()
     },
     methods: {
-      async getDataFromApi() {
+      async getDataFromApi () {
         this.vessels = [
           {
             'id': 18992,

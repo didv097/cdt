@@ -42,7 +42,19 @@ export default new Router({
         {
           name: 'Companies',
           path: 'companies',
-          component: () => import('@/views/dashboard/Companies'),
+          component: () => import('@/views/dashboard/Companies/index'),
+          children: [
+            {
+              path: ':id',
+              component: () => import('@/views/dashboard/Companies/view/index'),
+              children: [
+                {
+                  path: 'info',
+                  component: () => import('@/views/dashboard/Companies/view/info'),
+                }
+              ]
+            }
+          ]
         },
         {
           name: 'Vessels',
@@ -55,14 +67,19 @@ export default new Router({
           component: () => import('@/views/dashboard/Individuals'),
         },
         {
-          name: 'Fleets',
-          path: 'fleets',
-          component: () => import('@/views/dashboard/Fleets'),
-        },
-        {
           name: 'System Reports',
           path: 'reports',
           component: () => import('@/views/dashboard/Reports'),
+        },
+        {
+          name: 'COP Map',
+          path: 'map',
+          component: () => import('@/views/dashboard/Map'),
+        },
+        {
+          name: 'Fleets',
+          path: 'fleets',
+          component: () => import('@/views/dashboard/Fleets'),
         },
       ],
     },
