@@ -280,7 +280,7 @@
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
         } catch (error) {
-          console.log(error)
+          console.error(error)
         }
         this.loading = false
       },
