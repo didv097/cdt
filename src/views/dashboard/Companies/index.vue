@@ -38,15 +38,23 @@
             <td>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <span dark v-on="on" class="company-badge">
-                    <v-badge right slot="activator" :color="company.item.vrp_status === 'Authorized' ? 'green' : company.item.vrp_status === 'Not Authorized' ? 'red' : 'orange'">
+                  <span
+                    dark
+                    class="company-badge"
+                    v-on="on"
+                  >
+                    <v-badge
+                      slot="activator"
+                      right
+                      :color="company.item.vrp_status === 'Authorized' ? 'green' : company.item.vrp_status === 'Not Authorized' ? 'red' : 'orange'"
+                    >
                       <template v-slot:badge>
                         <v-icon dark>
                           {{ company.item.vrp_status === 'Authorized' ? 'mdi-check' : company.item.vrp_status === 'Not Authorized' ? 'mdi-close' : 'mdi-link' }}
                         </v-icon>
                       </template>
                       <router-link :to="company.item.id === -1 ? '/companies/' + company.item.plan_number + '/vrpexpress' : '/companies/' + company.item.id">
-                        {{ company.item.name}}
+                        {{ company.item.name }}
                       </router-link>
                     </v-badge>
                   </span>
@@ -57,15 +65,26 @@
             <td>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <span dark v-on="on" class="company-badge">
-                    <v-badge right slot="activator" :color="company.item.vrp_stats.plan_type==='Tank' ? 'blue' : 'red'">
-                      <template v-slot:badge v-if="company.item.vrp_stats.plan_type==='Tank' || company.item.vrp_stats.plan_type==='Non-Tank'">
+                  <span
+                    dark
+                    class="company-badge"
+                    v-on="on"
+                  >
+                    <v-badge
+                      slot="activator"
+                      right
+                      :color="company.item.vrp_stats.plan_type==='Tank' ? 'blue' : 'red'"
+                    >
+                      <template
+                        v-if="company.item.vrp_stats.plan_type==='Tank' || company.item.vrp_stats.plan_type==='Non-Tank'"
+                        v-slot:badge
+                      >
                         <v-icon dark>
                           {{ company.item.vrp_stats.plan_type==='Tank' ? 'mdi-water' : 'mdi-water-off' }}
                         </v-icon>
                       </template>
                       <span>
-                        {{ company.item.plan_number}}
+                        {{ company.item.plan_number }}
                       </span>
                     </v-badge>
                   </span>
@@ -76,14 +95,36 @@
             <td>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <span dark v-on="on" >
-                    <v-badge bottom bordered overlap slot="activator" color="orange">
-                      <template v-slot:badge v-if="company.item.response===1">
+                  <span
+                    dark
+                    v-on="on"
+                  >
+                    <v-badge
+                      slot="activator"
+                      bottom
+                      bordered
+                      overlap
+                      color="orange"
+                    >
+                      <template
+                        v-if="company.item.response===1"
+                        v-slot:badge
+                      >
                         <v-icon dark>mdi-star</v-icon>
                       </template>
                       <span>
-                        <v-icon v-if="company.item.coverage===1" style="font-size: 30px; color: green">mdi-shield-check</v-icon>
-                        <v-icon v-else style="font-size: 30px; color: brown;">mdi-shield-off</v-icon>
+                        <v-icon
+                          v-if="company.item.coverage===1"
+                          style="font-size: 30px; color: green"
+                        >
+                          mdi-shield-check
+                        </v-icon>
+                        <v-icon
+                          v-else
+                          style="font-size: 30px; color: brown;"
+                        >
+                          mdi-shield-off
+                        </v-icon>
                       </span>
                     </v-badge>
                   </span>
@@ -100,18 +141,20 @@
             <td>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <span dark v-on="on">
+                  <span
+                    dark
+                    v-on="on"
+                  >
                     <div v-if="getFlagPath(company.item)===''">-</div>
                     <img
                       v-else
                       :alt="company.item.location"
                       :src="getFlagPath(company.item)"
-                    />
+                    >
                   </span>
                 </template>
                 <span>{{ company.item.country }}</span>
               </v-tooltip>
-
             </td>
           </tr>
         </template>
@@ -131,31 +174,31 @@
       headers: [
         {
           text: 'Company',
-          value: 'name'
+          value: 'name',
         },
         {
           text: 'Plan Number',
-          value: 'plan_number'
+          value: 'plan_number',
         },
         {
           text: 'DJS Coverage?',
-          value: 'djs_coverage'
+          value: 'djs_coverage',
         },
         {
           text: 'Individuals',
-          value: 'individuals'
+          value: 'individuals',
         },
         {
           text: 'DJS Vessels',
-          value: 'djs_vessels'
+          value: 'djs_vessels',
         },
         {
           text: 'VRP Vessels',
-          value: 'vrp_vessels'
+          value: 'vrp_vessels',
         },
         {
           text: 'Country',
-          value: 'country'
+          value: 'country',
         },
       ],
       companies: [],
@@ -165,14 +208,30 @@
         active: -1,
         resource_provider: -1,
         vrp_status: -1,
-        networks: []
+        networks: [],
       },
       total: 0,
-      searchTimeout: null
+      searchTimeout: null,
     }),
     computed: {
       computedHeaders () {
         return this.headers
+      },
+    },
+    watch: {
+      options: {
+        handler () {
+          this.getDataFromApi()
+        },
+        deep: true,
+      },
+      search () {
+        if (this.searchTimeout) {
+          clearTimeout(this.searchTimeout)
+        }
+        this.searchTimeout = setTimeout(() => {
+          this.getDataFromApi()
+        }, 500)
       },
     },
     async mounted () {
@@ -182,24 +241,24 @@
       async getDataFromApi () {
         this.loading = true
         // get by search keyword
-        const {sortBy, sortDesc, page, itemsPerPage} = this.options
+        const { sortBy, sortDesc, page, itemsPerPage } = this.options
         try {
           if (this.search) {
-            const res = await axios.post(`companies-filter-vrp?query=${this.search}&page=${page}&per_page=${itemsPerPage}`, {staticSearch: this.staticSearch})
+            const res = await axios.post(`companies-filter-vrp?query=${this.search}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
             this.companies = res.data.data
-            this.total = res.data.meta ? res.data.meta.total : res.data.total;
+            this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
           // get by sort option
           if (sortBy[0] && !this.search) {
             const direction = sortDesc[0] ? 'desc' : 'asc'
-            const res = await axios.post(`companies-order?direction=${direction}&sortBy=${sortBy[0]}&page=${page}&per_page=${itemsPerPage}`, {staticSearch: this.staticSearch})
+            const res = await axios.post(`companies-order?direction=${direction}&sortBy=${sortBy[0]}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
             this.companies = res.data.data
-            this.total = res.data.meta ? res.data.meta.total : res.data.total;
+            this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
           if (!this.search && !sortBy[0]) {
-            const res = await axios.post(`companies?page=${page}&per_page=${itemsPerPage}`, {staticSearch: this.staticSearch})
+            const res = await axios.post(`companies?page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
             this.companies = res.data.data
-            this.total = res.data.meta ? res.data.meta.total : res.data.total;
+            this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
           this.loading = false
         } catch (error) {
@@ -218,21 +277,5 @@
         return ''
       },
     },
-    watch: {
-      options: {
-        handler () {
-          this.getDataFromApi()
-        },
-        deep: true
-      },
-      search() {
-        if (this.searchTimeout) {
-          clearTimeout(this.searchTimeout)
-        }
-        this.searchTimeout = setTimeout(() => {
-          this.getDataFromApi()
-        }, 500)
-      }
-    }
   }
 </script>
