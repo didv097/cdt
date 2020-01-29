@@ -183,7 +183,6 @@
         this.loading = true
         // get by search keyword
         const {sortBy, sortDesc, page, itemsPerPage} = this.options
-        console.log(this.options)
         try {
           if (this.search) {
             const res = await axios.post(`companies-filter-vrp?query=${this.search}&page=${page}&per_page=${itemsPerPage}`, {staticSearch: this.staticSearch})
@@ -202,7 +201,6 @@
             this.companies = res.data.data
             this.total = res.data.meta ? res.data.meta.total : res.data.total;
           }
-          console.log(this.companies)
           this.loading = false
         } catch (error) {
           console.error(error)

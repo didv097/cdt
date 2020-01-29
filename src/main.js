@@ -27,6 +27,7 @@ import cookies from 'js-cookie'
 
 axios.defaults.baseURL = 'http://35.184.79.169/api/'
 const token = cookies.get('x-access-token')
+console.log(token)
 if (token) {
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 } else {
