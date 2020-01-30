@@ -80,6 +80,11 @@ export default new Router({
           path: 'fleets',
           component: () => import('@/views/dashboard/Fleets'),
         },
+        {
+          name: 'Geographic Annexes',
+          path: 'gsa',
+          component: () => import('@/views/dashboard/GSA'),
+        },
       ],
     },
     {

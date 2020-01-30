@@ -122,6 +122,11 @@
           title: 'fleets',
           to: '/fleets',
         },
+        {
+          icon: 'mdi-map',
+          title: 'gsa',
+          to: '/gsa',
+        },
       ],
     }),
 
