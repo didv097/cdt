@@ -43,18 +43,17 @@ export default new Router({
           name: 'Companies',
           path: 'companies',
           component: () => import('@/views/dashboard/Companies/index'),
+        },
+        {
+          name: 'Company Detail',
+          path: 'companies/:id',
+          component: () => import('@/views/dashboard/Companies/view/index'),
           children: [
             {
-              path: ':id',
-              component: () => import('@/views/dashboard/Companies/view/index'),
-              children: [
-                {
-                  path: 'info',
-                  component: () => import('@/views/dashboard/Companies/view/info'),
-                }
-              ]
-            }
-          ]
+              path: 'info',
+              component: () => import('@/views/dashboard/Companies/view/info'),
+            },
+          ],
         },
         {
           name: 'Vessels',

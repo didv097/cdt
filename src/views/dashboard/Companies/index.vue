@@ -270,9 +270,9 @@
           return ''
         }
         if (item.location && item.location.length === 2) {
-          return require('../../../assets/flags/' + item.location + '.png')
+          return require('@/assets/flags/' + item.location + '.png')
         } else if (item.country && item.country.length === 2) {
-          return require('../../../assets/flags/' + item.country + '.png')
+          return require('@/assets/flags/' + item.country + '.png')
         }
         return ''
       },
