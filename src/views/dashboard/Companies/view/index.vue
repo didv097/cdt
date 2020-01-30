@@ -14,12 +14,12 @@
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
             <v-card
-              v-on="on"
+              width="106"
+              height="106"
+              outlined
               :class="coverPhoto ? 'success--text' : 'grey--text'"
               class="mx-auto mt-0 d-inline-flex v-card--account"
-              outlined
-              height="106"
-              width="106"
+              v-on="on"
               @click="$refs.file.click()"
             >
               <v-img
@@ -41,7 +41,9 @@
         </v-tooltip>
       </v-col>
       <v-col>
-        <h5 class="headline">3 ROUND STONES, INC.</h5>
+        <h5 class="headline">
+          3 ROUND STONES, INC.
+        </h5>
       </v-col>
       <v-col>
         <v-btn>ACTIVE</v-btn>
