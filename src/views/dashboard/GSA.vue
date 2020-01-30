@@ -28,8 +28,8 @@
 
                 <v-expansion-panel-content>
                   <router-link
-                    v-for="n in 4"
-                    :key="n"
+                    v-for="m in 4"
+                    :key="m"
                     to="\"
                   >
                     <p>Sector</p>
@@ -56,8 +56,8 @@
 
                 <v-expansion-panel-content>
                   <router-link
-                    v-for="n in 4"
-                    :key="n"
+                    v-for="m in 4"
+                    :key="m"
                     to="\"
                   >
                     <p>Sector</p>
