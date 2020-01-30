@@ -30,7 +30,7 @@
                   <router-link
                     v-for="m in 4"
                     :key="m"
-                    to="\"
+                    to="/"
                   >
                     <p>Sector</p>
                   </router-link>
@@ -58,7 +58,7 @@
                   <router-link
                     v-for="m in 4"
                     :key="m"
-                    to="\"
+                    to="/"
                   >
                     <p>Sector</p>
                   </router-link>
@@ -92,9 +92,8 @@
 
 <style lang="sass">
   h3
-    margin: 20px 0 10px
+    margin: 1rem 0 2rem
   p
     margin-top: 0
     margin-bottom: 1rem
-
 </style>
