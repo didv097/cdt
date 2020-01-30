@@ -13,11 +13,11 @@
         </base-material-alert>
       </v-col>
       <v-col
+        v-for="item in cnt"
+        :key="item.title"
         cols="12"
         sm="6"
         lg="3"
-        v-for="item in cnt"
-        :key="item.title"
       >
         <base-material-stats-card
           :color="item.color"
@@ -33,7 +33,7 @@
           :data="systemHeartbeat"
           color="green"
           type="Line"
-        ></base-material-chart-card>
+        />
       </v-col>
     </v-row>
   </v-container>
