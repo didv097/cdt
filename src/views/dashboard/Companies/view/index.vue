@@ -46,20 +46,47 @@
         </h3>
       </v-col>
       <v-col md="auto">
-        <v-btn
-          v-if="editedItem.active"
-          color="green"
-          small
+        <v-dialog
+          v-model="msgBox"
+          persistent
+          max-width="290"
         >
-          ACTIVE
-        </v-btn>
-        <v-btn
-          v-else
-          color="red"
-          small
-        >
-          INACTIVE
-        </v-btn>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              :color="editedItem.active ? 'green' : 'red'"
+              dark
+              small
+              v-on="on"
+            >
+              {{ editedItem.active ? 'Active' : 'Inactive' }}
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title class="headline">
+              Warning
+            </v-card-title>
+            <v-card-text>
+              <b>{{ editedItem.name }}</b> status will be changed to DJS <b>{{ editedItem.active ? 'Inactive' : 'Active' }}</b>. Are you sure that you want to change this setting?
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn
+                color="green"
+                text
+                @click="toggleStatus"
+              >
+                Yes
+              </v-btn>
+              <v-btn
+                color="red"
+                text
+                @click="msgBox = false"
+              >
+                Cancel
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-col>
     </v-row>
     <base-material-tabs
@@ -92,6 +119,7 @@
       activeTab: 0,
       tabs: [],
       editedItem: {},
+      msgBox: false,
     }),
     mounted () {
       this.tabs = [
@@ -174,6 +202,13 @@
           .then(res => {
             this.editedItem = res.data.data[0]
           })
+      },
+      toggleStatus () {
+        axios.post('companies/' + this.$route.params.id + '/toggleStatus')
+          .then(res => {
+            this.editedItem.active = !this.editedItem.active
+          })
+        this.msgBox = false
       },
     },
   }
