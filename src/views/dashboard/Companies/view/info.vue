@@ -201,16 +201,16 @@
               <v-btn
                 color="green"
                 text
-                @click="deleteCompany"
+                @click="deleteMsg = false"
               >
-                Yes
+                Cancel
               </v-btn>
               <v-btn
                 color="red"
                 text
-                @click="deleteMsg = false"
+                @click="deleteCompany"
               >
-                Cancel
+                Delete Company
               </v-btn>
             </v-card-actions>
           </v-card>
