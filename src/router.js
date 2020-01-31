@@ -47,12 +47,18 @@ export default new Router({
         {
           name: 'Company Detail',
           path: 'companies/:id',
-          component: () => import('@/views/dashboard/Companies/view/index'),
+          redirect: 'companies/:id/info',
+          component: () => import('@/views/dashboard/Companies/view/Index'),
           children: [
             {
-              name: 'Company Information',
+              name: 'Company Info',
               path: 'info',
-              component: () => import('@/views/dashboard/Companies/view/info'),
+              component: () => import('@/views/dashboard/Companies/view/Info'),
+            },
+            {
+              name: 'Company Addresses',
+              path: 'addresses',
+              component: () => import('@/views/dashboard/Companies/view/Addresses'),
             },
           ],
         },
