@@ -95,7 +95,7 @@
           <v-col>
             <div class="input-container">
               <h4 class="input-label">
-                <v-icon>mdi-phone</v-icon>
+                <v-icon>mdi-office-building</v-icon>
                 Operating Company:
               </h4>
               <v-text-field
@@ -136,7 +136,7 @@
         </v-row>
         <div class="input-container">
           <h4 class="input-label">
-            <v-icon>mdi-info</v-icon>
+            <v-icon>mdi-information</v-icon>
             About:
           </h4>
           <v-textarea
@@ -178,7 +178,6 @@
           .then(res => {
             this.editedItem = res.data.data[0]
             this.standBy = false
-            console.log(this.editedItem)
           })
       },
     },
