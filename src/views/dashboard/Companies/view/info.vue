@@ -18,7 +18,7 @@
           </h4>
           <v-text-field
             v-model="editedItem.name"
-            readonly
+            :readonly="!edit"
             class="input-field"
           />
         </div>
@@ -31,7 +31,7 @@
               </h4>
               <v-text-field
                 v-model="editedItem.plan_number"
-                readonly
+                :readonly="!edit"
                 class="input-field"
               />
             </div>
@@ -44,7 +44,7 @@
               </h4>
               <v-text-field
                 v-model="editedItem.phone"
-                readonly
+                :readonly="!edit"
                 class="input-field"
               />
             </div>
@@ -59,7 +59,7 @@
               </h4>
               <v-text-field
                 v-model="editedItem.fax"
-                readonly
+                :readonly="!edit"
                 class="input-field"
               />
             </div>
@@ -72,7 +72,7 @@
               </h4>
               <v-text-field
                 v-model="editedItem.email"
-                readonly
+                :readonly="!edit"
                 class="input-field"
               />
             </div>
@@ -90,7 +90,7 @@
                 :items="qiItems"
                 item-text="name"
                 item-value="id"
-                readonly
+                :readonly="!edit"
                 class="input-field"
               />
             </div>
@@ -106,7 +106,7 @@
                 :items="companyItems"
                 item-text="name"
                 item-value="id"
-                readonly
+                :readonly="!edit"
                 class="input-field"
               />
             </div>
@@ -121,7 +121,7 @@
               </h4>
               <v-text-field
                 v-model="editedItem.website"
-                readonly
+                :readonly="!edit"
                 class="input-field"
               />
             </div>
@@ -137,7 +137,7 @@
                 :items="pocItems"
                 item-text="name"
                 item-value="id"
-                readonly
+                :readonly="!edit"
                 class="input-field"
               />
             </div>
@@ -150,19 +150,36 @@
           </h4>
           <v-textarea
             v-model="editedItem.description"
-            readonly
+            :readonly="!edit"
             class="input-field"
           />
         </div>
         <v-btn
-          color="green"
+          v-if="edit"
+          color="grey"
+          @click="cancelEdit"
         >
-          EDIT
+          Cancel
+        </v-btn>
+        <v-btn
+          v-if="edit"
+          color="green"
+          @click="saveEdit"
+        >
+          Save
+        </v-btn>
+        <v-btn
+          v-else
+          color="green"
+          @click="clickEdit"
+        >
+          Edit
         </v-btn>
         <v-btn
           color="red"
+          @click="clickDelete"
         >
-          DELETE
+          Delete
         </v-btn>
       </v-card-text>
     </base-material-card>
@@ -174,11 +191,12 @@
 
   export default {
     data: () => ({
-      standBy: false,
+      loading: false,
       editedItem: {},
       qiItems: [],
       companyItems: [],
       pocItems: [],
+      edit: false,
     }),
     mounted () {
       this.getDataFromApi()
@@ -186,11 +204,11 @@
     },
     methods: {
       getDataFromApi () {
-        this.standBy = true
+        this.loading = true
         axios.get('companies/' + this.$route.params.id)
           .then(res => {
             this.editedItem = res.data.data[0]
-            this.standBy = false
+            this.loading = false
           })
       },
       getQIItems () {
@@ -210,6 +228,28 @@
           .then(res => {
             this.pocItems = res.data.data
           })
+      },
+      clickEdit () {
+        this.edit = true
+      },
+      cancelEdit () {
+        this.edit = false
+      },
+      saveEdit () {
+        axios.post('companies/' + this.$route.params.id, this.editedItem)
+          .then(res => {
+            console.log(res)
+            this.getDataFromApi()
+            this.edit = false
+          })
+          .catch(error => {
+            if (error.response && error.response.data) {
+              console.error(error.response.data.message)
+            }
+            this.edit = false
+          })
+      },
+      clickDelete () {
       },
     },
   }
