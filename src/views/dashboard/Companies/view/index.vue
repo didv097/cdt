@@ -42,15 +42,23 @@
       </v-col>
       <v-col md="auto">
         <h3 class="display-2">
-          3 ROUND STONES, INC.
+          {{ editedItem.name }}
         </h3>
       </v-col>
       <v-col md="auto">
         <v-btn
+          v-if="editedItem.active"
           color="green"
           small
         >
           ACTIVE
+        </v-btn>
+        <v-btn
+          v-else
+          color="red"
+          small
+        >
+          INACTIVE
         </v-btn>
       </v-col>
     </v-row>
@@ -62,13 +70,15 @@
       icons-and-text
     >
       <v-tab
-        v-for="(t, i) in tabs"
+        v-for="(tab, i) in tabs"
         :key="i"
+        :to="tab.to"
       >
-        {{ t.title }}
-        <v-icon v-text="t.icon" />
+        {{ tab.title }}
+        <v-icon v-text="tab.icon" />
       </v-tab>
     </base-material-tabs>
+    <router-view />
   </v-container>
 </template>
 
@@ -81,50 +91,52 @@
       uploading: false,
       activeTab: 0,
       tabs: [],
+      editedItem: {},
     }),
     mounted () {
       this.tabs = [
         {
           title: 'Info',
           icon: 'mdi-information',
-          to: '/home/companies/view/' + this.$route.params.id + '/info',
+          to: '/companies/' + this.$route.params.id + '/info',
         },
         {
           title: 'Addresses',
           icon: 'mdi-map-marker',
-          to: '/home/companies/view/' + this.$route.params.id + '/addresses',
+          to: '/companies/' + this.$route.params.id + '/addresses',
         },
         {
           title: 'Plan Holder',
           icon: 'mdi-lan',
-          to: '/home/companies/view/' + this.$route.params.id + '/plan',
+          to: '/companies/' + this.$route.params.id + '/plan',
         },
         {
           title: 'SMFF Capabilities',
           icon: 'mdi-hard-hat',
-          to: '/home/companies/view/' + this.$route.params.id + '/smff',
+          to: '/companies/' + this.$route.params.id + '/smff',
         },
         {
           title: 'Operated Companies',
           icon: 'mdi-office-building',
-          to: '/home/companies/view/' + this.$route.params.id + '/companies',
+          to: '/companies/' + this.$route.params.id + '/companies',
         },
         {
           title: 'Individuals',
           icon: 'mdi-account-tie',
-          to: '/home/companies/view/' + this.$route.params.id + '/individuals',
+          to: '/companies/' + this.$route.params.id + '/individuals',
         },
         {
           title: 'Documents',
           icon: 'mdi-file',
-          to: '/home/companies/view/' + this.$route.params.id + '/documents',
+          to: '/companies/' + this.$route.params.id + '/documents',
         },
         {
           title: 'Vessels',
           icon: 'mdi-ferry',
-          to: '/home/companies/view/' + this.$route.params.id + '/vessels',
+          to: '/companies/' + this.$route.params.id + '/vessels',
         },
       ]
+      this.getDataFromApi()
     },
     methods: {
       getCover () {
@@ -156,6 +168,12 @@
           }
           this.uploading = false
         })
+      },
+      getDataFromApi () {
+        axios.get('companies/' + this.$route.params.id)
+          .then(res => {
+            this.editedItem = res.data.data[0]
+          })
       },
     },
   }
