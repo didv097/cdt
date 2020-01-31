@@ -50,6 +50,7 @@ export default new Router({
           component: () => import('@/views/dashboard/Companies/view/index'),
           children: [
             {
+              name: 'Company Info',
               path: 'info',
               component: () => import('@/views/dashboard/Companies/view/info'),
             },
