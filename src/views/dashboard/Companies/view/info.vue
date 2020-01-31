@@ -18,7 +18,7 @@
           </h4>
           <v-text-field
             v-model="editedItem.name"
-            readonly="readonly"
+            readonly
             class="input-field"
           />
         </div>
@@ -31,7 +31,7 @@
               </h4>
               <v-text-field
                 v-model="editedItem.plan_number"
-                readonly="readonly"
+                readonly
                 class="input-field"
               />
             </div>
@@ -44,7 +44,7 @@
               </h4>
               <v-text-field
                 v-model="editedItem.phone"
-                readonly="readonly"
+                readonly
                 class="input-field"
               />
             </div>
@@ -58,8 +58,8 @@
                 Fax:
               </h4>
               <v-text-field
-                v-model="editedItem.plan_number"
-                readonly="readonly"
+                v-model="editedItem.fax"
+                readonly
                 class="input-field"
               />
             </div>
@@ -72,7 +72,7 @@
               </h4>
               <v-text-field
                 v-model="editedItem.email"
-                readonly="readonly"
+                readonly
                 class="input-field"
               />
             </div>
@@ -85,9 +85,12 @@
                 <v-icon>mdi-file-document-edit</v-icon>
                 QI:
               </h4>
-              <v-text-field
+              <v-autocomplete
                 v-model="editedItem.qi_id"
-                readonly="readonly"
+                :items="qiItems"
+                item-text="name"
+                item-value="id"
+                readonly
                 class="input-field"
               />
             </div>
@@ -98,9 +101,12 @@
                 <v-icon>mdi-office-building</v-icon>
                 Operating Company:
               </h4>
-              <v-text-field
+              <v-autocomplete
                 v-model="editedItem.operating_company_id"
-                readonly="readonly"
+                :items="companyItems"
+                item-text="name"
+                item-value="id"
+                readonly
                 class="input-field"
               />
             </div>
@@ -115,7 +121,7 @@
               </h4>
               <v-text-field
                 v-model="editedItem.website"
-                readonly="readonly"
+                readonly
                 class="input-field"
               />
             </div>
@@ -126,9 +132,12 @@
                 <v-icon>mdi-office-building</v-icon>
                 Company POC:
               </h4>
-              <v-text-field
+              <v-autocomplete
                 v-model="editedItem.company_poc_id"
-                readonly="readonly"
+                :items="pocItems"
+                item-text="name"
+                item-value="id"
+                readonly
                 class="input-field"
               />
             </div>
@@ -141,7 +150,7 @@
           </h4>
           <v-textarea
             v-model="editedItem.description"
-            readonly="readonly"
+            readonly
             class="input-field"
           />
         </div>
@@ -167,9 +176,13 @@
     data: () => ({
       standBy: false,
       editedItem: {},
+      qiItems: [],
+      companyItems: [],
+      pocItems: [],
     }),
     mounted () {
       this.getDataFromApi()
+      this.getQIItems()
     },
     methods: {
       getDataFromApi () {
@@ -178,6 +191,24 @@
           .then(res => {
             this.editedItem = res.data.data[0]
             this.standBy = false
+          })
+      },
+      getQIItems () {
+        axios.get('vendors/qi')
+          .then(res => {
+            this.qiItems = res.data.data
+          })
+      },
+      getCompanyItems () {
+        axios.get('companies/short')
+          .then(res => {
+            this.companyItems = res.data.data
+          })
+      },
+      getPOCItems () {
+        axios.get('companies/user/poc')
+          .then(res => {
+            this.pocItems = res.data.data
           })
       },
     },

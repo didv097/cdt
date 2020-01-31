@@ -29,7 +29,7 @@
     <v-spacer />
 
     <v-text-field
-      :label="$t('search')"
+      label="search"
       color="secondary"
       hide-details
       class="mb-2"
@@ -191,7 +191,7 @@
       notifications: [
         'Mike John Responded to your email',
         'You have 5 new tasks',
-        `You're now friends with Andrew`,
+        "You're now friends with Andrew",
         'Another Notification',
         'Another one',
       ],
