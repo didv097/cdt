@@ -61,7 +61,7 @@
                   <l-map
                     v-if="address.latitude && address.longitude"
                     id="map"
-                    zoom="13"
+                    :zoom="13"
                     :center="[address.latitude, address.longitude]"
                     :options="{ zoomControl: false, dragging: false, scrollWheelZoom: false}"
                   >
@@ -149,9 +149,7 @@
                   </v-row>
                 </div>
               </div>
-              <div
-                v-else
-              >
+              <div v-else>
                 <base-material-alert
                   color="orange"
                   dark
@@ -159,6 +157,24 @@
                   No Addresses Defined
                 </base-material-alert>
               </div>
+              <v-row class="footer">
+                <v-btn
+                  color="green"
+                >
+                  Save
+                </v-btn>
+                <v-btn
+                  color="red"
+                >
+                  Delete
+                </v-btn>
+                <v-spacer />
+                <v-btn
+                  color="black"
+                >
+                  Document Format
+                </v-btn>
+              </v-row>
             </v-tab-item>
           </v-tabs-items>
         </base-material-tabs>
@@ -207,4 +223,6 @@
     margin-bottom: 1rem
     height: 200px
     width: 100%
+  .footer>.v-btn
+    margin: 12px !important
 </style>
