@@ -45,6 +45,7 @@
                 <v-btn
                   icon
                   color="orange"
+                  @click="addAddress(addressesItem.id)"
                 >
                   <v-icon size="32">
                     mdi-plus-circle-outline
@@ -154,14 +155,50 @@
                     >
                       Save
                     </v-btn>
-                    <v-btn
-                      color="red"
+                    <v-dialog
+                      v-model="deleteMsg"
+                      persistent
+                      max-width="500"
                     >
-                      Delete
-                    </v-btn>
+                      <template v-slot:activator="{ on }">
+                        <v-btn
+                          color="red"
+                          dark
+                          v-on="on"
+                        >
+                          Delete
+                        </v-btn>
+                      </template>
+                      <v-card>
+                        <v-card-title class="headline">
+                          You are about to delete an address
+                        </v-card-title>
+                        <v-card-text>
+                          Please confirm that you would like to delete the following address: <b>{{ address.street + ' ' + address.city + ' ' + address.country }}</b>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer />
+                          <v-btn
+                            color="green"
+                            text
+                            @click="deleteMsg = false"
+                          >
+                            Cancel
+                          </v-btn>
+                          <v-btn
+                            color="red"
+                            text
+                            @click="deleteAddress(address.id)"
+                          >
+                            Delete Address
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
                     <v-spacer />
                     <v-btn
-                      color="black"
+                      color="blue"
+                      @click="showDocumentFormat(address)"
                     >
                       Document Format
                     </v-btn>
@@ -186,10 +223,39 @@
       :color="snackbarColor"
       bottom
       right
-      timeout="4000"
     >
       {{ snackbarText }}
     </base-material-snackbar>
+    <v-dialog
+      v-model="showFormatForm"
+      max-width="500"
+    >
+      <v-card>
+        <v-card-title>Document Address</v-card-title>
+        <v-divider />
+        <v-card-text>
+          <v-textarea v-model="documentFormatAddress.document_format" />
+        </v-card-text>
+        <v-divider />
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="green"
+            text
+            @click="showFormatForm = false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="green"
+            text
+            @click="saveAddressFormat"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -208,6 +274,11 @@
       snackbar: false,
       snackbarColor: 'blue',
       snackbarText: 'snackbar',
+      deleteMsg: false,
+      showFormatForm: false,
+      documentFormatAddress: {
+        document_format: '',
+      },
     }),
     mounted () {
       this.getAddresses()
@@ -231,6 +302,56 @@
             this.snackbarText = res.data.message
           })
       },
+      deleteAddress (id) {
+        axios.delete('companies/addresses/' + id)
+          .then(res => {
+            this.deleteMsg = false
+            this.getAddresses()
+            this.snackbar = true
+            this.snackbarText = res.data.message
+          })
+      },
+      showDocumentFormat (address) {
+        if (!address.document_format) {
+          if (address.street) {
+            address.document_format = address.street
+          }
+          if (address.unit) {
+            address.document_format += ', ' + address.unit
+          }
+          address.document_format += '\n'
+          if (address.city) {
+            address.document_format += address.city
+          }
+          if (address.province) {
+            address.document_format += ', ' + address.province
+          }
+          if (address.zip) {
+            address.document_format += ', ' + address.zip
+          }
+          address.document_format += '\n'
+          if (address.country) {
+            address.document_format += address.country
+          }
+        }
+        if (address.document_format.trim() === 'null') {
+          address.document_format = 'No Address'
+        }
+        this.documentFormatAddress = address
+        this.showFormatForm = true
+      },
+      saveAddressFormat () {
+        this.saveAddress(this.documentFormatAddress)
+        this.showFormatForm = false
+      },
+      addAddress (typeId) {
+        axios.post('companies/' + this.$route.params.id + '/addresses/store', { type_id: typeId })
+          .then(res => {
+            this.getAddresses()
+            this.snackbar = true
+            this.snackbarText = res.data.message
+          })
+      }
     },
   }
 </script>
