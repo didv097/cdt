@@ -63,4 +63,6 @@
     .v-snack__content
       overflow: visible
       padding: 0
+      .v-alert
+        width: 100% !important
 </style>
