@@ -51,14 +51,19 @@ export default new Router({
           component: () => import('@/views/dashboard/Companies/view/Index'),
           children: [
             {
-              name: 'Company Info',
+              name: 'Company Detail',
               path: 'info',
               component: () => import('@/views/dashboard/Companies/view/Info'),
             },
             {
-              name: 'Company Addresses',
+              name: 'Company Detail',
               path: 'addresses',
               component: () => import('@/views/dashboard/Companies/view/Addresses'),
+            },
+            {
+              name: 'Company Detail',
+              path: 'plan',
+              component: () => import('@/views/dashboard/Companies/view/PlanHolder'),
             },
           ],
         },

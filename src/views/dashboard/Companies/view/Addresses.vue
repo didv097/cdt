@@ -4,6 +4,7 @@
       color="green"
       icon="mdi-map-marker"
       inline
+      :loading="loading"
     >
       <template v-slot:after-heading>
         <div class="display-2">
@@ -279,6 +280,7 @@
       documentFormatAddress: {
         document_format: '',
       },
+      loading: false,
     }),
     mounted () {
       this.getAddresses()
@@ -289,9 +291,11 @@
     },
     methods: {
       getAddresses () {
+        this.loading = true
         axios.get('companies/' + this.$route.params.id + '/addresses')
           .then(res => {
             this.addressesItems = res.data
+            this.loading = false
           })
       },
       saveAddress (address) {
@@ -351,7 +355,7 @@
             this.snackbar = true
             this.snackbarText = res.data.message
           })
-      }
+      },
     },
   }
 </script>

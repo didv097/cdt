@@ -124,7 +124,7 @@
     mounted () {
       this.tabs = [
         {
-          title: 'Info',
+          title: 'Information',
           icon: 'mdi-information',
           to: '/companies/' + this.$route.params.id + '/info',
         },
