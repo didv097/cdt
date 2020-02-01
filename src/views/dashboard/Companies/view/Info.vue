@@ -236,6 +236,8 @@
     mounted () {
       this.getDataFromApi()
       this.getQIItems()
+      this.getCompanyItems()
+      this.getPOCItems()
     },
     methods: {
       getDataFromApi () {
