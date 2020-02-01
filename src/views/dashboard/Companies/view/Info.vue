@@ -4,6 +4,7 @@
       color="green"
       icon="mdi-information"
       inline
+      :loading="loading"
     >
       <template v-slot:after-heading>
         <div class="display-2">

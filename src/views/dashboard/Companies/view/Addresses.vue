@@ -16,7 +16,7 @@
           color="green"
           icons-and-text
           fixed-tabs
-          height="48"
+          height="36"
         >
           <v-tab>
             <span>
@@ -63,7 +63,7 @@
                     id="map"
                     :zoom="13"
                     :center="[address.latitude, address.longitude]"
-                    :options="{ zoomControl: false, dragging: false, scrollWheelZoom: false}"
+                    :options="{ dragging: false, scrollWheelZoom: false}"
                   >
                     <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
                     <l-marker :lat-lng="[address.latitude, address.longitude]" />
@@ -147,6 +147,25 @@
                       />
                     </v-col>
                   </v-row>
+                  <v-row class="footer">
+                    <v-btn
+                      color="green"
+                      @click="saveAddress(address)"
+                    >
+                      Save
+                    </v-btn>
+                    <v-btn
+                      color="red"
+                    >
+                      Delete
+                    </v-btn>
+                    <v-spacer />
+                    <v-btn
+                      color="black"
+                    >
+                      Document Format
+                    </v-btn>
+                  </v-row>
                 </div>
               </div>
               <div v-else>
@@ -157,29 +176,20 @@
                   No Addresses Defined
                 </base-material-alert>
               </div>
-              <v-row class="footer">
-                <v-btn
-                  color="green"
-                >
-                  Save
-                </v-btn>
-                <v-btn
-                  color="red"
-                >
-                  Delete
-                </v-btn>
-                <v-spacer />
-                <v-btn
-                  color="black"
-                >
-                  Document Format
-                </v-btn>
-              </v-row>
             </v-tab-item>
           </v-tabs-items>
         </base-material-tabs>
       </v-card-text>
     </base-material-card>
+    <base-material-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      bottom
+      right
+      timeout="4000"
+    >
+      {{ snackbarText }}
+    </base-material-snackbar>
   </v-container>
 </template>
 
@@ -195,6 +205,9 @@
       activeTab: 0,
       addressesItems: [],
       zones: [],
+      snackbar: false,
+      snackbarColor: 'blue',
+      snackbarText: 'snackbar',
     }),
     mounted () {
       this.getAddresses()
@@ -208,6 +221,14 @@
         axios.get('companies/' + this.$route.params.id + '/addresses')
           .then(res => {
             this.addressesItems = res.data
+          })
+      },
+      saveAddress (address) {
+        axios.post('companies/addresses/' + address.id, { address: address })
+          .then(res => {
+            this.getAddresses()
+            this.snackbar = true
+            this.snackbarText = res.data.message
           })
       },
     },
