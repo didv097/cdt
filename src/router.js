@@ -42,7 +42,7 @@ export default new Router({
         {
           name: 'Companies',
           path: 'companies',
-          component: () => import('@/views/dashboard/Companies/index'),
+          component: () => import('@/views/dashboard/Companies/Index'),
         },
         {
           name: 'Company Detail',
@@ -64,6 +64,11 @@ export default new Router({
               name: 'Company Detail',
               path: 'plan',
               component: () => import('@/views/dashboard/Companies/view/PlanHolder'),
+            },
+            {
+              name: 'Company Detail',
+              path: 'smff',
+              component: () => import('@/views/dashboard/Companies/view/SMFF'),
             },
           ],
         },
