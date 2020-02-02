@@ -371,4 +371,6 @@
     width: 100%
   .footer>.v-btn
     margin: 12px !important
+  .leaflet-pane
+    z-index: 0
 </style>
