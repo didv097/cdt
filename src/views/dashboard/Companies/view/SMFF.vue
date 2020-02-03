@@ -566,6 +566,7 @@
       :color="snackbarColor"
       bottom
       right
+      :type="null"
     >
       {{ snackbarText }}
     </base-material-snackbar>
