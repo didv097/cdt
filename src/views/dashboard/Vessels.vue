@@ -36,7 +36,10 @@
         <template v-slot:item="vessel">
           <tr>
             <td>
-              <router-link :to="'/vessels/view/' + vessel.item.id">
+              <router-link
+                class="table-link"
+                :to="'/vessels/view/' + vessel.item.id"
+              >
                 {{ vessel.item.name }}
               </router-link>
             </td>
@@ -156,6 +159,7 @@
                         </v-icon>
                       </template>
                       <router-link
+                        class="table-link"
                         v-if="vessel.item.vrp_plan_number>0"
                         :to="'/companies/view/' + vessel.item.company.id"
                       >

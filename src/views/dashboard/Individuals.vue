@@ -53,13 +53,19 @@
                     </template>
                   </v-tooltip>
                 </template>
-                <router-link :to="'/individuals/view/' + individual.item.id">
+                <router-link
+                  class="table-link"
+                  :to="'/individuals/view/' + individual.item.id"
+                >
                   {{ individual.item.first_name + ' ' + individual.item.last_name }}
                 </router-link>
               </v-badge>
             </td>
             <td>
-              <router-link :to="'/individuals/view/' + individual.item.id">
+              <router-link
+                class="table-link"
+                :to="'/individuals/view/' + individual.item.id"
+              >
                 {{ individual.item.first_name + ' ' + individual.item.last_name }}
               </router-link>
             </td>

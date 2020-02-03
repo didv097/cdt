@@ -36,7 +36,10 @@
         <template v-slot:item="fleet">
           <tr>
             <td>
-              <router-link :to="'/fleets/view/' + fleet.item.id">
+              <router-link
+                class="table-link"
+                :to="'/fleets/view/' + fleet.item.id"
+              >
                 {{ fleet.item.name }}
               </router-link>
             </td>

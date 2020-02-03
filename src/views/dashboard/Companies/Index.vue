@@ -53,7 +53,10 @@
                           {{ company.item.vrp_status === 'Authorized' ? 'mdi-check' : company.item.vrp_status === 'Not Authorized' ? 'mdi-close' : 'mdi-link' }}
                         </v-icon>
                       </template>
-                      <router-link :to="company.item.id === -1 ? '/companies/' + company.item.plan_number + '/vrpexpress' : '/companies/' + company.item.id">
+                      <router-link
+                        class="table-link"
+                        :to="company.item.id === -1 ? '/companies/' + company.item.plan_number + '/vrpexpress' : '/companies/' + company.item.id"
+                      >
                         {{ company.item.name }}
                       </router-link>
                     </v-badge>
