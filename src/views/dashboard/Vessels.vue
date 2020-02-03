@@ -159,8 +159,8 @@
                         </v-icon>
                       </template>
                       <router-link
-                        class="table-link"
                         v-if="vessel.item.vrp_plan_number>0"
+                        class="table-link"
                         :to="'/companies/view/' + vessel.item.company.id"
                       >
                         {{ vessel.item.vrp_plan_number }}
