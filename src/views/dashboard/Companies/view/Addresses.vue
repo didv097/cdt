@@ -14,7 +14,7 @@
       <v-card-text>
         <base-material-tabs
           v-model="activeTab"
-          color="primary"
+          color="info"
           icons-and-text
           fixed-tabs
           height="36"
