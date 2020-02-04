@@ -70,6 +70,11 @@ export default new Router({
               path: 'smff',
               component: () => import('@/views/dashboard/Companies/view/SMFF'),
             },
+            {
+              name: 'Company Detail',
+              path: 'companies',
+              component: () => import('@/views/dashboard/Companies/view/OperatedCompanies'),
+            },
           ],
         },
         {
