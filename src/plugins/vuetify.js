@@ -5,10 +5,13 @@ import i18n from '@/i18n'
 Vue.use(Vuetify)
 
 const theme = {
-  primary: '#E91E63',
-  secondary: '#9C27b0',
-  accent: '#9C27b0',
-  info: '#00CAE3',
+  primary: '#00A3E4',
+  secondary: '#023B68',
+  accent: '#FFF900',
+  error: '#C32F27',
+  info: '#000000',
+  success: '#1E972D',
+  warning: '#FF8500',
 }
 
 export default new Vuetify({
