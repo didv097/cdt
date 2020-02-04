@@ -80,6 +80,11 @@ export default new Router({
               path: 'individuals',
               component: () => import('@/views/dashboard/Companies/view/Individuals'),
             },
+            {
+              name: 'Company Detail',
+              path: 'documents',
+              component: () => import('@/views/dashboard/Companies/view/Documents/Index'),
+            },
           ],
         },
         {
