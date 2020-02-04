@@ -151,7 +151,7 @@
                   </v-row>
                   <v-row class="footer">
                     <v-btn
-                      color="primary"
+                      color="success"
                       @click="saveAddress(address)"
                     >
                       Save
@@ -249,7 +249,7 @@
             Close
           </v-btn>
           <v-btn
-            color="secondary"
+            color="success"
             text
             @click="saveAddressFormat"
           >

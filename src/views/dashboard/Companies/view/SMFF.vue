@@ -546,7 +546,7 @@
           </v-dialog>
           <v-btn
             v-if="smff"
-            color="primary"
+            color="success"
             @click="saveSMFF"
           >
             Save

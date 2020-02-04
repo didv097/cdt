@@ -164,7 +164,7 @@
         </v-btn>
         <v-btn
           v-if="edit"
-          color="primary"
+          color="success"
           @click="saveEdit"
         >
           Save
