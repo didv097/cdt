@@ -248,27 +248,35 @@
       headers: [
         {
           text: 'Plan Holder Name',
+          value: 'name',
         },
         {
           text: 'Plan Number',
+          value: 'plan_number',
         },
         {
           text: 'DJS Coverage?',
+          value: 'djs_coverage',
         },
         {
           text: 'Individuals',
+          value: 'individuals',
         },
         {
           text: 'DJS Vessels',
+          value: 'djs_vessels',
         },
         {
           text: 'VRP Vessels',
+          value: 'vrp_vessels',
         },
         {
           text: 'Country',
+          value: 'country',
         },
         {
           text: 'Actions',
+          value: 'actions',
         },
       ],
       companies: [],

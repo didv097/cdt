@@ -190,21 +190,27 @@
       headers: [
         {
           text: 'Vessel Name',
+          value: 'name',
         },
         {
           text: 'IMO',
+          value: 'imo',
         },
         {
           text: 'Official Number',
+          value: 'official_number',
         },
         {
           text: 'DJS Coverage?',
+          value: 'djs_coverage',
         },
         {
           text: 'Vessel Type',
+          value: 'vessel_type',
         },
         {
           text: 'Plan Number',
+          value: 'plan_number',
         },
       ],
       staticSearch: {
