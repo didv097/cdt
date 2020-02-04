@@ -93,19 +93,15 @@
       headers: [
         {
           text: 'Name',
-          value: 'name',
         },
         {
           text: 'Company',
-          value: 'company',
         },
         {
           text: 'Email',
-          value: 'email',
         },
         {
           text: 'Mobile Number',
-          value: 'mobile_number',
         },
       ],
       staticSearch: {

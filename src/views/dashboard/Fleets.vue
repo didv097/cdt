@@ -64,11 +64,9 @@
       headers: [
         {
           text: 'Name',
-          value: 'name',
         },
         {
           text: 'Vessels',
-          value: 'vessels',
         },
       ],
       staticSearch: {
