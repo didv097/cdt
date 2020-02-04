@@ -117,53 +117,62 @@
       coverPhoto: null,
       uploading: false,
       activeTab: 0,
-      tabs: [],
       editedItem: {},
       msgBox: false,
     }),
+    computed: {
+      tabs () {
+        return [
+          {
+            title: 'Information',
+            icon: 'mdi-information',
+            to: '/companies/' + this.$route.params.id + '/info',
+          },
+          {
+            title: 'Addresses',
+            icon: 'mdi-map-marker',
+            to: '/companies/' + this.$route.params.id + '/addresses',
+          },
+          {
+            title: 'Plan Holder',
+            icon: 'mdi-lan',
+            to: '/companies/' + this.$route.params.id + '/plan',
+          },
+          {
+            title: 'SMFF Capabilities',
+            icon: 'mdi-hard-hat',
+            to: '/companies/' + this.$route.params.id + '/smff',
+          },
+          {
+            title: 'Operated Companies',
+            icon: 'mdi-office-building',
+            to: '/companies/' + this.$route.params.id + '/companies',
+          },
+          {
+            title: 'Individuals',
+            icon: 'mdi-account-tie',
+            to: '/companies/' + this.$route.params.id + '/individuals',
+          },
+          {
+            title: 'Documents',
+            icon: 'mdi-file',
+            to: '/companies/' + this.$route.params.id + '/documents',
+          },
+          {
+            title: 'Vessels',
+            icon: 'mdi-ferry',
+            to: '/companies/' + this.$route.params.id + '/vessels',
+          },
+        ]
+      },
+    },
+    watch: {
+      $route (to, from) {
+        // react to route changes...
+        this.getDataFromApi()
+      },
+    },
     mounted () {
-      this.tabs = [
-        {
-          title: 'Information',
-          icon: 'mdi-information',
-          to: '/companies/' + this.$route.params.id + '/info',
-        },
-        {
-          title: 'Addresses',
-          icon: 'mdi-map-marker',
-          to: '/companies/' + this.$route.params.id + '/addresses',
-        },
-        {
-          title: 'Plan Holder',
-          icon: 'mdi-lan',
-          to: '/companies/' + this.$route.params.id + '/plan',
-        },
-        {
-          title: 'SMFF Capabilities',
-          icon: 'mdi-hard-hat',
-          to: '/companies/' + this.$route.params.id + '/smff',
-        },
-        {
-          title: 'Operated Companies',
-          icon: 'mdi-office-building',
-          to: '/companies/' + this.$route.params.id + '/companies',
-        },
-        {
-          title: 'Individuals',
-          icon: 'mdi-account-tie',
-          to: '/companies/' + this.$route.params.id + '/individuals',
-        },
-        {
-          title: 'Documents',
-          icon: 'mdi-file',
-          to: '/companies/' + this.$route.params.id + '/documents',
-        },
-        {
-          title: 'Vessels',
-          icon: 'mdi-ferry',
-          to: '/companies/' + this.$route.params.id + '/vessels',
-        },
-      ]
       this.getDataFromApi()
     },
     methods: {
