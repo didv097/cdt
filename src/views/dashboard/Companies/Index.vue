@@ -4,7 +4,7 @@
     tag="section"
   >
     <base-material-card
-      color="green"
+      color="primary"
       icon="mdi-office-building"
       inline
     >

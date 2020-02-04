@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <base-material-alert
-          color="green"
+          color="primary"
           dark
           dismissible
           icon="mdi-bell"
@@ -31,7 +31,7 @@
       <v-col cols="12">
         <base-material-chart-card
           :data="systemHeartbeat"
-          color="green"
+          color="primary"
           type="Line"
         />
       </v-col>

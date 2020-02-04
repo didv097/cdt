@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <base-material-card
-      color="green"
+      color="primary"
       icon="mdi-map-marker"
       inline
       :loading="loading"
@@ -14,7 +14,7 @@
       <v-card-text>
         <base-material-tabs
           v-model="activeTab"
-          color="green"
+          color="primary"
           icons-and-text
           fixed-tabs
           height="36"

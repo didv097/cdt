@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <base-material-card
-      color="green"
+      color="primary"
       icon="mdi-pier-crane"
       inline
       :loading="loading"
@@ -808,7 +808,7 @@
     margin-top: 16px
     margin-bottom: 8px
   .v-expansion-panel-header
-    color: green !important
+    color: primary !important
     font-size: 16px !important
   .v-expansion-panel-content
     padding-left: 20px

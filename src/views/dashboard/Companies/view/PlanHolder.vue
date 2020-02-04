@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <base-material-card
-      color="green"
+      color="primary"
       icon="mdi-lan"
       inline
       :loading="loading"
