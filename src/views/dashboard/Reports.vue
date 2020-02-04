@@ -24,14 +24,24 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in reports" :key="item.name">
+            <tr
+              v-for="item in reports"
+              :key="item.name"
+            >
               <td>{{ item.name }}</td>
               <td>{{ item.document_type }}</td>
               <td>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
-                    <v-btn text icon color="primary" v-on="on">
-                      <v-icon style="font-size: 24px;">mdi-cloud-download</v-icon>
+                    <v-btn
+                      text
+                      icon
+                      color="primary"
+                      v-on="on"
+                    >
+                      <v-icon style="font-size: 24px;">
+                        mdi-cloud-download
+                      </v-icon>
                     </v-btn>
                   </template>
                   <span>Download File</span>
@@ -54,15 +64,16 @@
       search: '',
       reports: [
         {
-          "name":"DJS vessels and their DPA",
-          "document_type":"csv",
-          "download_link":"reports/donjon/vessels"
-        },{
-          "name":"Companies in the NASA Potential Network",
-          "document_type":"csv",
-          "download_link":"reports/nasa/potential"
-        }
-      ]
+          name: 'DJS vessels and their DPA',
+          document_type: 'csv',
+          download_link: 'reports/donjon/vessels',
+        },
+        {
+          name: 'Companies in the NASA Potential Network',
+          document_type: 'csv',
+          download_link: 'reports/nasa/potential',
+        },
+      ],
     }),
     methods: {
     },
