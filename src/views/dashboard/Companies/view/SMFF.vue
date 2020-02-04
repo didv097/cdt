@@ -27,6 +27,7 @@
                   v-model="networks"
                   value="opa_90"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div
@@ -45,6 +46,7 @@
                   v-model="networks"
                   value="dnc"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -53,6 +55,7 @@
                   v-model="networks"
                   value="ns"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -61,6 +64,7 @@
                   v-model="networks"
                   value="npnc"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
             </v-expansion-panel-content>
@@ -103,6 +107,7 @@
                 <v-checkbox
                   v-model="smff.s_remote_assessment_and_consultation"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -110,6 +115,7 @@
                 <v-checkbox
                   v-model="smff.s_begin_assessment_of_structural_stability"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -117,6 +123,7 @@
                 <v-checkbox
                   v-model="smff.s_onsite_salvage_assessment"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -124,6 +131,7 @@
                 <v-checkbox
                   v-model="smff.s_assessment_of_structural_stability"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -131,6 +139,7 @@
                 <v-checkbox
                   v-model="smff.s_hull_and_bottom_survey"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <h4 class="smff-header">
@@ -141,6 +150,7 @@
                 <v-checkbox
                   v-model="smff.s_emergency_towing"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div
@@ -193,6 +203,7 @@
                 <v-checkbox
                   v-model="smff.s_salvage_plan"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
 
@@ -201,6 +212,7 @@
                 <v-checkbox
                   v-model="smff.s_external_emergency_transfer_operations"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -208,6 +220,7 @@
                 <v-checkbox
                   v-model="smff.s_emergency_lightering"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div
@@ -218,6 +231,7 @@
                 <v-checkbox
                   v-model="smff.s_capacity_bbl"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div
@@ -235,6 +249,7 @@
                 <v-checkbox
                   v-model="smff.s_other_refloating_methods"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -242,6 +257,7 @@
                 <v-checkbox
                   v-model="smff.s_making_temporary_repairs"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -249,6 +265,7 @@
                 <v-checkbox
                   v-model="smff.s_diving_services_support"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <h4 class="smff-header">
@@ -259,6 +276,7 @@
                 <v-checkbox
                   v-model="smff.s_special_salvage_operations_plan"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -266,6 +284,7 @@
                 <v-checkbox
                   v-model="smff.s_subsurface_product_removal"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -273,6 +292,7 @@
                 <v-checkbox
                   v-model="smff.s_heavy_lift"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div
@@ -345,6 +365,7 @@
                 <v-checkbox
                   v-model="smff.mff_remote_assessment_and_consultation"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -352,6 +373,7 @@
                 <v-checkbox
                   v-model="smff.mff_onsite_fire_assessment"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <h4 class="smff-header">
@@ -362,6 +384,7 @@
                 <v-checkbox
                   v-model="smff.mff_external_firefighting_teams"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
@@ -369,6 +392,7 @@
                 <v-checkbox
                   v-model="smff.mff_external_vessel_firefighting_systems"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div
@@ -419,6 +443,7 @@
                 <v-checkbox
                   v-model="smff.acd_logistics_asset"
                   class="smff-input"
+                  color="primary"
                 />
               </div>
               <div class="smff-item">
