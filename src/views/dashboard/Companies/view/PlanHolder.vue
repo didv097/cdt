@@ -62,7 +62,7 @@
       </v-card-text>
       <v-card-text v-else>
         <base-material-alert
-          color="orange"
+          color="warning"
           dark
         >
           No VRP Link

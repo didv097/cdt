@@ -30,7 +30,7 @@
               <td>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
-                    <v-btn text icon color="red" v-on="on">
+                    <v-btn text icon color="primary" v-on="on">
                       <v-icon style="font-size: 24px;">mdi-cloud-download</v-icon>
                     </v-btn>
                   </template>

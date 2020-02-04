@@ -157,21 +157,21 @@
         </div>
         <v-btn
           v-if="edit"
-          color="grey"
+          color="secondary"
           @click="cancelEdit"
         >
           Cancel
         </v-btn>
         <v-btn
           v-if="edit"
-          color="green"
+          color="primary"
           @click="saveEdit"
         >
           Save
         </v-btn>
         <v-btn
           v-else
-          color="green"
+          color="primary"
           @click="clickEdit"
         >
           Edit
@@ -183,7 +183,7 @@
         >
           <template v-slot:activator="{ on }">
             <v-btn
-              color="red"
+              color="error"
               dark
               v-on="on"
             >
@@ -200,14 +200,14 @@
             <v-card-actions>
               <v-spacer />
               <v-btn
-                color="green"
+                color="primary"
                 text
                 @click="deleteMsg = false"
               >
                 Cancel
               </v-btn>
               <v-btn
-                color="red"
+                color="error"
                 text
                 @click="deleteCompany"
               >

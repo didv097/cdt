@@ -53,7 +53,7 @@
         >
           <template v-slot:activator="{ on }">
             <v-btn
-              :color="editedItem.active ? 'green' : 'red'"
+              :color="editedItem.active ? 'success' : 'error'"
               dark
               small
               v-on="on"
@@ -71,14 +71,14 @@
             <v-card-actions>
               <v-spacer />
               <v-btn
-                color="green"
+                color="primary"
                 text
                 @click="toggleStatus"
               >
                 Yes
               </v-btn>
               <v-btn
-                color="red"
+                color="error"
                 text
                 @click="msgBox = false"
               >
@@ -93,7 +93,7 @@
       v-model="activeTab"
       background-color="transparent"
       centered
-      color="orange"
+      color="secondary"
       icons-and-text
     >
       <v-tab

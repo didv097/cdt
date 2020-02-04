@@ -495,7 +495,7 @@
         </v-expansion-panels>
         <div v-else>
           <base-material-alert
-            color="orange"
+            color="warning"
             dark
           >
             No SMFF Services for this company
@@ -511,7 +511,7 @@
           >
             <template v-slot:activator="{ on }">
               <v-btn
-                color="red"
+                color="error"
                 dark
                 v-on="on"
               >
@@ -528,14 +528,14 @@
               <v-card-actions>
                 <v-spacer />
                 <v-btn
-                  color="green"
+                  color="primary"
                   text
                   @click="deleteMsg = false"
                 >
                   Cancel
                 </v-btn>
                 <v-btn
-                  color="red"
+                  color="error"
                   text
                   @click="deleteSMFF"
                 >
@@ -546,14 +546,14 @@
           </v-dialog>
           <v-btn
             v-if="smff"
-            color="green"
+            color="primary"
             @click="saveSMFF"
           >
             Save
           </v-btn>
           <v-btn
             v-else
-            color="blue"
+            color="primary"
             @click="createSMFF"
           >
             Create
@@ -579,7 +579,7 @@
   export default {
     data: () => ({
       snackbar: false,
-      snackbarColor: 'blue',
+      snackbarColor: 'primary',
       snackbarText: 'snackbar',
       loading: false,
       networks: [],
@@ -731,7 +731,7 @@
           .then(res => {
             this.getDataFromApi()
             this.snackbar = true
-            this.snackbarColor = 'blue'
+            this.snackbarColor = 'primary'
             this.snackbarText = res.data.message
           })
       },
@@ -742,7 +742,7 @@
             this.networks.length = 0
             this.smff = null
             this.snackbar = true
-            this.snackbarColor = 'blue'
+            this.snackbarColor = 'primary'
             this.snackbarText = res.data.message
             this.loading = false
             this.deleteMsg = false
@@ -757,13 +757,13 @@
           .then(res => {
             this.getDataFromApi()
             this.snackbar = true
-            this.snackbarColor = 'blue'
+            this.snackbarColor = 'primary'
             this.snackbarText = res.data.message
           })
           .catch(error => {
             if (error.response && error.response.data) {
               this.snackbar = true
-              this.snackbarColor = 'red'
+              this.snackbarColor = 'error'
               this.snackbarText = error.response.data.message
             }
           })

@@ -39,7 +39,7 @@
               <v-badge
                 slot="activator"
                 right
-                :color="individual.item.response===1 ? 'green' : 'red'"
+                :color="individual.item.response===1 ? 'success' : 'error'"
               >
                 <template v-slot:badge>
                   <v-tooltip right>

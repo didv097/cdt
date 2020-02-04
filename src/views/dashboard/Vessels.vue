@@ -52,7 +52,7 @@
                   >
                     <v-badge
                       slot="activator"
-                      :color="vessel.item.vrp_status==='Authorized' ? 'green' : 'red'"
+                      :color="vessel.item.vrp_status==='Authorized' ? 'success' : 'error'"
                     >
                       <template
                         v-if="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"
@@ -93,7 +93,7 @@
                       <span>
                         <v-icon
                           v-if="vessel.item.coverage===1"
-                          style="font-size: 30px; color: green"
+                          style="font-size: 30px; color: green;"
                         >
                           mdi-shield-check
                         </v-icon>
@@ -148,7 +148,7 @@
                   >
                     <v-badge
                       slot="activator"
-                      :color="vessel.item.vrp_status==='Authorized' ? 'green' : 'red'"
+                      :color="vessel.item.vrp_status==='Authorized' ? 'success' : 'error'"
                     >
                       <template
                         v-if="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"

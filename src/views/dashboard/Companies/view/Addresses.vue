@@ -45,7 +45,7 @@
                 <v-spacer />
                 <v-btn
                   icon
-                  color="orange"
+                  color="primary"
                   @click="addAddress(addressesItem.id)"
                 >
                   <v-icon size="32">
@@ -151,7 +151,7 @@
                   </v-row>
                   <v-row class="footer">
                     <v-btn
-                      color="green"
+                      color="primary"
                       @click="saveAddress(address)"
                     >
                       Save
@@ -163,7 +163,7 @@
                     >
                       <template v-slot:activator="{ on }">
                         <v-btn
-                          color="red"
+                          color="error"
                           dark
                           v-on="on"
                         >
@@ -180,14 +180,14 @@
                         <v-card-actions>
                           <v-spacer />
                           <v-btn
-                            color="green"
+                            color="primary"
                             text
                             @click="deleteMsg = false"
                           >
                             Cancel
                           </v-btn>
                           <v-btn
-                            color="red"
+                            color="error"
                             text
                             @click="deleteAddress(address.id)"
                           >
@@ -198,7 +198,7 @@
                     </v-dialog>
                     <v-spacer />
                     <v-btn
-                      color="blue"
+                      color="info"
                       @click="showDocumentFormat(address)"
                     >
                       Document Format
@@ -208,7 +208,7 @@
               </div>
               <div v-else>
                 <base-material-alert
-                  color="orange"
+                  color="warning"
                   dark
                 >
                   No Addresses Defined
@@ -242,14 +242,14 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
-            color="green"
+            color="primary"
             text
             @click="showFormatForm = false"
           >
             Close
           </v-btn>
           <v-btn
-            color="green"
+            color="secondary"
             text
             @click="saveAddressFormat"
           >
@@ -274,7 +274,7 @@
       addressesItems: [],
       zones: [],
       snackbar: false,
-      snackbarColor: 'blue',
+      snackbarColor: 'primary',
       snackbarText: 'snackbar',
       deleteMsg: false,
       showFormatForm: false,

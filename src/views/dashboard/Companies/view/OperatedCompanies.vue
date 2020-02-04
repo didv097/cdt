@@ -42,7 +42,7 @@
                     <v-badge
                       slot="activator"
                       right
-                      :color="company.item.vrp_status === 'Authorized' ? 'green' : company.item.vrp_status === 'Not Authorized' ? 'red' : 'orange'"
+                      :color="company.item.vrp_status === 'Authorized' ? 'success' : company.item.vrp_status === 'Not Authorized' ? 'error' : 'warning'"
                     >
                       <template v-slot:badge>
                         <v-icon dark>
@@ -113,13 +113,15 @@
                       <span>
                         <v-icon
                           v-if="company.item.coverage===1"
-                          style="font-size: 30px; color: green"
+                          color="success"
+                          size="30"
                         >
                           mdi-shield-check
                         </v-icon>
                         <v-icon
                           v-else
-                          style="font-size: 30px; color: brown;"
+                          color="error"
+                          size="30"
                         >
                           mdi-shield-off
                         </v-icon>
@@ -159,7 +161,7 @@
                 <template v-slot:activator="{ on }">
                   <v-btn
                     icon
-                    color="blue"
+                    color="primary"
                     :to="'/companies/'+company.item.id"
                     v-on="on"
                   >
@@ -177,7 +179,7 @@
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on: tooltip }">
                       <v-btn
-                        color="red"
+                        color="error"
                         icon
                         v-on="{ ...tooltip, ...dialog }"
                       >
@@ -197,21 +199,21 @@
                   <v-card-actions>
                     <v-spacer />
                     <v-btn
-                      color="red"
+                      color="warning"
                       text
                       @click="removeLink(company.item.id)"
                     >
                       Remove Link
                     </v-btn>
                     <v-btn
-                      color="red"
+                      color="error"
                       text
                       @click="deleteCompany(company.item.id)"
                     >
                       Delete Company
                     </v-btn>
                     <v-btn
-                      color="green"
+                      color="primary"
                       text
                       @click="deleteMsg[company.item.id] = false"
                     >
@@ -293,7 +295,7 @@
       deleteMsg: {},
       snackbar: false,
       snackbarText: '',
-      snackbarColor: 'blue',
+      snackbarColor: 'primary',
     }),
     computed: {
       computedHeaders () {

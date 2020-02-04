@@ -54,14 +54,14 @@
             <td>
               <v-icon
                 v-if="user.item.resource_provider"
-                color="green"
+                color="success"
                 size="30"
               >
                 mdi-account
               </v-icon>
               <v-icon
                 v-else
-                color="red"
+                color="error"
                 size="30"
               >
                 mdi-account-cancel
@@ -70,14 +70,14 @@
             <td>
               <v-icon
                 v-if="user.item.active"
-                color="green"
+                color="success"
                 size="30"
               >
                 mdi-shield-check
               </v-icon>
               <v-icon
                 v-else
-                color="red"
+                color="error"
                 size="30"
               >
                 mdi-shield-off
@@ -88,7 +88,7 @@
                 <template v-slot:activator="{ on }">
                   <v-btn
                     icon
-                    color="blue"
+                    color="primary"
                     :to="'/individuals/'+user.item.id"
                     v-on="on"
                   >
@@ -106,7 +106,7 @@
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on: tooltip }">
                       <v-btn
-                        color="red"
+                        color="error"
                         icon
                         v-on="{ ...tooltip, ...dialog }"
                       >
@@ -126,21 +126,21 @@
                   <v-card-actions>
                     <v-spacer />
                     <v-btn
-                      color="red"
+                      color="warning"
                       text
                       @click="removeLink(user.item.id)"
                     >
                       Remove Link
                     </v-btn>
                     <v-btn
-                      color="red"
+                      color="error"
                       text
                       @click="deleteUser(user.item.id)"
                     >
                       Delete Individual
                     </v-btn>
                     <v-btn
-                      color="green"
+                      color="primary"
                       text
                       @click="deleteMsg[user.item.id] = false"
                     >
@@ -214,7 +214,7 @@
       deleteMsg: {},
       snackbar: false,
       snackbarText: '',
-      snackbarColor: 'blue',
+      snackbarColor: 'primary',
     }),
     computed: {
       computedHeaders () {
