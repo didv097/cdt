@@ -8,7 +8,7 @@
       <v-avatar
         v-if="avatar"
         size="128"
-        class="mx-auto v-card--material__avatar elevation-12"
+        class="mx-auto v-card--material__avatar elevation-6"
         color="grey"
       >
         <v-img :src="avatar" />
@@ -22,6 +22,7 @@
         :color="color"
         :max-height="icon ? 90 : undefined"
         :width="inline || icon ? 'auto' : '100%'"
+        elevation="6"
         class="text-start v-card--material__heading mb-n6"
         dark
       >

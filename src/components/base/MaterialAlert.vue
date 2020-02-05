@@ -1,48 +1,47 @@
-<script>
-  // Components
-  import { VAlert, VBtn, VIcon } from 'vuetify/lib'
+<template>
+  <v-alert
+    v-bind="$attrs"
+    class="v-alert--material"
+    dark
+    v-on="$listeners"
+  >
+    <template
+      v-if="$attrs.icon"
+      v-slot:prepend
+    >
+      <v-icon
+        class="v-alert__icon elevation-6 white"
+        light
+        :color="$attrs.color"
+      >
+        {{ $attrs.icon }}
+      </v-icon>
+    </template>
 
+    <slot />
+
+    <template
+      v-if="$attrs.dismissible"
+      v-slot:close="{ toggle }"
+    >
+      <v-btn
+        :aria-label="$vuetify.lang.t('$vuetify.close')"
+        color
+        icon
+        small
+        @click="toggle"
+      >
+        <v-icon>
+          $vuetify.icons.cancel
+        </v-icon>
+      </v-btn>
+    </template>
+  </v-alert>
+</template>
+
+<script>
   export default {
     name: 'MaterialAlert',
-
-    extends: VAlert,
-
-    computed: {
-      __cachedDismissible () {
-        if (!this.dismissible) return null
-
-        const color = 'white'
-
-        return this.$createElement(VBtn, {
-          staticClass: 'v-alert__dismissible',
-          props: {
-            color,
-            icon: true,
-            small: true,
-          },
-          attrs: {
-            'aria-label': this.$vuetify.lang.t(this.closeLabel),
-          },
-          on: {
-            // eslint-disable-next-line
-            click: () => (this.isActive = false)
-          },
-        }, [
-          this.$createElement(VIcon, {
-            props: { color },
-          }, '$vuetify.icons.cancel'),
-        ])
-      },
-      classes () {
-        return {
-          ...VAlert.options.computed.classes.call(this),
-          'v-alert--material': true,
-        }
-      },
-      hasColoredIcon () {
-        return true
-      },
-    },
   }
 </script>
 
@@ -52,9 +51,6 @@
     margin-top: 32px
 
     .v-alert__icon
-      background-color: #FFFFFF
-      height: 44px
-      min-width: 44px
       top: -36px
 
     .v-alert__dismissible

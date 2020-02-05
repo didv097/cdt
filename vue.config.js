@@ -3,7 +3,7 @@ module.exports = {
     disableHostCheck: true,
   },
 
-  transpileDependencies: ['vuetify'],
+  transpileDependencies: ['vue-world-map', 'vuetify'],
 
   pluginOptions: {
     i18n: {

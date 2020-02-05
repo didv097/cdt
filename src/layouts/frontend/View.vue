@@ -12,13 +12,7 @@
       gradient="to top, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)"
       min-height="100%"
     >
-      <v-responsive
-        :style="styles"
-        min-height="100vh"
-        class="d-flex align-center"
-      >
-        <router-view />
-      </v-responsive>
+      <router-view />
     </v-img>
   </v-content>
 </template>
@@ -40,13 +34,22 @@
       src () {
         return this.srcs[this.$route.path]
       },
-      styles () {
-        const paddingTop = this.$vuetify.breakpoint.mdAndUp ? 175 : 100
-        const paddingBottom = this.$vuetify.breakpoint.mdAndUp ? 175 : 150
-        return {
-          padding: `${paddingTop}px 0 ${paddingBottom}px 0`,
-        }
-      },
     },
   }
 </script>
+
+<style lang="sass">
+  // #pages
+  //   > .v-content__wrap > .v-image
+  //     padding-top: 64px
+  //     padding-bottom: 88px
+
+  //   .v-responsive__sizer
+  //     display: none
+
+  //   .v-image--md
+  //     padding: 188px 0
+
+  //   .v-image--sm
+  //     padding: 96px 0 188px 0
+</style>

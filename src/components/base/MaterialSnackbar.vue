@@ -63,6 +63,6 @@
     .v-snack__content
       overflow: visible
       padding: 0
-      .v-alert
+      .v-alert                  // modified: snackbar width not filling
         width: 100% !important
 </style>

@@ -25,6 +25,7 @@
     />
 
     <v-avatar
+      class="elevation-12"
       color="grey"
       size="100"
     >

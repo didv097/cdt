@@ -1,7 +1,7 @@
 <template>
   <v-container
     id="pricing"
-    class="fill-height"
+    class="fill-height justify-center"
     tag="section"
   >
     <v-row

@@ -1,5 +1,5 @@
 // =========================================================
-// * Vuetify Material Dashboard PRO - v2.0.0
+// * Vuetify Material Dashboard PRO - v2.1.0
 // =========================================================
 //
 // * Product Page: https://www.creative-tim.com/product/vuetify-material-dashboard-pro

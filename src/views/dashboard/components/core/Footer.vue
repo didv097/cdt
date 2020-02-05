@@ -15,7 +15,7 @@
         >
           <a
             :href="link.href"
-            class="mr-0"
+            class="mr-0 grey--text text--darken-3"
             rel="noopener"
             target="_blank"
             v-text="link.text"
@@ -71,7 +71,6 @@
 <style lang="sass">
   #dashboard-core-footer
     a
-      color: #3c4858
       font-size: .825rem
       font-weight: 500
       text-decoration: none

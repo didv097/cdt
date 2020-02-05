@@ -1,13 +1,15 @@
 <template>
   <v-app-bar
+    id="app-bar"
     absolute
     app
     color="transparent"
     flat
     height="75"
-    style="width: auto;"
   >
     <v-btn
+      class="mr-3"
+      elevation="1"
       fab
       small
       @click="$vuetify.breakpoint.smAndDown ? setDrawer(!drawer) : $emit('input', !value)"
@@ -22,17 +24,16 @@
     </v-btn>
 
     <v-toolbar-title
-      class="hidden-sm-and-down"
+      class="hidden-sm-and-down font-weight-light"
       v-text="$route.name"
     />
 
     <v-spacer />
 
     <v-text-field
-      label="search"
+      :label="$t('search')"
       color="secondary"
       hide-details
-      class="mb-2"
       style="max-width: 165px;"
     >
       <template
@@ -41,6 +42,7 @@
       >
         <v-btn
           class="mt-n2"
+          elevation="1"
           fab
           small
         >
@@ -52,6 +54,7 @@
     <div class="mx-3" />
 
     <v-btn
+      class="ml-2"
       min-width="0"
       text
     >
@@ -67,6 +70,7 @@
     >
       <template v-slot:activator="{ attrs, on }">
         <v-btn
+          class="ml-2"
           min-width="0"
           text
           v-bind="attrs"
@@ -75,9 +79,10 @@
           <v-badge
             color="red"
             overlap
+            bordered
           >
             <template v-slot:badge>
-              <span class="caption">5</span>
+              <span>5</span>
             </template>
 
             <v-icon>mdi-bell</v-icon>
@@ -110,6 +115,7 @@
     >
       <template v-slot:activator="{ attrs, on }">
         <v-btn
+          class="ml-2"
           min-width="0"
           text
           v-bind="attrs"
@@ -191,7 +197,7 @@
       notifications: [
         'Mike John Responded to your email',
         'You have 5 new tasks',
-        "You're now friends with Andrew",
+        'You\'re now friends with Andrew',
         'Another Notification',
         'Another one',
       ],

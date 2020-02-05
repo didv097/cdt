@@ -1,7 +1,7 @@
 <template>
   <v-container
     id="login"
-    class="fill-height"
+    class="fill-height justify-center"
     tag="section"
   >
     <v-row justify="center">

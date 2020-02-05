@@ -1,11 +1,14 @@
 <template>
   <v-container
     id="register"
-    class="fill-height"
+    class="fill-height justify-center"
     tag="section"
   >
     <v-row justify="center">
-      <v-col cols="9">
+      <v-col
+        cols="12"
+        md="9"
+      >
         <v-slide-y-transition appear>
           <v-card
             class="pa-3 pa-md-5 mx-auto"
@@ -135,13 +138,13 @@
           icon: 'mdi-chart-timeline-variant',
           iconColor: 'primary',
           title: 'Marketing',
-          text: "We've created the marketing campaign of the website. It was a very interesting collaboration.",
+          text: 'We\'ve created the marketing campaign of the website. It was a very interesting collaboration.',
         },
         {
           icon: 'mdi-code-tags',
           iconColor: 'secondary',
           title: 'Fully Coded in HTML5',
-          text: "We've developed the website with HTML5 and CSS3. The client has access to the code using GitHub.",
+          text: 'We\'ve developed the website with HTML5 and CSS3. The client has access to the code using GitHub.',
         },
         {
           icon: 'mdi-account-multiple',
