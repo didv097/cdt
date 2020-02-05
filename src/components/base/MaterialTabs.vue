@@ -1,7 +1,7 @@
 <template>
   <v-tabs
     v-model="internalValue"
-    :active-class="`${color} ${$vuetify.theme.dark ? 'black' : 'white'}--text`"
+    :active-class="`${color} white--text`"
     class="v-tabs--pill"
     hide-slider
     v-bind="$attrs"
