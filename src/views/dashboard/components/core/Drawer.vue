@@ -93,7 +93,7 @@
           to: '/',
         },
         {
-          icon: 'mdi-office-building',
+          icon: 'mdi-domain',
           title: 'companies',
           to: '/companies',
         },

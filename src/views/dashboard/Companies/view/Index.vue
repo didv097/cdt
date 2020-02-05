@@ -33,7 +33,7 @@
                 class="mx-auto"
                 size="48"
               >
-                mdi-office-building
+                mdi-domain
               </v-icon>
             </v-card>
           </template>
@@ -145,7 +145,7 @@
           },
           {
             title: 'Operated Companies',
-            icon: 'mdi-office-building',
+            icon: 'mdi-domain',
             to: '/companies/' + this.$route.params.id + '/companies',
           },
           {

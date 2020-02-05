@@ -5,7 +5,7 @@
   >
     <base-material-card
       color="primary"
-      icon="mdi-office-building"
+      icon="mdi-domain"
       inline
     >
       <template v-slot:after-heading>

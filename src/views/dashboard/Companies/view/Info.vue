@@ -14,7 +14,7 @@
       <v-card-text>
         <div class="input-container">
           <h4 class="input-label">
-            <v-icon>mdi-office-building</v-icon>
+            <v-icon>mdi-domain</v-icon>
             Name: *
           </h4>
           <v-text-field
@@ -99,7 +99,7 @@
           <v-col>
             <div class="input-container">
               <h4 class="input-label">
-                <v-icon>mdi-office-building</v-icon>
+                <v-icon>mdi-domain</v-icon>
                 Operating Company:
               </h4>
               <v-autocomplete
@@ -130,7 +130,7 @@
           <v-col>
             <div class="input-container">
               <h4 class="input-label">
-                <v-icon>mdi-office-building</v-icon>
+                <v-icon>mdi-domain</v-icon>
                 Company POC:
               </h4>
               <v-autocomplete

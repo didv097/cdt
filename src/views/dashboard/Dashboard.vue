@@ -50,7 +50,7 @@
             title: 'Companies',
             value: 3731,
             color: 'cyan',
-            icon: 'mdi-office-building',
+            icon: 'mdi-domain',
           },
           {
             title: 'Individuals',

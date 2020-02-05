@@ -2,7 +2,7 @@
   <v-container>
     <base-material-card
       color="primary"
-      icon="mdi-office-building"
+      icon="mdi-domain"
       inline
       :loading="loading"
     >
