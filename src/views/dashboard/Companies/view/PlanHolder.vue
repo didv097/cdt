@@ -31,7 +31,10 @@
             </div>
           </v-col>
         </v-row>
-        <v-expansion-panels>
+        <v-expansion-panels
+          accordion
+          flat
+        >
           <v-expansion-panel>
             <v-expansion-panel-header>
               Plan Holder Address

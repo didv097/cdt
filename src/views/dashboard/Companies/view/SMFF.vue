@@ -15,6 +15,7 @@
         <v-expansion-panels
           v-if="smff"
           accordion
+          flat
         >
           <v-expansion-panel>
             <v-expansion-panel-header>
