@@ -76,7 +76,7 @@
                     <v-badge
                       slot="activator"
                       right
-                      :color="company.item.vrp_stats.plan_type==='Tank' ? 'blue' : 'red'"
+                      :color="company.item.vrp_stats.plan_type==='Tank' ? 'black' : 'blue'"
                       :value="company.item.vrp_stats.plan_type==='Tank' || company.item.vrp_stats.plan_type==='Non-Tank'"
                     >
                       <template v-slot:badge>

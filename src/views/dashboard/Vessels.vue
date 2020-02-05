@@ -119,7 +119,7 @@
                     <v-badge
                       slot="activator"
                       right
-                      :color="vessel.item.tanker ? 'blue' : 'red'"
+                      :color="vessel.item.tanker ? 'black' : 'blue'"
                     >
                       <template v-slot:badge>
                         <v-icon dark>
