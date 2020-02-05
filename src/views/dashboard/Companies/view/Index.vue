@@ -10,7 +10,7 @@
       align="center"
       justify="start"
     >
-      <v-col md="auto">
+      <v-col cols="auto">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
             <v-card
@@ -40,26 +40,34 @@
           <span>Upload/Change Image</span>
         </v-tooltip>
       </v-col>
-      <v-col md="auto">
+      <v-col cols="auto">
         <h3 class="display-2">
           {{ editedItem.name }}
         </h3>
       </v-col>
-      <v-col md="auto">
+      <v-col cols="auto">
         <v-dialog
           v-model="msgBox"
           persistent
           max-width="290"
         >
-          <template v-slot:activator="{ on }">
-            <v-btn
-              :color="editedItem.active ? 'success' : 'error'"
-              dark
-              small
-              v-on="on"
-            >
-              {{ editedItem.active ? 'Active' : 'Inactive' }}
-            </v-btn>
+          <template v-slot:activator="{ on: dialog }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on: tooltip }">
+                <v-btn
+                  :color="editedItem.active ? 'success' : 'error'"
+                  dark
+                  icon
+                  v-on="{ ...dialog, ...tooltip }"
+                >
+                  <v-icon size="24">
+                    {{ editedItem.active ? 'mdi-domain' : 'mdi-domain-off' }}
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>{{ editedItem.active ? 'Active' : 'Inactive' }}</span>
+            </v-tooltip>
+
           </template>
           <v-card>
             <v-card-title class="headline">
