@@ -271,7 +271,7 @@
       removeLink (id) {
         axios.get('companies/' + id + '/unlinkUsers')
           .then(res => {
-            this.deleteMsg = false
+            this.deleteMsg[id] = false
             this.snackbarText = res.data.message
             this.snackbar = true
             this.getDataFromApi()
@@ -280,7 +280,7 @@
       deleteUser (id) {
         axios.delete('users/' + id + '/destroy')
           .then(res => {
-            this.deleteMsg = false
+            this.deleteMsg[id] = false
             this.snackbarText = res.data.message
             this.snackbar = true
             this.getDataFromApi()

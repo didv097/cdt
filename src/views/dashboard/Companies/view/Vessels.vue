@@ -366,7 +366,7 @@
       unlinkVessel (id) {
         axios.get('companies/' + id + '/unlinkVessels')
           .then(res => {
-            this.deleteMsg = false
+            this.deleteMsg[id] = false
             this.snackbar = true
             this.snackbarText = res.data.message
             this.getDataFromApi()
@@ -375,7 +375,7 @@
       deleteVessel (id) {
         axios.get('vessels/' + id + '/destroy')
           .then(res => {
-            this.deleteMsg = false
+            this.deleteMsg[id] = false
             this.snackbar = true
             this.snackbarText = res.data.message
             this.getDataFromApi()

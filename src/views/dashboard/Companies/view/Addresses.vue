@@ -157,7 +157,7 @@
                       Save
                     </v-btn>
                     <v-dialog
-                      v-model="deleteMsg"
+                      v-model="deleteMsg[address.id]"
                       persistent
                       max-width="500"
                     >
@@ -182,7 +182,7 @@
                           <v-btn
                             color="primary"
                             text
-                            @click="deleteMsg = false"
+                            @click="deleteMsg[address.id] = false"
                           >
                             Cancel
                           </v-btn>
@@ -276,7 +276,7 @@
       snackbar: false,
       snackbarColor: 'primary',
       snackbarText: 'snackbar',
-      deleteMsg: false,
+      deleteMsg: {},
       showFormatForm: false,
       documentFormatAddress: {
         document_format: '',
@@ -310,7 +310,7 @@
       deleteAddress (id) {
         axios.delete('companies/addresses/' + id)
           .then(res => {
-            this.deleteMsg = false
+            this.deleteMsg[id] = false
             this.getAddresses()
             this.snackbar = true
             this.snackbarText = res.data.message
