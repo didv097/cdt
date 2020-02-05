@@ -50,11 +50,9 @@
                     <v-badge
                       slot="activator"
                       :color="vessel.item.vrp_status==='Authorized' ? 'success' : 'error'"
+                      :value="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"
                     >
-                      <template
-                        v-if="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"
-                        v-slot:badge
-                      >
+                      <template v-slot:badge>
                         <v-icon dark>
                           {{ vessel.item.vrp_status==='Authorized' ? 'mdi-check' : 'mdi-close' }}
                         </v-icon>
@@ -80,11 +78,9 @@
                       bordered
                       overlap
                       color="orange"
+                      :value="vessel.item.response===1"
                     >
-                      <template
-                        v-if="vessel.item.response===1"
-                        v-slot:badge
-                      >
+                      <template v-slot:badge>
                         <v-icon dark>mdi-star</v-icon>
                       </template>
                       <span>
@@ -146,11 +142,9 @@
                     <v-badge
                       slot="activator"
                       :color="vessel.item.vrp_status==='Authorized' ? 'success' : 'error'"
+                      :value="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"
                     >
-                      <template
-                        v-if="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"
-                        v-slot:badge
-                      >
+                      <template v-slot:badge>
                         <v-icon dark>
                           {{ vessel.item.vrp_status==='Authorized' ? 'mdi-check' : 'mdi-close' }}
                         </v-icon>

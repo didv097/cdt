@@ -77,11 +77,9 @@
                       slot="activator"
                       right
                       :color="company.item.vrp_stats.plan_type==='Tank' ? 'blue' : 'red'"
+                      :value="company.item.vrp_stats.plan_type==='Tank' || company.item.vrp_stats.plan_type==='Non-Tank'"
                     >
-                      <template
-                        v-if="company.item.vrp_stats.plan_type==='Tank' || company.item.vrp_stats.plan_type==='Non-Tank'"
-                        v-slot:badge
-                      >
+                      <template v-slot:badge>
                         <v-icon dark>
                           {{ company.item.vrp_stats.plan_type==='Tank' ? 'mdi-water' : 'mdi-water-off' }}
                         </v-icon>
@@ -108,11 +106,9 @@
                       bordered
                       overlap
                       color="orange"
+                      :value="company.item.response===1"
                     >
-                      <template
-                        v-if="company.item.response===1"
-                        v-slot:badge
-                      >
+                      <template v-slot:badge>
                         <v-icon dark>mdi-star</v-icon>
                       </template>
                       <span>
