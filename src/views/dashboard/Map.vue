@@ -10,17 +10,15 @@
 </template>
 
 <script>
-  import { LMap, LTileLayer } from 'vue2-leaflet'
 
   export default {
     name: 'Map',
 
     components: {
-      LMap, LTileLayer
     },
     data: () => ({
       search: '',
-      options: {}
+      options: {},
     }),
     async mounted () {
       await this.getDataFromApi()
