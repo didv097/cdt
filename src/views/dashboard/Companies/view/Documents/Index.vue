@@ -223,11 +223,6 @@
               this.directories.find(directory => directory.code === key).count = res.data[key].count
             })
             this.loading = false
-            console.log(this.directories)
-          })
-          .catch(err => {
-            console.error(err)
-            this.loading = false
           })
       },
     },

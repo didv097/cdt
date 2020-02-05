@@ -343,7 +343,7 @@
           }
           this.loading = false
         } catch (error) {
-          console.error(error)
+          // console.error(error)
         }
       },
       getFlagPath (item) {
@@ -358,7 +358,7 @@
         return ''
       },
       editCompany (item) {
-        console.log(item)
+        // console.log(item)
       },
       removeLink (id) {
         axios.get('companies/' + id + '/unlinkCompanies')

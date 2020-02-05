@@ -199,11 +199,6 @@
         ).then(res => {
           this.getCover()
           this.uploading = false
-        }).catch(error => {
-          if (error.response && error.response.data) {
-            console.log(error.response.data.message)
-          }
-          this.uploading = false
         })
       },
       getDataFromApi () {

@@ -263,7 +263,7 @@
           }
           this.loading = false
         } catch (error) {
-          console.error(error)
+          // console.error(error)
         }
       },
       getFlagPath (item) {

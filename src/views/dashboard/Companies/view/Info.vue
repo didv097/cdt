@@ -276,14 +276,7 @@
       saveEdit () {
         axios.post('companies/' + this.$route.params.id, this.editedItem)
           .then(res => {
-            console.log(res)
             this.getDataFromApi()
-            this.edit = false
-          })
-          .catch(error => {
-            if (error.response && error.response.data) {
-              console.error(error.response.data.message)
-            }
             this.edit = false
           })
       },

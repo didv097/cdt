@@ -126,7 +126,7 @@
             this.total = res.data.meta.total
           }
         } catch (error) {
-          console.error(error)
+          // console.error(error)
         }
         this.loading = false
       },
