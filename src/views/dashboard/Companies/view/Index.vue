@@ -51,23 +51,15 @@
           persistent
           max-width="290"
         >
-          <template v-slot:activator="{ on: dialog }">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on: tooltip }">
-                <v-btn
-                  :color="editedItem.active ? 'success' : 'error'"
-                  dark
-                  icon
-                  v-on="{ ...dialog, ...tooltip }"
-                >
-                  <v-icon size="24">
-                    {{ editedItem.active ? 'mdi-domain' : 'mdi-domain-off' }}
-                  </v-icon>
-                </v-btn>
-              </template>
-              <span>{{ editedItem.active ? 'Active' : 'Inactive' }}</span>
-            </v-tooltip>
-
+          <template v-slot:activator="{ on }">
+            <v-btn
+              :color="editedItem.active ? 'success' : 'error'"
+              dark
+              small
+              v-on="on"
+            >
+              {{ editedItem.active ? 'Active' : 'Inactive' }}
+            </v-btn>
           </template>
           <v-card>
             <v-card-title class="headline">
