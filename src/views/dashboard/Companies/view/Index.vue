@@ -195,7 +195,7 @@
             headers: {
               'Content-Type': 'multipart/form-data',
             },
-          }
+          },
         ).then(res => {
           this.getCover()
           this.uploading = false
