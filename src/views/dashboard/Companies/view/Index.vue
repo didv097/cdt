@@ -170,10 +170,12 @@
       $route (to, from) {
         // react to route changes...
         this.getDataFromApi()
+        this.getCover()
       },
     },
     mounted () {
       this.getDataFromApi()
+      this.getCover()
     },
     methods: {
       getCover () {
