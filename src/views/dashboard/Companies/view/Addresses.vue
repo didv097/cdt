@@ -20,19 +20,15 @@
           show-arrows
           height="36"
         >
-          <v-tab>
+          <v-tab
+            v-for="addressesItem in addressesItems"
+            :key="addressesItem.id"
+          >
             <span>
-              <v-icon>mdi-file-document</v-icon> Billing
-            </span>
-          </v-tab>
-          <v-tab>
-            <span>
-              <v-icon>mdi-source-branch</v-icon> Branches
-            </span>
-          </v-tab>
-          <v-tab>
-            <span>
-              <v-icon>mdi-home-map-marker</v-icon> Primary
+              <v-icon>
+                {{ addressesItem.icon }}
+              </v-icon>
+              {{ addressesItem.name }}
             </span>
           </v-tab>
           <v-tabs-items
@@ -296,7 +292,13 @@
         this.loading = true
         axios.get('companies/' + this.$route.params.id + '/addresses')
           .then(res => {
-            this.addressesItems = res.data
+            this.addressesItems[0] = res.data.find(a => a.name === 'Primary')
+            this.addressesItems[0].icon = 'mdi-home-map-marker'
+            this.addressesItems[1] = res.data.find(a => a.name === 'Billing')
+            this.addressesItems[1].icon = 'mdi-file-document'
+            this.addressesItems[2] = res.data.find(a => a.name === 'Branches')
+            this.addressesItems[2].icon = 'mdi-source-branch'
+            console.log(this.addressesItems)
             this.loading = false
           })
       },
