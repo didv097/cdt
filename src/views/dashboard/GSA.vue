@@ -89,11 +89,3 @@
     },
   }
 </script>
-
-<style lang="sass">
-  h3
-    margin: 1rem 0 2rem
-  p
-    margin-top: 0
-    margin-bottom: 1rem
-</style>

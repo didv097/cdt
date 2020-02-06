@@ -364,9 +364,6 @@
 </script>
 
 <style lang="sass">
-  .col
-    padding-top: 0
-    padding-bottom: 0
   #map
     margin-top: 1rem
     margin-bottom: 1rem
