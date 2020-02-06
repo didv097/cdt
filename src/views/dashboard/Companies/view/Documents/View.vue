@@ -171,7 +171,6 @@
         axios.get('companies/' + this.$route.params.id + '/documents/' + this.directory.code)
           .then(res => {
             this.files = res.data
-            console.log(this.files)
             this.loading = false
           })
       },
