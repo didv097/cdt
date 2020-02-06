@@ -87,6 +87,11 @@ export default new Router({
             },
             {
               name: 'Company Detail',
+              path: 'documents/:code',
+              component: () => import('@/views/dashboard/Companies/view/Documents/View'),
+            },
+            {
+              name: 'Company Detail',
               path: 'vessels',
               component: () => import('@/views/dashboard/Companies/view/Vessels'),
             },
