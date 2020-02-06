@@ -39,7 +39,7 @@
                       color="primary"
                       v-on="on"
                     >
-                      <v-icon style="font-size: 24px;">
+                      <v-icon size="24">
                         mdi-cloud-download
                       </v-icon>
                     </v-btn>

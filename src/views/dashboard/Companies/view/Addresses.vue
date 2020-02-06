@@ -16,7 +16,8 @@
           v-model="activeTab"
           color="info"
           icons-and-text
-          fixed-tabs
+          :fixed-tabs="$vuetify.breakpoint.smAndUp"
+          show-arrows
           height="36"
         >
           <v-tab>

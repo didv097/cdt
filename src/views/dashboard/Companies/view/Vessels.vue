@@ -86,13 +86,15 @@
                       <span>
                         <v-icon
                           v-if="vessel.item.coverage===1"
-                          style="font-size: 30px; color: green;"
+                          size="30"
+                          color="success"
                         >
                           mdi-shield-check
                         </v-icon>
                         <v-icon
                           v-else
-                          style="font-size: 30px; color: brown;"
+                          size="30"
+                          color="error"
                         >
                           mdi-shield-off
                         </v-icon>

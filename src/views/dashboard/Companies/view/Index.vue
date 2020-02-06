@@ -95,6 +95,7 @@
       centered
       color="secondary"
       icons-and-text
+      show-arrows
     >
       <v-tab
         v-for="(tab, i) in tabs"
