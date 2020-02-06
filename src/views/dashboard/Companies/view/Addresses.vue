@@ -298,7 +298,6 @@
             this.addressesItems[1].icon = 'mdi-file-document'
             this.addressesItems[2] = res.data.find(a => a.name === 'Branches')
             this.addressesItems[2].icon = 'mdi-source-branch'
-            console.log(this.addressesItems)
             this.loading = false
           })
       },
