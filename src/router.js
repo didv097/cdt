@@ -51,47 +51,47 @@ export default new Router({
           component: () => import('@/views/dashboard/Companies/view/Index'),
           children: [
             {
-              name: 'Company Detail',
+              name: 'Company / Information',
               path: 'info',
               component: () => import('@/views/dashboard/Companies/view/Info'),
             },
             {
-              name: 'Company Detail',
+              name: 'Company / Addresses',
               path: 'addresses',
               component: () => import('@/views/dashboard/Companies/view/Addresses'),
             },
             {
-              name: 'Company Detail',
+              name: 'Company / Plan Holder',
               path: 'plan',
               component: () => import('@/views/dashboard/Companies/view/PlanHolder'),
             },
             {
-              name: 'Company Detail',
+              name: 'Company / SMFF Capabilities',
               path: 'smff',
               component: () => import('@/views/dashboard/Companies/view/SMFF'),
             },
             {
-              name: 'Company Detail',
+              name: 'Company / Operated Companies',
               path: 'companies',
               component: () => import('@/views/dashboard/Companies/view/OperatedCompanies'),
             },
             {
-              name: 'Company Detail',
+              name: 'Company / Individuals',
               path: 'individuals',
               component: () => import('@/views/dashboard/Companies/view/Individuals'),
             },
             {
-              name: 'Company Detail',
+              name: 'Company / Documents',
               path: 'documents',
               component: () => import('@/views/dashboard/Companies/view/Documents/Index'),
             },
             {
-              name: 'Company Detail',
+              name: 'Company / Documents View',
               path: 'documents/:code',
               component: () => import('@/views/dashboard/Companies/view/Documents/View'),
             },
             {
-              name: 'Company Detail',
+              name: 'Company / Vessels',
               path: 'vessels',
               component: () => import('@/views/dashboard/Companies/view/Vessels'),
             },
@@ -109,7 +109,7 @@ export default new Router({
           component: () => import('@/views/dashboard/Vessels/view/Index'),
           children: [
             {
-              name: 'Vessel Detail',
+              name: 'Vessel / Information',
               path: 'info',
               component: () => import('@/views/dashboard/Vessels/view/Info'),
             },
