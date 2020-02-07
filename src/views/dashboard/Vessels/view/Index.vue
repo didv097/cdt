@@ -30,7 +30,7 @@
               class="mx-auto"
               size="48"
             >
-              mdi-domain
+              mdi-ferry
             </v-icon>
           </v-card>
         </template>
@@ -134,42 +134,47 @@
           {
             title: 'Information',
             icon: 'mdi-information',
-            to: '/companies/' + this.$route.params.id + '/info',
+            to: '/vessels/' + this.$route.params.id + '/info',
           },
           {
-            title: 'Addresses',
-            icon: 'mdi-map-marker',
-            to: '/companies/' + this.$route.params.id + '/addresses',
+            title: 'Construction Detail',
+            icon: 'mdi-ruler-square',
+            to: '/vessels/' + this.$route.params.id + '/construction-detail',
           },
           {
-            title: 'Plan Holder',
-            icon: 'mdi-lan',
-            to: '/companies/' + this.$route.params.id + '/plan',
+            title: 'Fire Plans',
+            icon: 'mdi-fire-extinguisher',
+            to: '/vessels/' + this.$route.params.id + '/fire-plans',
+          },
+          {
+            title: 'Drawings',
+            icon: 'mdi-math-compass',
+            to: '/vessels/' + this.$route.params.id + '/drawings',
+          },
+          {
+            title: 'RACs',
+            icon: 'mdi-math-compass',
+            to: '/vessels/' + this.$route.params.id + '/racs',
           },
           {
             title: 'SMFF Capabilities',
             icon: 'mdi-hard-hat',
-            to: '/companies/' + this.$route.params.id + '/smff',
+            to: '/vessels/' + this.$route.params.id + '/smff',
           },
           {
-            title: 'Operated Companies',
-            icon: 'mdi-domain',
-            to: '/companies/' + this.$route.params.id + '/companies',
+            title: 'AIS Data',
+            icon: 'mdi-map-marker',
+            to: '/vessels/' + this.$route.params.id + '/ais',
           },
           {
-            title: 'Individuals',
-            icon: 'mdi-account-tie',
-            to: '/companies/' + this.$route.params.id + '/individuals',
+            title: 'Notes',
+            icon: 'mdi-note',
+            to: '/vessels/' + this.$route.params.id + '/notes',
           },
           {
-            title: 'Documents',
-            icon: 'mdi-file',
-            to: '/companies/' + this.$route.params.id + '/documents',
-          },
-          {
-            title: 'Vessels',
-            icon: 'mdi-ferry',
-            to: '/companies/' + this.$route.params.id + '/vessels',
+            title: 'Damage Stability Models',
+            icon: 'mdi-laptop',
+            to: '/vessels/' + this.$route.params.id + '/dsm',
           },
         ]
       },
@@ -187,7 +192,7 @@
     },
     methods: {
       getCover () {
-        axios.get('companies/' + this.$route.params.id + '/getPhoto')
+        axios.get('vessels/' + this.$route.params.id + '/getPhoto')
           .then(res => {
             if (res.data) {
               this.coverPhoto = res.data + '?' + Math.random().toString(36).substring(7)
@@ -199,7 +204,7 @@
         const formData = new FormData()
         formData.append('file', event.target.files[0])
         axios.post(
-          'companies/' + this.$route.params.id + '/setPhoto',
+          'vessels/' + this.$route.params.id + '/setPhoto',
           formData,
           {
             headers: {
@@ -212,19 +217,19 @@
         })
       },
       getDataFromApi () {
-        axios.get('companies/' + this.$route.params.id)
+        axios.get('vessels/' + this.$route.params.id)
           .then(res => {
             this.editedItem = res.data.data[0]
             this.switchActive = this.editedItem.active
           })
-        axios.get('companies/' + this.$route.params.id + '/smff')
+        axios.get('vessels/' + this.$route.params.id + '/smff')
           .then(res => {
             this.smff = res.data.smff
             this.switchSMFF = this.smff
           })
       },
       toggleStatus () {
-        axios.post('companies/' + this.$route.params.id + '/toggleStatus')
+        axios.post('vessels/' + this.$route.params.id + '/toggleStatus')
           .then(res => {
             this.snackbar = true
             this.snackbarText = res.data.message
@@ -234,14 +239,14 @@
       toggleSMFF () {
         if (this.smff) {
           this.loading = true
-          axios.delete('companies/' + this.$route.params.id + '/smff')
+          axios.delete('vessels/' + this.$route.params.id + '/smff')
             .then(res => {
               this.snackbar = true
               this.snackbarText = res.data.message
               this.getDataFromApi()
             })
         } else {
-          axios.post('companies/' + this.$route.params.id + '/smff/create')
+          axios.post('vessels/' + this.$route.params.id + '/smff/create')
             .then(res => {
               this.snackbar = true
               this.snackbarText = res.data.message

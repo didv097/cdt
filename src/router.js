@@ -100,7 +100,20 @@ export default new Router({
         {
           name: 'Vessels',
           path: 'vessels',
-          component: () => import('@/views/dashboard/Vessels'),
+          component: () => import('@/views/dashboard/Vessels/Index'),
+        },
+        {
+          name: 'Vessel Detail',
+          path: 'vessels/:id',
+          redirect: 'vessels/:id/info',
+          component: () => import('@/views/dashboard/Vessels/view/Index'),
+          children: [
+            {
+              name: 'Vessel Detail',
+              path: 'info',
+              component: () => import('@/views/dashboard/Vessels/view/Info'),
+            },
+          ],
         },
         {
           name: 'Individuals',
