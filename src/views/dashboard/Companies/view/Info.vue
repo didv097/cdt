@@ -2,15 +2,9 @@
   <v-container>
     <base-material-card
       color="primary"
-      icon="mdi-information"
-      inline
+      title="Company Information"
       :loading="loading"
     >
-      <template v-slot:after-heading>
-        <div class="display-2">
-          Company Information
-        </div>
-      </template>
       <v-card-text>
         <div class="input-container">
           <h4 class="input-label">

@@ -52,14 +52,11 @@
           max-width="290"
         >
           <template v-slot:activator="{ on }">
-            <v-btn
-              :color="editedItem.active ? 'success' : 'error'"
-              dark
-              small
+            <v-switch
+              v-model="editedItem.active"
+              color="success"
               v-on="on"
-            >
-              {{ editedItem.active ? 'Active' : 'Inactive' }}
-            </v-btn>
+            />
           </template>
           <v-card>
             <v-card-title class="headline">
