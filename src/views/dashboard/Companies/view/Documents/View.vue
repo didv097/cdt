@@ -45,6 +45,7 @@
                     icon
                     color="primary"
                     v-on="on"
+                    @click="downloadFile(file.item)"
                   >
                     <v-icon size="24">
                       mdi-cloud-download
@@ -120,6 +121,7 @@
 <script>
   import axios from 'axios'
   import { companyFiles } from '@/mixins/companyFiles'
+  import download from 'downloadjs'
 
   export default {
     mixins: [companyFiles],
@@ -205,6 +207,29 @@
             this.getFiles()
           })
         this.deleteMsg = false
+      },
+      downloadFile (file) {
+        axios.get('companies/' + this.$route.params.id + '/documents/' + this.directory.code + '/' + file.name + '/download')
+          .then(res => {
+            this.saveFile(res.data.url, file.name)
+            this.snackbar = true
+            this.snackbarText = res.data.message
+          })
+      },
+      saveFile (s3link, name) {
+        axios({
+          url: s3link,
+          method: 'GET',
+          responseType: 'blob',
+          timeout: 30000,
+          transformRequest: [(data, headers) => {
+            delete headers.common.Authorization
+            return data
+          }],
+        })
+          .then(downloadRes => {
+            download(downloadRes.data, name)
+          })
       },
     },
   }
