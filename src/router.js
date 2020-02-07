@@ -66,12 +66,12 @@ export default new Router({
               component: () => import('@/views/dashboard/Companies/view/PlanHolder'),
             },
             {
-              name: 'Company / SMFF Capabilities',
+              name: 'Company / Capabilities',
               path: 'smff',
               component: () => import('@/views/dashboard/Companies/view/SMFF'),
             },
             {
-              name: 'Company / Operated Companies',
+              name: 'Company / Affiliates',
               path: 'companies',
               component: () => import('@/views/dashboard/Companies/view/OperatedCompanies'),
             },

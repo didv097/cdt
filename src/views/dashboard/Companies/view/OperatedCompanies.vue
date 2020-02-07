@@ -2,7 +2,7 @@
   <v-container>
     <base-material-card
       color="primary"
-      title="Operated Companies"
+      title="Affiliates"
       :loading="loading"
     >
       <v-text-field

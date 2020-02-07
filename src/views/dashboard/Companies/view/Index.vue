@@ -117,7 +117,6 @@
   export default {
     data: () => ({
       coverPhoto: null,
-      uploading: false,
       activeTab: 0,
       editedItem: {},
       msgBox: false,
@@ -147,12 +146,12 @@
             to: '/companies/' + this.$route.params.id + '/plan',
           },
           {
-            title: 'SMFF Capabilities',
-            icon: 'mdi-hard-hat',
+            title: 'Capabilities',
+            icon: 'mdi-pier-crane',
             to: '/companies/' + this.$route.params.id + '/smff',
           },
           {
-            title: 'Operated Companies',
+            title: 'Affiliates',
             icon: 'mdi-domain',
             to: '/companies/' + this.$route.params.id + '/companies',
           },
@@ -195,7 +194,6 @@
           })
       },
       uploadPhoto (event) {
-        this.uploading = true
         const formData = new FormData()
         formData.append('file', event.target.files[0])
         axios.post(
@@ -208,7 +206,6 @@
           },
         ).then(res => {
           this.getCover()
-          this.uploading = false
         })
       },
       getDataFromApi () {

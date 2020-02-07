@@ -117,7 +117,6 @@
   export default {
     data: () => ({
       coverPhoto: null,
-      uploading: false,
       activeTab: 0,
       editedItem: {},
       msgBox: false,
@@ -137,9 +136,9 @@
             to: '/vessels/' + this.$route.params.id + '/info',
           },
           {
-            title: 'Construction Detail',
+            title: 'Construction',
             icon: 'mdi-ruler-square',
-            to: '/vessels/' + this.$route.params.id + '/construction-detail',
+            to: '/vessels/' + this.$route.params.id + '/construction',
           },
           {
             title: 'Fire Plans',
@@ -148,17 +147,17 @@
           },
           {
             title: 'Drawings',
-            icon: 'mdi-math-compass',
+            icon: 'mdi-file-cad',
             to: '/vessels/' + this.$route.params.id + '/drawings',
           },
           {
             title: 'RACs',
-            icon: 'mdi-math-compass',
+            icon: 'mdi-phone-in-talk',
             to: '/vessels/' + this.$route.params.id + '/racs',
           },
           {
-            title: 'SMFF Capabilities',
-            icon: 'mdi-hard-hat',
+            title: 'Capabilities',
+            icon: 'mdi-pier-crane',
             to: '/vessels/' + this.$route.params.id + '/smff',
           },
           {
@@ -172,9 +171,9 @@
             to: '/vessels/' + this.$route.params.id + '/notes',
           },
           {
-            title: 'Damage Stability Models',
+            title: 'Models',
             icon: 'mdi-laptop',
-            to: '/vessels/' + this.$route.params.id + '/dsm',
+            to: '/vessels/' + this.$route.params.id + '/models',
           },
         ]
       },
@@ -200,7 +199,6 @@
           })
       },
       uploadPhoto (event) {
-        this.uploading = true
         const formData = new FormData()
         formData.append('file', event.target.files[0])
         axios.post(
@@ -213,7 +211,6 @@
           },
         ).then(res => {
           this.getCover()
-          this.uploading = false
         })
       },
       getDataFromApi () {

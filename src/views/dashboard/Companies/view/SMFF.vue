@@ -2,7 +2,7 @@
   <v-container>
     <base-material-card
       color="primary"
-      title="SMFF Capabilities"
+      title="Capabilities"
       :loading="loading"
     >
       <v-card-text>
