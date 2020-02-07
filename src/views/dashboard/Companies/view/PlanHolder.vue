@@ -2,15 +2,9 @@
   <v-container>
     <base-material-card
       color="primary"
-      icon="mdi-lan"
-      inline
+      title="Information (Imported)"
       :loading="loading"
     >
-      <template v-slot:after-heading>
-        <div class="display-2">
-          Information (Imported)
-        </div>
-      </template>
       <v-card-text v-if="planHolder">
         <v-row
           v-for="(row, i) in fieldData"

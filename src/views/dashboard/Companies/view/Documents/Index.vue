@@ -2,15 +2,9 @@
   <v-container>
     <base-material-card
       color="primary"
-      icon="mdi-file"
-      inline
+      title="Company Files"
       :loading="loading"
     >
-      <template v-slot:after-heading>
-        <div class="display-2">
-          Company Files
-        </div>
-      </template>
       <v-expansion-panels
         accordion
         flat

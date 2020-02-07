@@ -2,16 +2,9 @@
   <v-container>
     <base-material-card
       color="primary"
-      icon="mdi-ferry"
-      inline
+      title="Vessels"
       :loading="loading"
     >
-      <template v-slot:after-heading>
-        <div class="display-2">
-          Vessels
-        </div>
-      </template>
-
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"

@@ -2,15 +2,9 @@
   <v-container>
     <base-material-card
       color="primary"
-      icon="mdi-pier-crane"
-      inline
+      title="SMFF Capabilities"
       :loading="loading"
     >
-      <template v-slot:after-heading>
-        <div class="display-2">
-          SMFF Capabilities
-        </div>
-      </template>
       <v-card-text>
         <v-expansion-panels
           v-if="smff"

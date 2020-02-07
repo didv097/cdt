@@ -8,14 +8,9 @@
     >
     <base-material-card
       color="primary"
-      icon="mdi-file"
-      inline
+      :title="'Company Files / ' + directory.name"
+      :loading="loading"
     >
-      <template v-slot:after-heading>
-        <div class="display-2">
-          Company Files / {{ directory.name }}
-        </div>
-      </template>
       <v-btn
         color="secondary"
         class="file-upload"
@@ -27,7 +22,6 @@
       <v-data-table
         :headers="headers"
         :items="files"
-        :loading="loading"
       >
         <template v-slot:item="file">
           <tr>

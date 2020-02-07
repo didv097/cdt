@@ -2,15 +2,9 @@
   <v-container>
     <base-material-card
       color="primary"
-      icon="mdi-map-marker"
-      inline
+      title="Address"
       :loading="loading"
     >
-      <template v-slot:after-heading>
-        <div class="display-2">
-          Address
-        </div>
-      </template>
       <v-card-text>
         <base-material-tabs
           v-model="activeTab"
