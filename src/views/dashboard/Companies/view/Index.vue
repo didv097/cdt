@@ -6,86 +6,81 @@
       class="d-none"
       @change="uploadPhoto"
     >
-    <v-row
-      align="center"
-      justify="start"
+    <div
+      class="company-header"
     >
-      <v-col cols="auto">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-card
-              width="52"
-              height="52"
-              outlined
-              :class="coverPhoto ? 'success--text' : 'grey--text'"
-              class="mx-auto mt-0 d-inline-flex v-card--account"
-              v-on="on"
-              @click="$refs.file.click()"
-            >
-              <v-img
-                v-if="coverPhoto"
-                :src="coverPhoto"
-                height="100%"
-                width="100%"
-              />
-              <v-icon
-                v-else
-                class="mx-auto"
-                size="48"
-              >
-                mdi-domain
-              </v-icon>
-            </v-card>
-          </template>
-          <span>Upload/Change Image</span>
-        </v-tooltip>
-      </v-col>
-      <v-col cols="auto">
-        <h3 class="display-2">
-          {{ editedItem.name }}
-        </h3>
-      </v-col>
-      <v-col cols="auto">
-        <v-dialog
-          v-model="msgBox"
-          persistent
-          max-width="290"
-        >
-          <template v-slot:activator="{ on }">
-            <v-switch
-              v-model="editedItem.active"
-              color="success"
-              v-on="on"
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-card
+            width="52"
+            height="52"
+            outlined
+            class="company-avartar"
+            v-on="on"
+            @click="$refs.file.click()"
+          >
+            <v-img
+              v-if="coverPhoto"
+              :src="coverPhoto"
+              height="100%"
+              width="100%"
             />
-          </template>
-          <v-card>
-            <v-card-title class="headline">
-              Warning
-            </v-card-title>
-            <v-card-text>
-              <b>{{ editedItem.name }}</b> status will be changed to DJS <b>{{ editedItem.active ? 'Inactive' : 'Active' }}</b>. Are you sure that you want to change this setting?
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn
-                color="primary"
-                text
-                @click="toggleStatus"
-              >
-                Yes
-              </v-btn>
-              <v-btn
-                color="error"
-                text
-                @click="msgBox = false"
-              >
-                Cancel
-              </v-btn>
-            </v-card-actions>
+            <v-icon
+              v-else
+              class="mx-auto"
+              size="48"
+            >
+              mdi-domain
+            </v-icon>
           </v-card>
-        </v-dialog>
-      </v-col>
-    </v-row>
+        </template>
+        <span>Upload/Change Image</span>
+      </v-tooltip>
+      <h3 class="display-2">
+        {{ editedItem.name }}
+      </h3>
+      <div class="company-status">
+        <v-badge
+          bottom
+          bordered
+          overlap
+          color="orange"
+          :value="smff"
+        >
+          <template v-slot:badge>
+            <v-icon dark>
+              mdi-star
+            </v-icon>
+          </template>
+          <span>
+            <v-icon
+              v-if="editedItem.active"
+              color="success"
+              size="30"
+            >
+              mdi-shield-check
+            </v-icon>
+            <v-icon
+              v-else
+              color="error"
+              size="30"
+            >
+              mdi-shield-off
+            </v-icon>
+          </span>
+        </v-badge>
+        <v-switch
+          v-model="switchActive"
+          label="Coverage Active"
+          @click.stop="toggleStatus"
+        />
+        <v-switch
+          v-model="switchSMFF"
+          label="SMFF Services"
+          @click.stop="toggleSMFF"
+        />
+      </div>
+    </div>
     <base-material-tabs
       v-model="activeTab"
       background-color="transparent"
@@ -104,6 +99,15 @@
       </v-tab>
     </base-material-tabs>
     <router-view />
+    <base-material-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      bottom
+      right
+      :type="null"
+    >
+      {{ snackbarText }}
+    </base-material-snackbar>
   </v-container>
 </template>
 
@@ -117,6 +121,12 @@
       activeTab: 0,
       editedItem: {},
       msgBox: false,
+      smff: null,
+      switchActive: false,
+      switchSMFF: false,
+      snackbar: false,
+      snackbarColor: 'primary',
+      snackbarText: '',
     }),
     computed: {
       tabs () {
@@ -205,15 +215,58 @@
         axios.get('companies/' + this.$route.params.id)
           .then(res => {
             this.editedItem = res.data.data[0]
+            this.switchActive = this.editedItem.active
+          })
+        axios.get('companies/' + this.$route.params.id + '/smff')
+          .then(res => {
+            this.smff = res.data.smff
+            this.switchSMFF = this.smff
           })
       },
       toggleStatus () {
         axios.post('companies/' + this.$route.params.id + '/toggleStatus')
           .then(res => {
-            this.editedItem.active = !this.editedItem.active
+            this.snackbar = true
+            this.snackbarText = res.data.message
+            this.getDataFromApi()
           })
-        this.msgBox = false
+      },
+      toggleSMFF () {
+        if (this.smff) {
+          this.loading = true
+          axios.delete('companies/' + this.$route.params.id + '/smff')
+            .then(res => {
+              this.snackbar = true
+              this.snackbarText = res.data.message
+              this.getDataFromApi()
+            })
+        } else {
+          axios.post('companies/' + this.$route.params.id + '/smff/create')
+            .then(res => {
+              this.snackbar = true
+              this.snackbarText = res.data.message
+              this.getDataFromApi()
+            })
+        }
       },
     },
   }
 </script>
+
+<style lang="sass">
+  .company-header
+    display: flex
+    align-items: center
+    flex-wrap: wrap
+    margin-bottom: 2rem
+    .company-avartar
+      margin-top: 0
+      margin-bottom: 0
+    .company-status
+      display: inline-flex
+      align-items: center
+    .company-status>*
+      margin-right: 1rem
+  .company-header>*
+    margin-right: 1rem
+</style>

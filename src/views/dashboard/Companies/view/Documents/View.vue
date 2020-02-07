@@ -198,6 +198,8 @@
           },
         ).then(res => {
           this.uploadingFile = false
+          this.snackbar = true
+          this.snackbarText = res.data.message
           this.getFiles()
         })
       },
