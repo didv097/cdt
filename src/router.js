@@ -113,6 +113,11 @@ export default new Router({
               path: 'info',
               component: () => import('@/views/dashboard/Vessels/view/Info'),
             },
+            {
+              name: 'Vessel / Construction',
+              path: 'construction',
+              component: () => import('@/views/dashboard/Vessels/view/Construction'),
+            },
           ],
         },
         {
