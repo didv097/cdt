@@ -401,8 +401,41 @@
           this.vesselContactItems = []
         }
       },
-      saveVessel () {},
-      deleteVessel () {},
+      saveVessel () {
+        axios.post('vessels/' + this.$route.params.id, this.editedItem)
+          .then(res => {
+            this.snackbar = true
+            this.snackbarColor = 'success'
+            this.snackbarText = res.data.message
+            this.getDataFromApi()
+          })
+          .catch(error => {
+            this.snackbar = true
+            this.snackbarColor = 'error'
+            this.snackbarText = error.response.data.message || error.response.status
+          })
+      },
+      deleteVessel () {
+        this.$confirm('You are about to delete this vessel. Are you sure that you want to proceed?', {
+          title: 'Warning',
+        })
+          .then(res => {
+            if (res) {
+              axios.delete('vessels/' + this.editedItem.id + '/destroy')
+                .then(res => {
+                  this.$router.push('/vessels')
+                  this.snackbar = true
+                  this.snackbarColor = 'success'
+                  this.snackbarText = res.data.message
+                })
+                .catch(error => {
+                  this.snackbar = true
+                  this.snackbarColor = 'error'
+                  this.snackbarText = error.response.data.message || error.response.status
+                })
+            }
+          })
+      },
     },
   }
 </script>

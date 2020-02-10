@@ -21,6 +21,7 @@ import './plugins/vee-validate'
 import './plugins/vue-world-map'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
+import VuetifyConfirm from 'vuetify-confirm'
 
 import axios from 'axios'
 // import cookies from 'js-cookie'
@@ -37,6 +38,8 @@ axios.defaults.headers.common.Authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOi
 // }
 
 Vue.config.productionTip = false
+
+Vue.use(VuetifyConfirm, { vuetify })
 
 new Vue({
   router,

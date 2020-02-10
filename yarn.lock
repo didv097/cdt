@@ -12125,6 +12125,11 @@ vue@^2.6.11, vue@^2.6.4:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
+vuetify-confirm@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/vuetify-confirm/-/vuetify-confirm-2.0.2.tgz#6f5c326a0a59e04da53b90a73cbeec393fe4f793"
+  integrity sha512-WIFP1IwNLy3o6bzFRl7dNaVg5h+gMnvK0JHxrfgNiy6/pBNmLmjL0ignx7Ai935zR3JIKtvv/MBQCv/Xr1c8TQ==
+
 vuetify-loader@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/vuetify-loader/-/vuetify-loader-1.4.3.tgz#df1323c558be09890877e5fbe817b3a71a6c538d"
