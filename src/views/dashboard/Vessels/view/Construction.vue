@@ -82,6 +82,9 @@
                 </v-col>
               </v-row>
             </v-tab-item>
+            <v-tab-item>
+              No data
+            </v-tab-item>
           </v-tabs-items>
         </base-material-tabs>
       </v-card-text>

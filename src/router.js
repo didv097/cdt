@@ -118,6 +118,11 @@ export default new Router({
               path: 'construction',
               component: () => import('@/views/dashboard/Vessels/view/Construction'),
             },
+            {
+              name: 'Vessel / Fire Plans',
+              path: 'fire-plans',
+              component: () => import('@/views/dashboard/Vessels/view/FirePlans'),
+            },
           ],
         },
         {

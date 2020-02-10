@@ -236,6 +236,6 @@
 </script>
 
 <style lang="sass">
-.file-upload
-  width: 100%
+  .file-upload
+    width: 100%
 </style>
