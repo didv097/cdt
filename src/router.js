@@ -123,6 +123,16 @@ export default new Router({
               path: 'fire-plans',
               component: () => import('@/views/dashboard/Vessels/view/FirePlans'),
             },
+            {
+              name: 'Vessel / Drawings',
+              path: 'drawings',
+              component: () => import('@/views/dashboard/Vessels/view/Drawings'),
+            },
+            {
+              name: 'Vessel / RAC Information',
+              path: 'racs',
+              component: () => import('@/views/dashboard/Vessels/view/RACs'),
+            },
           ],
         },
         {
