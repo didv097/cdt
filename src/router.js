@@ -133,6 +133,11 @@ export default new Router({
               path: 'racs',
               component: () => import('@/views/dashboard/Vessels/view/RACs'),
             },
+            {
+              name: 'Vessel / SMFF Capabilities',
+              path: 'smff',
+              component: () => import('@/views/dashboard/Vessels/view/SMFF'),
+            },
           ],
         },
         {
