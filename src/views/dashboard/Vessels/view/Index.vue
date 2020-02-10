@@ -181,8 +181,10 @@
     watch: {
       $route (to, from) {
         // react to route changes...
-        this.getDataFromApi()
-        this.getCover()
+        if (to.params.id !== from.params.id) {
+          this.getDataFromApi()
+          this.getCover()
+        }
       },
     },
     mounted () {
