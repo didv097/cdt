@@ -138,6 +138,11 @@ export default new Router({
               path: 'smff',
               component: () => import('@/views/dashboard/Vessels/view/SMFF'),
             },
+            {
+              name: 'Vessel / AIS Data',
+              path: 'ais',
+              component: () => import('@/views/dashboard/Vessels/view/AIS'),
+            },
           ],
         },
         {
