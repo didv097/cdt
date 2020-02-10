@@ -38,7 +38,7 @@
             <td>
               <router-link
                 class="table-link"
-                :to="'/fleets/view/' + fleet.item.id"
+                :to="'/fleets/' + fleet.item.id"
               >
                 {{ fleet.item.name }}
               </router-link>

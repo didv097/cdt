@@ -28,7 +28,7 @@
             <td>
               <router-link
                 class="table-link"
-                :to="'/vessels/view/' + vessel.item.id"
+                :to="'/vessels/' + vessel.item.id"
               >
                 {{ vessel.item.name }}
               </router-link>
@@ -147,7 +147,7 @@
                       <router-link
                         v-if="vessel.item.vrp_plan_number>0"
                         class="table-link"
-                        :to="'/companies/view/' + vessel.item.company.id"
+                        :to="'/companies/' + vessel.item.company.id"
                       >
                         {{ vessel.item.vrp_plan_number }}
                       </router-link>
