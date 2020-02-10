@@ -26,55 +26,49 @@
         <template v-slot:item="user">
           <tr>
             <td>
-              <span
-                class="table-link"
-                @click="editUser(user.item)"
+              <v-badge
+                slot="activator"
+                right
+                :color="user.item.response===1 ? 'success' : 'error'"
               >
-                {{ user.item.name }}
+                <template v-slot:badge>
+                  <v-tooltip right>
+                    <template v-slot:activator="{ on }">
+                      <v-icon
+                        dark
+                        v-on="on"
+                      >
+                        {{ user.item.response===1 ? 'mdi-account-badge' : 'mdi-account-badge-alert' }}
+                      </v-icon>
+                    </template>
+                    {{ user.item.response===1 ? 'Responder' : 'No Responder' }}
+                  </v-tooltip>
+                </template>
+                <router-link
+                  class="table-link"
+                  :to="'/individuals/' + user.item.id"
+                >
+                  {{ user.item.name }}
+                </router-link>
+              </v-badge>
+            </td>
+            <td>
+              <router-link
+                v-if="user.item.company.id >= 0"
+                class="table-link"
+                :to="'/companies/' + user.item.company.id"
+              >
+                {{ user.item.company.name }}
+              </router-link>
+              <span v-else>
+                {{ user.item.company.name }}
               </span>
             </td>
             <td>
-              <span>{{ user.item.email }}</span>
+              {{ user.item.email }}
             </td>
             <td>
-              <div
-                v-for="role in user.item.roles"
-                :key="role"
-              >
-                {{ role }}
-              </div>
-            </td>
-            <td>
-              <v-icon
-                v-if="user.item.resource_provider"
-                color="success"
-                size="30"
-              >
-                mdi-account
-              </v-icon>
-              <v-icon
-                v-else
-                color="error"
-                size="30"
-              >
-                mdi-account-cancel
-              </v-icon>
-            </td>
-            <td>
-              <v-icon
-                v-if="user.item.active"
-                color="success"
-                size="30"
-              >
-                mdi-shield-check
-              </v-icon>
-              <v-icon
-                v-else
-                color="error"
-                size="30"
-              >
-                mdi-shield-off
-              </v-icon>
+              {{ user.item.mobile_number }}
             </td>
             <td>
               <v-tooltip bottom>
@@ -173,24 +167,20 @@
           value: 'name',
         },
         {
-          text: 'E-mail',
+          text: 'Company',
+          value: 'company',
+        },
+        {
+          text: 'Email',
           value: 'email',
         },
         {
-          text: 'Role',
-          value: 'roles',
-        },
-        {
-          text: 'Resource Provider',
-          value: 'resource_provider',
-        },
-        {
-          text: 'DJS SMFF Coverage',
-          value: 'active',
+          text: 'Mobile Number',
+          value: 'mobile_number',
         },
         {
           text: 'Actions',
-          value: 'username',
+          value: 'actions',
         },
       ],
       users: [],

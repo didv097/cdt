@@ -158,7 +158,7 @@ export default new Router({
         {
           name: 'Individuals',
           path: 'individuals',
-          component: () => import('@/views/dashboard/Individuals'),
+          component: () => import('@/views/dashboard/Individuals/Index'),
         },
         {
           name: 'System Reports',

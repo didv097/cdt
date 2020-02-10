@@ -51,23 +51,28 @@
                         {{ individual.item.response===1 ? 'mdi-account-badge' : 'mdi-account-badge-alert' }}
                       </v-icon>
                     </template>
+                    {{ individual.item.response===1 ? 'Responder' : 'No Responder' }}
                   </v-tooltip>
                 </template>
                 <router-link
                   class="table-link"
                   :to="'/individuals/' + individual.item.id"
                 >
-                  {{ individual.item.first_name + ' ' + individual.item.last_name }}
+                  {{ individual.item.name }}
                 </router-link>
               </v-badge>
             </td>
             <td>
               <router-link
+                v-if="individual.item.company.id >= 0"
                 class="table-link"
-                :to="'/individuals/' + individual.item.id"
+                :to="'/companies/' + individual.item.company.id"
               >
-                {{ individual.item.first_name + ' ' + individual.item.last_name }}
+                {{ individual.item.company.name }}
               </router-link>
+              <span v-else>
+                {{ individual.item.company.name }}
+              </span>
             </td>
             <td>
               {{ individual.item.email }}
@@ -165,6 +170,7 @@
             this.individuals = res.data.data
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
+          console.log(this.individuals)
         } catch (error) {
           // console.error(error)
         }
