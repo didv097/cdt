@@ -99,7 +99,6 @@
           .then(res => {
             this.editedItem = res.data.data[0]
             this.loading = false
-            console.log(this.editedItem)
           })
       },
       saveAIS () {

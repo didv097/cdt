@@ -143,6 +143,16 @@ export default new Router({
               path: 'ais',
               component: () => import('@/views/dashboard/Vessels/view/AIS'),
             },
+            {
+              name: 'Vessel / Notes',
+              path: 'notes',
+              component: () => import('@/views/dashboard/Vessels/view/Notes'),
+            },
+            {
+              name: 'Vessel / Damage Stability Models',
+              path: 'models',
+              component: () => import('@/views/dashboard/Vessels/view/DSM'),
+            },
           ],
         },
         {
