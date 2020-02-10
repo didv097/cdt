@@ -142,7 +142,6 @@
         axios.get('vessels/' + this.$route.params.id + '/constructionDetail')
           .then(res => {
             this.editedItem = res.data.data[0]
-            console.log(this.editedItem)
             this.loading = false
           })
       },
@@ -156,6 +155,4 @@
     margin: 0 !important
   .tabs-container
     margin-top: 2rem
-  .vessel-info-heading
-    margin-left: 2rem
 </style>
