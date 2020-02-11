@@ -161,6 +161,19 @@ export default new Router({
           component: () => import('@/views/dashboard/Individuals/Index'),
         },
         {
+          name: 'Individual Detail',
+          path: 'individuals/:id',
+          redirect: 'individuals/:id/info',
+          component: () => import('@/views/dashboard/Individuals/view/Index'),
+          children: [
+            {
+              name: 'Individual / Information',
+              path: 'info',
+              component: () => import('@/views/dashboard/Individuals/view/Info'),
+            },
+          ],
+        },
+        {
           name: 'System Reports',
           path: 'reports',
           component: () => import('@/views/dashboard/Reports'),
