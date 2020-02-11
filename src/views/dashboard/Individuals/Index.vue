@@ -170,7 +170,6 @@
             this.individuals = res.data.data
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
-          console.log(this.individuals)
         } catch (error) {
           // console.error(error)
         }
