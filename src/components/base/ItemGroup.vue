@@ -18,7 +18,7 @@
         class="align-self-center"
         color="grey"
       >
-        <v-img src="@/assets/logo.png" />
+        <v-img src="@/assets/default-avatar.png" />
       </v-list-item-avatar>
 
       <v-list-item-content>

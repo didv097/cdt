@@ -18,7 +18,7 @@
               color="grey"
               size="88"
             >
-              <v-img src="@/assets/logo.png" />
+              <v-img src="@/assets/default-avatar.png" />
             </v-avatar>
 
             <div class="display-2 font-weight-light mb-3 text--darken-2 grey--text">

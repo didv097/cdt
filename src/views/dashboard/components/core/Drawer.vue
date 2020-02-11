@@ -19,11 +19,16 @@
       />
     </template>
 
-    <v-list-item two-line>
+    <v-list-item>
       <v-list-item-content>
-        <v-list-item-title class="text-uppercase font-weight-regular display-2">
-          <span class="logo-mini">CDT</span>
-        </v-list-item-title>
+        <div class="logo-mini">
+          <v-img src="@/assets/djs-avatar.png" />
+        </div>
+        <div class="logo-normal">
+          <router-link to="/">
+            <v-img src="@/assets/djs-logo.png" />
+          </router-link>
+        </div>
       </v-list-item-content>
     </v-list-item>
 
@@ -246,4 +251,25 @@
 
           +rtl()
             margin-left: 8px
+    .logo-normal
+      max-width: 60%
+      margin: auto
+      transition: all 250ms linear
+    .logo-mini
+      opacity: 0
+      max-width: 34px
+      height: 34px
+      margin: auto
+      overflow: hidden
+      border-radius: 50%
+      position: absolute
+      transition: all 250ms linear
+
+  .v-navigation-drawer--mini-variant
+    .logo-normal
+      opacity: 0 !important
+      position: absolute
+    .logo-mini
+      opacity: 1 !important
+      position: initial !important
 </style>
