@@ -70,12 +70,11 @@
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
+    mixins: [snackBar],
     data: () => ({
-      snackbar: false,
-      snackbarColor: 'primary',
-      snackbarText: 'snackbar',
       loading: false,
       editedItem: {},
       fleetItems: [],
@@ -104,16 +103,12 @@
       saveAIS () {
         axios.post('vessels/' + this.$route.params.id + '/ais', this.editedItem)
           .then(res => {
-            this.snackbar = true
-            this.snackbarColor = 'success'
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
             this.getDataFromApi()
           })
           .catch(error => {
             if (error.response && error.response.data) {
-              this.snackbar = true
-              this.snackbarColor = 'error'
-              this.snackbarText = error.response.data.message || error.response.status
+              this.showSnackBar(error.response.data.message || error.response.status, 'error')
             }
           })
       },

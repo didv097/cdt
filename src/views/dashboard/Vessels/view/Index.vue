@@ -113,8 +113,10 @@
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
+    mixins: [snackBar],
     data: () => ({
       coverPhoto: null,
       activeTab: 0,
@@ -123,9 +125,6 @@
       smff: null,
       switchActive: false,
       switchSMFF: false,
-      snackbar: false,
-      snackbarColor: 'primary',
-      snackbarText: '',
     }),
     computed: {
       tabs () {
@@ -230,8 +229,7 @@
       toggleStatus () {
         axios.post('vessels/' + this.$route.params.id + '/toggleStatus')
           .then(res => {
-            this.snackbar = true
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
             this.getDataFromApi()
           })
       },
@@ -240,15 +238,13 @@
           this.loading = true
           axios.delete('vessels/' + this.$route.params.id + '/smff')
             .then(res => {
-              this.snackbar = true
-              this.snackbarText = res.data.message
+              this.showSnackBar(res.data.message, 'success')
               this.getDataFromApi()
             })
         } else {
           axios.post('vessels/' + this.$route.params.id + '/smff/create')
             .then(res => {
-              this.snackbar = true
-              this.snackbarText = res.data.message
+              this.showSnackBar(res.data.message, 'success')
               this.getDataFromApi()
             })
         }

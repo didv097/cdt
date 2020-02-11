@@ -97,8 +97,10 @@
 <script>
   import axios from 'axios'
   import download from 'downloadjs'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
+    mixins: [snackBar],
     data: () => ({
       loading: false,
       uploadingFile: false,
@@ -119,9 +121,6 @@
       years: [],
       year: 0,
       files: [],
-      snackbar: false,
-      snackbarColor: 'primary',
-      snackbarText: '',
     }),
     mounted () {
       this.year = new Date().getFullYear()
@@ -153,8 +152,7 @@
           },
         ).then(res => {
           this.uploadingFile = false
-          this.snackbar = true
-          this.snackbarText = res.data.message
+          this.showSnackBar(res.data.message, 'success')
           this.getFiles()
         })
       },
@@ -172,8 +170,7 @@
         axios.get(`vessels/${this.$route.params.id}/files/racs/${this.year}/${file.name}/download`)
           .then(res => {
             this.saveFile(res.data.url, file.name)
-            this.snackbar = true
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
           })
       },
       saveFile (s3link, name) {
@@ -199,8 +196,7 @@
             axios.delete(`vessels/${this.$route.params.id}/files/racs/${this.year}/${file.name}/destroy`)
               .then(res => {
                 this.getFiles()
-                this.snackbar = true
-                this.snackbarText = res.data.message
+                this.showSnackBar(res.data.message, 'success')
               })
           }
         })

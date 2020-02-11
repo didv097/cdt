@@ -327,8 +327,10 @@
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
+    mixins: [snackBar],
     data: () => ({
       loading: false,
       editedItem: {},
@@ -341,9 +343,6 @@
       providerItems: [],
       piItems: [],
       vesselContactItems: [],
-      snackbar: false,
-      snackbarColor: 'primary',
-      snackbarText: '',
     }),
     watch: {
       'editedItem.company_id' () {
@@ -404,15 +403,11 @@
       saveVessel () {
         axios.post('vessels/' + this.$route.params.id, this.editedItem)
           .then(res => {
-            this.snackbar = true
-            this.snackbarColor = 'success'
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
             this.getDataFromApi()
           })
           .catch(error => {
-            this.snackbar = true
-            this.snackbarColor = 'error'
-            this.snackbarText = error.response.data.message || error.response.status
+            this.showSnackBar(error.response.data.message || error.response.statusText, 'error')
           })
       },
       deleteVessel () {
@@ -424,14 +419,10 @@
               axios.delete('vessels/' + this.editedItem.id + '/destroy')
                 .then(res => {
                   this.$router.push('/vessels')
-                  this.snackbar = true
-                  this.snackbarColor = 'success'
-                  this.snackbarText = res.data.message
+                  this.showSnackBar(res.data.message, 'success')
                 })
                 .catch(error => {
-                  this.snackbar = true
-                  this.snackbarColor = 'error'
-                  this.snackbarText = error.response.data.message || error.response.status
+                  this.showSnackBar(error.response.data.message || error.response.statusText, 'error')
                 })
             }
           })

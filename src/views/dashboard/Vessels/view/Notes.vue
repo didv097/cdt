@@ -90,8 +90,10 @@
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
+    mixins: [snackBar],
     data: () => ({
       loading: false,
       notes: [],
@@ -99,9 +101,6 @@
         note_type: 1,
       },
       addMsg: false,
-      snackbar: false,
-      snackbarColor: 'primary',
-      snackbarText: 'snackbar',
     }),
     mounted () {
       this.getDataFromApi()
@@ -120,16 +119,12 @@
           axios.post(`vessels/${this.$route.params.id}/addNote`, this.newNote)
             .then(res => {
               this.addMsg = false
-              this.snackbar = true
-              this.snackbarColor = 'success'
-              this.snackbarText = res.data.message
+              this.showSnackBar(res.data.message, 'success')
               this.getDataFromApi()
             })
             .catch(error => {
               if (error.response && error.response.data) {
-                this.snackbar = true
-                this.snackbarColor = 'error'
-                this.snackbarText = error.response.data.message || error.response.status
+                this.showSnackBar(error.response.data.message || error.response.status, 'error')
               }
             })
         }
@@ -146,9 +141,7 @@
             if (res) {
               axios.delete('vessels/' + this.$route.params.id + '/notes/' + id + '/destroy')
                 .then(res => {
-                  this.snackbar = true
-                  this.snackbarColor = 'success'
-                  this.snackbarText = res.data.message
+                  this.showSnackBar(res.data.message, 'success')
                   this.getDataFromApi()
                 })
             }

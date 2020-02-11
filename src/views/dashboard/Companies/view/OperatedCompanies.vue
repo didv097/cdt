@@ -230,10 +230,10 @@
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
-    name: 'Companies',
-
+    mixins: [snackBar],
     data: () => ({
       search: '',
       headers: [
@@ -282,9 +282,6 @@
       total: 0,
       searchTimeout: null,
       deleteMsg: {},
-      snackbar: false,
-      snackbarText: '',
-      snackbarColor: 'primary',
     }),
     computed: {
       computedHeaders () {
@@ -356,8 +353,7 @@
       removeLink (id) {
         axios.get('companies/' + id + '/unlinkCompanies')
           .then(res => {
-            this.snackbar = true
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
             this.getDataFromApi()
             this.deleteMsg[id] = false
           })
@@ -365,8 +361,7 @@
       deleteCompany (id) {
         axios.delete('companies/' + id + '/destroy')
           .then(res => {
-            this.snackbar = true
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
             this.getDataFromApi()
             this.deleteMsg[id] = false
           })

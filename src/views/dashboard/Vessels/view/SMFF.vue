@@ -595,12 +595,11 @@
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
+    mixins: [snackBar],
     data: () => ({
-      snackbar: false,
-      snackbarColor: 'primary',
-      snackbarText: 'snackbar',
       loading: false,
       networks: [],
       smff: {},
@@ -750,9 +749,7 @@
         axios.post('vessels/' + this.$route.params.id + '/smff/create')
           .then(res => {
             this.getDataFromApi()
-            this.snackbar = true
-            this.snackbarColor = 'primary'
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
           })
       },
       deleteSMFF () {
@@ -761,9 +758,7 @@
           .then(res => {
             this.networks.length = 0
             this.smff = null
-            this.snackbar = true
-            this.snackbarColor = 'primary'
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
             this.loading = false
             this.deleteMsg = false
           })
@@ -776,15 +771,11 @@
         axios.post('vessels/' + this.$route.params.id + '/smff', data)
           .then(res => {
             this.getDataFromApi()
-            this.snackbar = true
-            this.snackbarColor = 'primary'
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
           })
           .catch(error => {
             if (error.response && error.response.data) {
-              this.snackbar = true
-              this.snackbarColor = 'error'
-              this.snackbarText = error.response.data.message
+              this.showSnackBar(error.response.data.message, 'error')
             }
           })
       },

@@ -121,10 +121,11 @@
 <script>
   import axios from 'axios'
   import { companyFiles } from '@/mixins/companyFiles'
+  import { snackBar } from '@/mixins/snackBar'
   import download from 'downloadjs'
 
   export default {
-    mixins: [companyFiles],
+    mixins: [companyFiles, snackBar],
     data () {
       return {
         headers: [
@@ -147,9 +148,6 @@
         files: [],
         fileToDelete: '',
         deleteMsg: false,
-        snackbar: false,
-        snackbarColor: 'primary',
-        snackbarText: '',
       }
     },
     computed: {
@@ -194,16 +192,14 @@
           },
         ).then(res => {
           this.uploadingFile = false
-          this.snackbar = true
-          this.snackbarText = res.data.message
+          this.showSnackBar(res.data.message, 'success')
           this.getFiles()
         })
       },
       deleteFile () {
         axios.delete('companies/' + this.$route.params.id + '/documents/' + this.directory.code + '/' + this.fileToDelete + '/destroy')
           .then(res => {
-            this.snackbar = true
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
             this.getFiles()
           })
         this.deleteMsg = false
@@ -212,8 +208,7 @@
         axios.get('companies/' + this.$route.params.id + '/documents/' + this.directory.code + '/' + file.name + '/download')
           .then(res => {
             this.saveFile(res.data.url, file.name)
-            this.snackbar = true
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
           })
       },
       saveFile (s3link, name) {

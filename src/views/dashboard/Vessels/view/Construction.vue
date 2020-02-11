@@ -89,15 +89,6 @@
         </base-material-tabs>
       </v-card-text>
     </base-material-card>
-    <base-material-snackbar
-      v-model="snackbar"
-      :color="snackbarColor"
-      bottom
-      right
-      :type="null"
-    >
-      {{ snackbarText }}
-    </base-material-snackbar>
   </v-container>
 </template>
 
@@ -112,9 +103,6 @@
       providerItems: [],
       sisterVesselItems: [],
       childVesselItems: [],
-      snackbar: false,
-      snackbarColor: 'primary',
-      snackbarText: '',
     }),
     watch: {
       'editedItem.company_id' () {

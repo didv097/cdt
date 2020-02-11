@@ -155,10 +155,10 @@
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
-    name: 'Companies',
-
+    mixins: [snackBar],
     data: () => ({
       search: '',
       headers: [
@@ -195,9 +195,6 @@
       total: 0,
       searchTimeout: null,
       deleteMsg: {},
-      snackbar: false,
-      snackbarText: '',
-      snackbarColor: 'primary',
     }),
     computed: {
       computedHeaders () {
@@ -255,8 +252,7 @@
         axios.get('companies/' + id + '/unlinkUsers')
           .then(res => {
             this.deleteMsg[id] = false
-            this.snackbarText = res.data.message
-            this.snackbar = true
+            this.showSnackBar(res.data.message, 'success')
             this.getDataFromApi()
           })
       },
@@ -264,8 +260,7 @@
         axios.delete('users/' + id + '/destroy')
           .then(res => {
             this.deleteMsg[id] = false
-            this.snackbarText = res.data.message
-            this.snackbar = true
+            this.showSnackBar(res.data.message, 'success')
             this.getDataFromApi()
           })
       },

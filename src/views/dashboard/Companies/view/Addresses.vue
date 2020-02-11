@@ -255,18 +255,17 @@
 <script>
   import axios from 'axios'
   import { LMap, LTileLayer, LMarker } from 'vue2-leaflet'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
     components: {
       LMap, LTileLayer, LMarker,
     },
+    mixins: [snackBar],
     data: () => ({
       activeTab: 0,
       addressesItems: [],
       zones: [],
-      snackbar: false,
-      snackbarColor: 'primary',
-      snackbarText: 'snackbar',
       deleteMsg: {},
       showFormatForm: false,
       documentFormatAddress: {
@@ -299,8 +298,7 @@
         axios.post('companies/addresses/' + address.id, { address: address })
           .then(res => {
             this.getAddresses()
-            this.snackbar = true
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
           })
       },
       deleteAddress (id) {
@@ -308,8 +306,7 @@
           .then(res => {
             this.deleteMsg[id] = false
             this.getAddresses()
-            this.snackbar = true
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
           })
       },
       showDocumentFormat (address) {
@@ -349,8 +346,9 @@
         axios.post('companies/' + this.$route.params.id + '/addresses/store', { type_id: typeId })
           .then(res => {
             this.getAddresses()
-            this.snackbar = true
-            this.snackbarText = res.data.message
+            this.showSnackBar(res.data.message, 'success')
+          }).catch(error => {
+            this.showSnackBar(error.response.data.message || error.response.statusText, 'error')
           })
       },
     },
