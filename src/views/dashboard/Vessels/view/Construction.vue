@@ -36,13 +36,19 @@
           >
             <v-tab-item>
               <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-checkbox
                     v-model="editedItem.lead_ship"
                     label="Lead Ship"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-select
                     v-model="editedItem.providers"
                     :items="providerItems"
@@ -54,9 +60,10 @@
                     label="Damage Stability Provider"
                   />
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-select
                     v-model="editedItem.sister_vessels"
                     :items="sisterVesselItems"
@@ -68,7 +75,10 @@
                     label="Sister Ships"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-select
                     v-model="editedItem.child_vessels"
                     :items="childVesselItems"

@@ -59,63 +59,82 @@
                     <l-marker :lat-lng="[address.latitude, address.longitude]" />
                   </l-map>
                   <v-row>
-                    <v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
                       <v-text-field
                         v-model="address.street"
                         label="Street"
                       />
                     </v-col>
-                    <v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
                       <v-text-field
                         v-model="address.unit"
                         label="Unit"
                       />
                     </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
                       <v-text-field
                         v-model="address.city"
                         label="City"
                       />
                     </v-col>
-                    <v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
                       <v-text-field
                         v-model="address.state"
                         label="State"
                       />
                     </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
                       <v-text-field
                         v-model="address.country"
                         label="Country"
                       />
                     </v-col>
-                    <v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
                       <v-text-field
                         v-model="address.zip"
                         label="Zip"
                       />
                     </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
                       <v-text-field
                         v-model="address.province"
                         label="Province"
                       />
                     </v-col>
-                    <v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
                       <v-text-field
                         v-model="address.phone"
                         label="Phone"
                       />
                     </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col md="6">
+                    <v-col
+                      cols="12"
+                      sm="6"
+                    >
                       <v-select
                         v-model="address.zone_id"
                         :items="zones"
@@ -124,13 +143,19 @@
                         label="Zone"
                       />
                     </v-col>
-                    <v-col md="3">
+                    <v-col
+                      cols="6"
+                      sm="3"
+                    >
                       <v-text-field
                         v-model="address.latitude"
                         label="Latitude"
                       />
                     </v-col>
-                    <v-col md="3">
+                    <v-col
+                      cols="6"
+                      sm="3"
+                    >
                       <v-text-field
                         v-model="address.longitude"
                         label="Longitude"
@@ -325,6 +350,4 @@
 <style lang="sass">
   .footer>.v-btn
     margin: 12px !important
-  .leaflet-pane
-    z-index: 0
 </style>

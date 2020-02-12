@@ -130,7 +130,7 @@
           {
             title: 'General',
             icon: 'mdi-information',
-            to: '/vessels/' + this.$route.params.id + '/info',
+            to: '/vessels/' + this.$route.params.id + '/general',
           },
           {
             title: 'Construction',

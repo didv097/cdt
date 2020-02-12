@@ -47,13 +47,13 @@ export default new Router({
         {
           name: 'Company Detail',
           path: 'companies/:id',
-          redirect: 'companies/:id/info',
+          redirect: 'companies/:id/general',
           component: () => import('@/views/dashboard/Companies/view/Index'),
           children: [
             {
-              name: 'Company / Information',
-              path: 'info',
-              component: () => import('@/views/dashboard/Companies/view/Info'),
+              name: 'Company / General Information',
+              path: 'general',
+              component: () => import('@/views/dashboard/Companies/view/General'),
             },
             {
               name: 'Company / Addresses',
@@ -105,13 +105,13 @@ export default new Router({
         {
           name: 'Vessel Detail',
           path: 'vessels/:id',
-          redirect: 'vessels/:id/info',
+          redirect: 'vessels/:id/general',
           component: () => import('@/views/dashboard/Vessels/view/Index'),
           children: [
             {
-              name: 'Vessel / Information',
-              path: 'info',
-              component: () => import('@/views/dashboard/Vessels/view/Info'),
+              name: 'Vessel / General Information',
+              path: 'general',
+              component: () => import('@/views/dashboard/Vessels/view/General'),
             },
             {
               name: 'Vessel / Construction',
@@ -163,13 +163,13 @@ export default new Router({
         {
           name: 'Individual Detail',
           path: 'individuals/:id',
-          redirect: 'individuals/:id/info',
+          redirect: 'individuals/:id/general',
           component: () => import('@/views/dashboard/Individuals/view/Index'),
           children: [
             {
-              name: 'Individual / Information',
-              path: 'info',
-              component: () => import('@/views/dashboard/Individuals/view/Info'),
+              name: 'Individual / General Information',
+              path: 'general',
+              component: () => import('@/views/dashboard/Individuals/view/General'),
             },
             {
               name: 'Individual / Address',

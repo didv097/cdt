@@ -2,9 +2,16 @@
   <v-container>
     <base-material-card
       color="primary"
-      title="SMFF Capabilities"
       :loading="loading"
     >
+      <template v-slot:heading>
+        <div class="display-1 font-weight-light">
+          Salvage and Marine Firefighting Services and Other Capabilities
+        </div>
+        <div class="subtitle-1 font-weight-light">
+          33 CFR Part 155, Table 155.4030(b)
+        </div>
+      </template>
       <v-card-text>
         <v-expansion-panels
           v-if="smff"

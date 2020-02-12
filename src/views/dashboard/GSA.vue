@@ -1,7 +1,10 @@
 <template>
   <v-container tag="section">
     <v-row>
-      <v-col>
+      <v-col
+        cols="12"
+        sm="4"
+      >
         <h3 class="display-2">
           {{ header }}
         </h3>
@@ -12,7 +15,10 @@
           {{ paragraph }}
         </p>
       </v-col>
-      <v-col>
+      <v-col
+        cols="12"
+        sm="4"
+      >
         <v-card>
           <v-card-text>
             <base-subheading subheading="ATLANTIC AREA" />
@@ -40,7 +46,10 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col>
+      <v-col
+        cols="12"
+        sm="4"
+      >
         <v-card>
           <v-card-text>
             <base-subheading subheading="PACIFIC AREA" />

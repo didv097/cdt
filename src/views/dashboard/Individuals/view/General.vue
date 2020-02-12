@@ -2,7 +2,7 @@
   <v-container>
     <base-material-card
       color="primary"
-      title="Individual Information"
+      title="General Information"
       :loading="loading"
     >
       <v-card-text>

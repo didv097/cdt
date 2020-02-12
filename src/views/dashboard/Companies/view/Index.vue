@@ -145,7 +145,7 @@
           {
             title: 'General',
             icon: 'mdi-information',
-            to: '/companies/' + this.$route.params.id + '/info',
+            to: '/companies/' + this.$route.params.id + '/general',
           },
           {
             title: 'Addresses',

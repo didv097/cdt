@@ -130,7 +130,7 @@
           {
             title: 'General',
             icon: 'mdi-information',
-            to: '/individuals/' + this.$route.params.id + '/info',
+            to: '/individuals/' + this.$route.params.id + '/general',
           },
           {
             title: 'Address',

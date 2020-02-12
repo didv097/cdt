@@ -7,7 +7,10 @@
     >
       <v-card-text>
         <v-row>
-          <v-col>
+          <v-col
+            cols="12"
+            sm="6"
+          >
             <v-text-field
               v-model="editedItem.latitude"
               type="number"
@@ -15,7 +18,10 @@
               prepend-icon="mdi-map-marker"
             />
           </v-col>
-          <v-col>
+          <v-col
+            cols="12"
+            sm="6"
+          >
             <v-text-field
               v-model="editedItem.longitude"
               type="number"
@@ -23,9 +29,10 @@
               prepend-icon="mdi-map-marker"
             />
           </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
+          <v-col
+            cols="12"
+            sm="6"
+          >
             <v-autocomplete
               v-model="editedItem.fleets"
               :items="fleetItems"
@@ -37,7 +44,10 @@
               clearable
             />
           </v-col>
-          <v-col>
+          <v-col
+            cols="12"
+            sm="6"
+          >
             <v-select
               v-model="editedItem.zone_id"
               :items="zoneItems"

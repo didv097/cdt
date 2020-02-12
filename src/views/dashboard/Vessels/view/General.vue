@@ -2,7 +2,7 @@
   <v-container>
     <base-material-card
       color="primary"
-      title="Vessel Information"
+      title="General Information"
       :loading="loading"
     >
       <v-card-text>
@@ -52,7 +52,10 @@
           >
             <v-tab-item>
               <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.name"
                     :rules="[v => !!v || 'Vessel Name is required']"
@@ -60,7 +63,10 @@
                     label="Vessel Name *"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-select
                     v-model="editedItem.vessel_type_id"
                     :items="vesselTypeItems"
@@ -70,9 +76,10 @@
                     label="Vessel Type"
                   />
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.imo"
                     type="number"
@@ -80,16 +87,20 @@
                     label="IMO Number"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.dead_weight"
                     prepend-icon="mdi-weight"
                     label="Dead Weight"
                   />
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.mmsi"
                     type="number"
@@ -97,7 +108,10 @@
                     label="MMSI Number"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.deck_area"
                     type="number"
@@ -105,9 +119,10 @@
                     label="Deck Area (sq meters)"
                   />
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.oil_tank_volume"
                     type="number"
@@ -115,29 +130,43 @@
                     label="Oil Tank Volume (cubic meters)"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.oil_group"
                     prepend-icon="mdi-oil"
                     label="Oil Group"
                   />
                 </v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
+                  <v-checkbox
+                    v-model="editedItem.tanker"
+                    label="Is Tank Vessel"
+                  />
+                </v-col>
               </v-row>
-              <v-checkbox
-                v-model="editedItem.tanker"
-                label="Is Tank Vessel"
-              />
             </v-tab-item>
             <v-tab-item>
               <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.plan_number"
                     prepend-icon="mdi-file-document-edit"
                     label="Plan Number"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-autocomplete
                     v-model="editedItem.qi"
                     :items="qiItems"
@@ -149,9 +178,10 @@
                     label="QI Company"
                   />
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-autocomplete
                     v-model="editedItem.company_id"
                     :items="companyItems"
@@ -163,7 +193,10 @@
                     label="Company * (Plan Holder)"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-autocomplete
                     v-model="editedItem.operating_company_id"
                     :items="companyItems"
@@ -179,7 +212,10 @@
             </v-tab-item>
             <v-tab-item>
               <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-autocomplete
                     v-model="editedItem.societies"
                     :items="societyItems"
@@ -191,7 +227,10 @@
                     label="Classification Society"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-autocomplete
                     v-model="editedItem.insurers"
                     :items="insurerItems"
@@ -203,9 +242,10 @@
                     label="H & M Insurer"
                   />
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-autocomplete
                     v-model="editedItem.providers"
                     :items="providerItems"
@@ -217,7 +257,10 @@
                     label="Damage Stability Provider"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-autocomplete
                     v-model="editedItem.pi"
                     :items="piItems"
@@ -236,7 +279,10 @@
                 Vessel "Company" Contacts (aka DPA)
               </v-row>
               <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-autocomplete
                     v-model="editedItem.primary_poc_id"
                     :items="vesselContactItems"
@@ -248,7 +294,10 @@
                     label="Primary"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-autocomplete
                     v-model="editedItem.secondary_poc_id"
                     :items="vesselContactItems"
@@ -265,30 +314,40 @@
                 Vessel Contact Information
               </v-row>
               <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.sat_phone_primary"
                     prepend-icon="mdi-phone"
                     label="SAT Telephone Primary"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.sat_phone_secondary"
                     prepend-icon="mdi-phone"
                     label="SAT Telephone Secondary"
                   />
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.email_primary"
                     prepend-icon="mdi-email"
                     label="Email Primary"
                   />
                 </v-col>
-                <v-col>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
                   <v-text-field
                     v-model="editedItem.email_secondary"
                     prepend-icon="mdi-email"
