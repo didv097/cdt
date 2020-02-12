@@ -70,13 +70,13 @@
           </span>
         </v-badge>
         <v-switch
-          v-model="switchActive"
+          v-model="editedItem.active"
           label="Coverage Active"
           @click.stop="toggleStatus"
         />
         <v-switch
-          v-model="switchSMFF"
-          label="SMFF Services"
+          v-model="smff"
+          label="Capabilities"
           @click.stop="toggleSMFF"
         />
       </div>
@@ -123,8 +123,6 @@
       editedItem: {},
       msgBox: false,
       smff: null,
-      switchActive: false,
-      switchSMFF: false,
     }),
     computed: {
       tabs () {
@@ -218,12 +216,10 @@
         axios.get('vessels/' + this.$route.params.id)
           .then(res => {
             this.editedItem = res.data.data[0]
-            this.switchActive = this.editedItem.active
           })
         axios.get('vessels/' + this.$route.params.id + '/smff')
           .then(res => {
             this.smff = res.data.smff
-            this.switchSMFF = this.smff
           })
       },
       toggleStatus () {
