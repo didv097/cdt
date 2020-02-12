@@ -145,7 +145,7 @@
                         </v-icon>
                       </template>
                       <router-link
-                        v-if="vessel.item.vrp_plan_number>0"
+                        v-if="vessel.item.vrp_plan_number>0 && vessel.item.company.id>0"
                         class="table-link"
                         :to="'/companies/' + vessel.item.company.id"
                       >
