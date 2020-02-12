@@ -356,11 +356,6 @@
 </script>
 
 <style lang="sass">
-  #map
-    margin-top: 1rem
-    margin-bottom: 1rem
-    height: 200px
-    width: 100%
   .footer>.v-btn
     margin: 12px !important
   .leaflet-pane
