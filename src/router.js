@@ -171,6 +171,11 @@ export default new Router({
               path: 'info',
               component: () => import('@/views/dashboard/Individuals/view/Info'),
             },
+            {
+              name: 'Individual / Address',
+              path: 'address',
+              component: () => import('@/views/dashboard/Individuals/view/Address'),
+            },
           ],
         },
         {
