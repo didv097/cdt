@@ -177,7 +177,7 @@
           value: 'name',
         },
         {
-          text: 'Plan Number',
+          text: 'Plan',
           value: 'plan_number',
         },
         {

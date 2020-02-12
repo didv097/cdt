@@ -237,15 +237,15 @@
       search: '',
       headers: [
         {
-          text: 'Plan Holder Name',
+          text: 'Company',
           value: 'name',
         },
         {
-          text: 'Plan Number',
+          text: 'Plan',
           value: 'plan_number',
         },
         {
-          text: 'DJS Coverage?',
+          text: 'Status',
           value: 'djs_coverage',
         },
         {

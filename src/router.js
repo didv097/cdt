@@ -73,7 +73,7 @@ export default new Router({
             {
               name: 'Company / Affiliates',
               path: 'companies',
-              component: () => import('@/views/dashboard/Companies/view/OperatedCompanies'),
+              component: () => import('@/views/dashboard/Companies/view/Affiliates'),
             },
             {
               name: 'Company / Individuals',

@@ -4,12 +4,6 @@ export const companyFiles = {
       categories: {
         'Schedule A': [
           {
-            name: 'Non-Tank SMFF Annex',
-            code: 'nt-smff-annex',
-            count: 0,
-            generated: true,
-          },
-          {
             name: 'SCHEDULE A Non-Tank',
             code: 'schedule-a-non-tank',
             count: 0,
@@ -104,6 +98,12 @@ export const companyFiles = {
           {
             name: 'Tank SMFF Annex',
             code: 'tank-smff-annex',
+            count: 0,
+            generated: true,
+          },
+          {
+            name: 'Non-Tank SMFF Annex',
+            code: 'nt-smff-annex',
             count: 0,
             generated: true,
           },
