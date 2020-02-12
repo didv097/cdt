@@ -33,7 +33,7 @@
                 <v-btn
                   fab
                   small
-                  color="purple"
+                  color="accent"
                   @click="addAddress(addressesItem.id)"
                 >
                   <v-icon>
