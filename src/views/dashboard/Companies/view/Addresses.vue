@@ -147,46 +147,12 @@
                     >
                       Save
                     </v-btn>
-                    <v-dialog
-                      v-model="deleteMsg[address.id]"
-                      persistent
-                      max-width="500"
+                    <v-btn
+                      color="error"
+                      @click="deleteAddress(address)"
                     >
-                      <template v-slot:activator="{ on }">
-                        <v-btn
-                          color="error"
-                          dark
-                          v-on="on"
-                        >
-                          Delete
-                        </v-btn>
-                      </template>
-                      <v-card>
-                        <v-card-title class="headline">
-                          You are about to delete an address
-                        </v-card-title>
-                        <v-card-text>
-                          Please confirm that you would like to delete the following address: <b>{{ address.street + ' ' + address.city + ' ' + address.country }}</b>
-                        </v-card-text>
-                        <v-card-actions>
-                          <v-spacer />
-                          <v-btn
-                            color="primary"
-                            text
-                            @click="deleteMsg[address.id] = false"
-                          >
-                            Cancel
-                          </v-btn>
-                          <v-btn
-                            color="error"
-                            text
-                            @click="deleteAddress(address.id)"
-                          >
-                            Delete Address
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
+                      Delete Address
+                    </v-btn>
                     <v-spacer />
                     <v-btn
                       color="info"
@@ -266,7 +232,6 @@
       activeTab: 0,
       addressesItems: [],
       zones: [],
-      deleteMsg: {},
       showFormatForm: false,
       documentFormatAddress: {
         document_format: '',
@@ -297,16 +262,21 @@
       saveAddress (address) {
         axios.post('companies/addresses/' + address.id, { address: address })
           .then(res => {
-            this.getAddresses()
             this.showSnackBar(res.data.message, 'success')
+            this.getAddresses()
           })
       },
-      deleteAddress (id) {
-        axios.delete('companies/addresses/' + id)
+      deleteAddress (address) {
+        this.$confirm(`Please confirm that you would like to delete the following address:
+          <b>${address.street} ${address.city} ${address.country}</b>`, { title: 'Warning' })
           .then(res => {
-            this.deleteMsg[id] = false
-            this.getAddresses()
-            this.showSnackBar(res.data.message, 'success')
+            if (res) {
+              axios.delete('companies/addresses/' + address.id)
+                .then(res => {
+                  this.showSnackBar(res.data.message, 'success')
+                  this.getAddresses()
+                })
+            }
           })
       },
       showDocumentFormat (address) {

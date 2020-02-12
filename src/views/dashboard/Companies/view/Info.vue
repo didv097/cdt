@@ -170,46 +170,13 @@
         >
           Edit
         </v-btn>
-        <v-dialog
-          v-model="deleteMsg"
-          persistent
-          max-width="500"
+        <v-btn
+          color="error"
+          v-on="on"
+          @click="deleteCompany"
         >
-          <template v-slot:activator="{ on }">
-            <v-btn
-              color="error"
-              dark
-              v-on="on"
-            >
-              Delete
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title class="headline">
-              You are about to delete a company
-            </v-card-title>
-            <v-card-text>
-              Please confirm that you would like to delete the following company: <b>{{ editedItem.name }}</b>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn
-                color="primary"
-                text
-                @click="deleteMsg = false"
-              >
-                Cancel
-              </v-btn>
-              <v-btn
-                color="error"
-                text
-                @click="deleteCompany"
-              >
-                Delete Company
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+          Delete
+        </v-btn>
       </v-card-text>
     </base-material-card>
   </v-container>
@@ -226,7 +193,6 @@
       companyItems: [],
       pocItems: [],
       edit: false,
-      deleteMsg: false,
     }),
     mounted () {
       this.getDataFromApi()
@@ -275,11 +241,15 @@
           })
       },
       deleteCompany () {
-        axios.delete('companies/' + this.editedItem.id + '/destroy')
+        this.$confirm(`Please confirm that you would like to delete the following company: <b>${this.editedItem.name}</b>`, { title: 'Warning' })
           .then(res => {
-            this.$router.push('/companies')
+            if (res) {
+              axios.delete('companies/' + this.editedItem.id + '/destroy')
+                .then(res => {
+                  this.$router.push('/companies')
+                })
+            }
           })
-        this.deleteMsg = false
       },
     },
   }

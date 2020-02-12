@@ -523,47 +523,13 @@
         </div>
         <v-row class="footer">
           <v-spacer />
-          <v-dialog
+          <v-btn
             v-if="smff"
-            v-model="deleteMsg"
-            persistent
-            max-width="600"
+            color="error"
+            @click="deleteSMFF"
           >
-            <template v-slot:activator="{ on }">
-              <v-btn
-                color="error"
-                dark
-                v-on="on"
-              >
-                Delete
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-title class="headline">
-                You are about to delete the SMFF Services
-              </v-card-title>
-              <v-card-text>
-                Please confirm that you would like to <b>delete</b> the SMFF Services
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer />
-                <v-btn
-                  color="primary"
-                  text
-                  @click="deleteMsg = false"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                  color="error"
-                  text
-                  @click="deleteSMFF"
-                >
-                  Delete SMFF Services
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+            Delete
+          </v-btn>
           <v-btn
             v-if="smff"
             color="success"
@@ -596,141 +562,14 @@
 <script>
   import axios from 'axios'
   import { snackBar } from '@/mixins/snackBar'
+  import { serviceItems } from '@/mixins/serviceItems'
 
   export default {
-    mixins: [snackBar],
+    mixins: [snackBar, serviceItems],
     data: () => ({
       loading: false,
       networks: [],
       smff: {},
-      deleteMsg: false,
-      serviceItems: [
-        {
-          id: 'donjon_location',
-          name: 'Donjon Location',
-          db: 0,
-        },
-        {
-          id: 'smit_location',
-          name: 'SMIT Location',
-          db: 0,
-        },
-        {
-          id: 'all_services',
-          name: 'All Services',
-          db: 0,
-        },
-        {
-          id: 's_salvage',
-          name: 'Salvage',
-          db: 0,
-        },
-        {
-          id: 's_remote_assessment_and_consultation',
-          name: 'Remote assessment and consultation',
-          db: 1,
-        },
-        {
-          id: 's_begin_assessment_of_structural_stability',
-          name: 'Begin assessment of structural stability',
-          db: 1,
-        },
-        {
-          id: 's_onsite_salvage_assessment',
-          name: 'On-site salvage assessment',
-          db: 1,
-        },
-        {
-          id: 's_assessment_of_structural_stability',
-          name: 'Assessment of structural stability',
-          db: 1,
-        },
-        {
-          id: 's_hull_and_bottom_survey',
-          name: 'Hull and bottom survey',
-          db: 1,
-        },
-        {
-          id: 's_emergency_towing',
-          name: 'Emergency towing',
-          db: 1,
-        },
-        {
-          id: 's_salvage_plan',
-          name: 'Salvage plan',
-          db: 1,
-        },
-        {
-          id: 's_external_emergency_transfer_operations',
-          name: 'External emergency transfer operations',
-          db: 1,
-        },
-        {
-          id: 's_emergency_lightering',
-          name: 'Emergency lightering',
-          db: 1,
-        },
-        {
-          id: 's_other_refloating_methods',
-          name: 'Other refloating methods',
-          db: 1,
-        },
-        {
-          id: 's_making_temporary_repairs',
-          name: 'Making temporary repairs',
-          db: 1,
-        },
-        {
-          id: 's_diving_services_support',
-          name: 'Diving services support',
-          db: 1,
-        },
-        {
-          id: 's_special_salvage_operations_plan',
-          name: 'Special salvage operations plan',
-          db: 1,
-        },
-        {
-          id: 's_subsurface_product_removal',
-          name: 'Subsurface product removal',
-          db: 1,
-        },
-        {
-          id: 's_heavy_lift',
-          name: 'Heavy lift',
-          db: 1,
-        },
-        {
-          id: 'm_firefighting',
-          name: 'Firefighting',
-          db: 0,
-        },
-        {
-          id: 'mff_remote_assessment_and_consultation',
-          name: 'Remote assessment and consultation',
-          db: 1,
-        },
-        {
-          id: 'mff_onsite_fire_assessment',
-          name: 'On-site fire assessment',
-          db: 1,
-        },
-        {
-          id: 'mff_external_firefighting_teams',
-          name: 'External firefighting teams',
-          db: 1,
-        },
-        {
-          id: 'mff_external_vessel_firefighting_systems',
-          name: 'External vessel firefighting systems',
-          db: 1,
-        },
-        {
-          id: 'acd_logistics_asset',
-          name: 'Logistics Asset',
-          db: 1,
-        },
-      ],
     }),
     mounted () {
       this.getDataFromApi()
@@ -748,19 +587,28 @@
       createSMFF () {
         axios.post('vessels/' + this.$route.params.id + '/smff/create')
           .then(res => {
-            this.getDataFromApi()
             this.showSnackBar(res.data.message, 'success')
+            this.getDataFromApi()
+          }).catch(error => {
+            if (error.response && error.response.data) {
+              this.showSnackBar(error.response.data.message, 'error')
+            }
           })
       },
       deleteSMFF () {
-        this.loading = true
-        axios.delete('vessels/' + this.$route.params.id + '/smff')
+        this.$confirm('Please confirm that you would like to delete the SMFF Service', { title: 'Warning' })
           .then(res => {
-            this.networks.length = 0
-            this.smff = null
-            this.showSnackBar(res.data.message, 'success')
-            this.loading = false
-            this.deleteMsg = false
+            if (res) {
+              axios.delete('vessels/' + this.$route.params.id + '/smff')
+                .then(res => {
+                  this.showSnackBar(res.data.message, 'success')
+                  this.getDataFromApi()
+                }).catch(error => {
+                  if (error.response && error.response.data) {
+                    this.showSnackBar(error.response.data.message, 'error')
+                  }
+                })
+            }
           })
       },
       saveSMFF () {
@@ -772,8 +620,7 @@
           .then(res => {
             this.getDataFromApi()
             this.showSnackBar(res.data.message, 'success')
-          })
-          .catch(error => {
+          }).catch(error => {
             if (error.response && error.response.data) {
               this.showSnackBar(error.response.data.message, 'error')
             }

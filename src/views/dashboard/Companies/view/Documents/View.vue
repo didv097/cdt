@@ -41,7 +41,6 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-btn
-                    text
                     icon
                     color="primary"
                     v-on="on"
@@ -57,11 +56,10 @@
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-btn
-                    text
                     icon
                     color="error"
                     v-on="on"
-                    @click="fileToDelete = file.item.name, deleteMsg = true"
+                    @click="deleteFile(file.item)"
                   >
                     <v-icon size="24">
                       mdi-delete
@@ -75,37 +73,6 @@
         </template>
       </v-data-table>
     </base-material-card>
-    <v-dialog
-      v-model="deleteMsg"
-      persistent
-      max-width="500"
-    >
-      <v-card>
-        <v-card-title class="headline">
-          You are about to delete a file
-        </v-card-title>
-        <v-card-text>
-          Please confirm that you would like to delete the following file: <b>{{ fileToDelete }}</b>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            text
-            @click="deleteMsg = false"
-          >
-            Cancel
-          </v-btn>
-          <v-btn
-            color="error"
-            text
-            @click="deleteFile"
-          >
-            Delete File
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <base-material-snackbar
       v-model="snackbar"
       :color="snackbarColor"
@@ -146,8 +113,6 @@
         uploadingFile: false,
         directory: {},
         files: [],
-        fileToDelete: '',
-        deleteMsg: false,
       }
     },
     computed: {
@@ -196,13 +161,17 @@
           this.getFiles()
         })
       },
-      deleteFile () {
-        axios.delete('companies/' + this.$route.params.id + '/documents/' + this.directory.code + '/' + this.fileToDelete + '/destroy')
+      deleteFile (file) {
+        this.$confirm(`Please confirm that you would like to delete the following file: <b>${file.name}</b>`, { title: 'Warning' })
           .then(res => {
-            this.showSnackBar(res.data.message, 'success')
-            this.getFiles()
+            if (res) {
+              axios.delete('companies/' + this.$route.params.id + '/documents/' + this.directory.code + '/' + file.name + '/destroy')
+                .then(res => {
+                  this.showSnackBar(res.data.message, 'success')
+                  this.getFiles()
+                })
+            }
           })
-        this.deleteMsg = false
       },
       downloadFile (file) {
         axios.get('companies/' + this.$route.params.id + '/documents/' + this.directory.code + '/' + file.name + '/download')
