@@ -31,12 +31,13 @@
               <v-row>
                 <v-spacer />
                 <v-btn
-                  icon
-                  color="primary"
+                  fab
+                  small
+                  color="purple"
                   @click="addAddress(addressesItem.id)"
                 >
-                  <v-icon size="32">
-                    mdi-plus-circle-outline
+                  <v-icon>
+                    mdi-map-marker-plus
                   </v-icon>
                 </v-btn>
               </v-row>

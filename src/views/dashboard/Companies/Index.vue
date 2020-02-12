@@ -261,7 +261,6 @@
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
           this.loading = false
-          console.log(this.companies)
         } catch (error) {
           // console.error(error)
         }

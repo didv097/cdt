@@ -39,8 +39,8 @@
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <h3
-            v-on="on"
             class="display-2 title-ellipsis"
+            v-on="on"
           >
             {{ editedItem.name }}
           </h3>
@@ -143,7 +143,7 @@
       tabs () {
         return [
           {
-            title: 'Information',
+            title: 'General',
             icon: 'mdi-information',
             to: '/companies/' + this.$route.params.id + '/info',
           },

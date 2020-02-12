@@ -128,7 +128,7 @@
       tabs () {
         return [
           {
-            title: 'Information',
+            title: 'General',
             icon: 'mdi-information',
             to: '/vessels/' + this.$route.params.id + '/info',
           },

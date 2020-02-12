@@ -21,7 +21,7 @@
           <v-col>
             <div class="input-container">
               <h4 class="input-label">
-                <v-icon>mdi-file-document-edit</v-icon>
+                <v-icon>mdi-counter</v-icon>
                 Plan Number:
               </h4>
               <v-text-field
@@ -77,7 +77,7 @@
           <v-col>
             <div class="input-container">
               <h4 class="input-label">
-                <v-icon>mdi-file-document-edit</v-icon>
+                <v-icon>mdi-clipboard-account</v-icon>
                 QI:
               </h4>
               <v-autocomplete
@@ -124,7 +124,7 @@
           <v-col>
             <div class="input-container">
               <h4 class="input-label">
-                <v-icon>mdi-domain</v-icon>
+                <v-icon>mdi-account-star</v-icon>
                 Company POC:
               </h4>
               <v-autocomplete
