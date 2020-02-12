@@ -177,7 +177,6 @@
           .then(res => {
             this.address = res.data
             this.loading = false
-            console.log(this.address)
           })
       },
       saveAddress () {

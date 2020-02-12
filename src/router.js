@@ -176,6 +176,11 @@ export default new Router({
               path: 'address',
               component: () => import('@/views/dashboard/Individuals/view/Address'),
             },
+            {
+              name: 'Individual / SMFF Capabilities',
+              path: 'smff',
+              component: () => import('@/views/dashboard/Individuals/view/SMFF'),
+            },
           ],
         },
         {

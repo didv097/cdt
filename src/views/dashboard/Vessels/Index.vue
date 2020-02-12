@@ -279,7 +279,6 @@
             this.vessels = res.data.data
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
-          console.log(this.vessels)
         } catch (error) {
           // console.error(error)
         }
