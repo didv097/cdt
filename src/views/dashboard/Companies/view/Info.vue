@@ -172,7 +172,6 @@
         </v-btn>
         <v-btn
           color="error"
-          v-on="on"
           @click="deleteCompany"
         >
           Delete

@@ -133,7 +133,6 @@
                 <span v-if="company.item.coverage===1">DJS Coverage</span>
                 <span v-else>No DJS Coverage</span>
                 <span v-if="company.item.response===1"> and Responder</span>
-                <span v-else> and no Responder</span>
               </v-tooltip>
             </td>
             <td>{{ company.item.stats.individuals }}</td>
@@ -182,7 +181,7 @@
           value: 'plan_number',
         },
         {
-          text: 'DJS Coverage?',
+          text: 'Status',
           value: 'djs_coverage',
         },
         {
@@ -262,6 +261,7 @@
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
           this.loading = false
+          console.log(this.companies)
         } catch (error) {
           // console.error(error)
         }

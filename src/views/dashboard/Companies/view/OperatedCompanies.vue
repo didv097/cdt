@@ -121,7 +121,6 @@
                 <span v-if="company.item.coverage===1">DJS Coverage</span>
                 <span v-else>No DJS Coverage</span>
                 <span v-if="company.item.response===1"> and Responder</span>
-                <span v-else> and no Responder</span>
               </v-tooltip>
             </td>
             <td>{{ company.item.stats.individuals }}</td>
