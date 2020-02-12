@@ -153,8 +153,8 @@
             to: '/companies/' + this.$route.params.id + '/addresses',
           },
           {
-            title: 'Plan Holder',
-            icon: 'mdi-lan',
+            title: 'VRP',
+            icon: 'mdi-notebook',
             to: '/companies/' + this.$route.params.id + '/plan',
           },
           {

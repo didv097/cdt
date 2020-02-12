@@ -61,9 +61,9 @@ export default new Router({
               component: () => import('@/views/dashboard/Companies/view/Addresses'),
             },
             {
-              name: 'Company / Plan Holder',
+              name: 'Company / VRP',
               path: 'plan',
-              component: () => import('@/views/dashboard/Companies/view/PlanHolder'),
+              component: () => import('@/views/dashboard/Companies/view/VRP'),
             },
             {
               name: 'Company / Capabilities',
