@@ -9,7 +9,6 @@
         <base-material-tabs
           v-model="activeTab"
           color="info"
-          icons-and-text
           :fixed-tabs="$vuetify.breakpoint.smAndUp"
           show-arrows
           height="36"
@@ -19,9 +18,6 @@
             :key="addressesItem.id"
           >
             <span>
-              <v-icon>
-                {{ addressesItem.icon }}
-              </v-icon>
               {{ addressesItem.name }}
             </span>
           </v-tab>
