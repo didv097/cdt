@@ -191,6 +191,11 @@ export default new Router({
               path: 'notes',
               component: () => import('@/views/dashboard/Individuals/view/Notes'),
             },
+            {
+              name: 'Individual / Change Password',
+              path: 'change-password',
+              component: () => import('@/views/dashboard/Individuals/view/ChangePassword'),
+            },
           ],
         },
         {
