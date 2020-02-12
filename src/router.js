@@ -186,6 +186,11 @@ export default new Router({
               path: 'documents',
               component: () => import('@/views/dashboard/Individuals/view/Documents'),
             },
+            {
+              name: 'Individual / Notes',
+              path: 'notes',
+              component: () => import('@/views/dashboard/Individuals/view/Notes'),
+            },
           ],
         },
         {
