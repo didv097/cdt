@@ -36,9 +36,17 @@
         </template>
         <span>Upload/Change Image</span>
       </v-tooltip>
-      <h3 class="display-2">
-        {{ editedItem.first_name + ' ' + editedItem.last_name }}
-      </h3>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <h3
+            class="display-2 title-ellipsis"
+            v-on="on"
+          >
+            {{ editedItem.first_name + ' ' + editedItem.last_name }}
+          </h3>
+        </template>
+        <span>{{ editedItem.first_name + ' ' + editedItem.last_name }}</span>
+      </v-tooltip>
       <div class="detail-status">
         <v-badge
           bottom

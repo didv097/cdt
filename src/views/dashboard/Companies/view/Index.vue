@@ -47,7 +47,6 @@
         </template>
         <span>{{ editedItem.name }}</span>
       </v-tooltip>
-
       <div class="detail-status">
         <v-switch
           v-model="editedItem.active"
@@ -102,7 +101,7 @@
         :value="smff"
       >
         <template v-slot:badge>
-          <v-icon dark>
+          <v-icon>
             mdi-star
           </v-icon>
         </template>
