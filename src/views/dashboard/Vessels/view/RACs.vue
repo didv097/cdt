@@ -9,8 +9,11 @@
     <base-material-card
       color="primary"
       title="Vessel RAC Information"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-card-text>
         <v-select
           v-model="year"

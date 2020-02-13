@@ -3,8 +3,11 @@
     <base-material-card
       color="primary"
       title="Company Files"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-expansion-panels
         accordion
         flat

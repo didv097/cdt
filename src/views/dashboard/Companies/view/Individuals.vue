@@ -3,8 +3,11 @@
     <base-material-card
       color="primary"
       title="Individuals"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"

@@ -9,8 +9,11 @@
     <base-material-card
       color="primary"
       title="Drawings"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-card-text>
         <v-btn
           color="secondary"

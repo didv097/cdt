@@ -9,8 +9,11 @@
     <base-material-card
       color="primary"
       title="Fire Plans"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-card-text>
         <v-btn
           color="secondary"

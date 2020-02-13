@@ -26,7 +26,7 @@ import VuetifyConfirm from 'vuetify-confirm'
 import axios from 'axios'
 // import cookies from 'js-cookie'
 
-axios.defaults.baseURL = 'http://35.184.79.169/api/'
+axios.defaults.baseURL = 'https://cdt-api-dev.httpsolutions.com/api/'
 axios.defaults.headers.common.Authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8zNS4xODQuNzkuMTY5XC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNTgwMzA5Nzk4LCJleHAiOjE1ODgxOTM3OTgsIm5iZiI6MTU4MDMwOTc5OCwianRpIjoiTlBXRHRrOEpjRDZQOGkwbSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.ZS2RroktCTAbuo5ReQCg2L0Jl9Jk04yu24-IT8YT7j4'
 // console.log(cookies)
 // const token = cookies.get('x-access-token')

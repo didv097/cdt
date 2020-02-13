@@ -3,8 +3,11 @@
     <base-material-card
       color="primary"
       title="SMFF Capabilities"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-card-text>
         <v-expansion-panels
           v-if="smff"

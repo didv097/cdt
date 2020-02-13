@@ -9,8 +9,11 @@
     <base-material-card
       color="primary"
       title="Damage Stability Models"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-card-text>
         <v-btn
           color="secondary"

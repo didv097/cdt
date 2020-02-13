@@ -3,8 +3,11 @@
     <base-material-card
       color="primary"
       title="General Information"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-card-text>
         <v-row>
           <v-col

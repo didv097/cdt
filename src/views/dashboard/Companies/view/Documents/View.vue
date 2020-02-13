@@ -9,8 +9,11 @@
     <base-material-card
       color="primary"
       :title="'Company Files / ' + directory.name"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-btn
         color="secondary"
         class="file-upload"

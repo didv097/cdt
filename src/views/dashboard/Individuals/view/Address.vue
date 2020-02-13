@@ -3,8 +3,11 @@
     <base-material-card
       color="primary"
       title="Individual Address"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-card-text>
         <l-map
           v-if="address.latitude && address.longitude"

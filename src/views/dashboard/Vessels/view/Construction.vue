@@ -3,8 +3,11 @@
     <base-material-card
       color="primary"
       title="Vessel Construction"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <v-card-text>
         <base-material-tabs
           v-model="activeTab"

@@ -2,8 +2,11 @@
   <v-container>
     <base-material-card
       color="primary"
-      :loading="loading"
     >
+      <v-progress-linear
+        v-if="loading"
+        indeterminate
+      />
       <template v-slot:heading>
         <div class="display-1 font-weight-light">
           Salvage and Marine Firefighting Services and Other Capabilities
