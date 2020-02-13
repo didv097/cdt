@@ -31,20 +31,6 @@
               v-for="addressesItem in addressesItems"
               :key="addressesItem.id"
             >
-              <v-row>
-                <v-spacer />
-                <v-btn
-                  fab
-                  small
-                  color="secondary"
-                  class="accent--text"
-                  @click="addAddress(addressesItem.id)"
-                >
-                  <v-icon>
-                    mdi-map-marker-plus
-                  </v-icon>
-                </v-btn>
-              </v-row>
               <div
                 v-if="addressesItem.addresses.length > 0"
               >
@@ -189,14 +175,35 @@
                   </v-row>
                 </div>
               </div>
-              <div v-else>
-                <base-material-alert
-                  color="warning"
-                  dark
-                >
-                  No Addresses Defined
-                </base-material-alert>
-              </div>
+              <base-material-alert
+                v-else
+                color="warning"
+                dark
+              >
+                No Addresses Defined
+              </base-material-alert>
+              <v-row>
+                <v-spacer />
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      fab
+                      small
+                      color="secondary"
+                      class="accent--text"
+                      @click="addAddress(addressesItem.id)"
+                      v-on="on"
+                    >
+                      <v-icon>
+                        mdi-map-marker-plus
+                      </v-icon>
+                    </v-btn>
+                  </template>
+                  Add Address
+                </v-tooltip>
+
+                <v-spacer />
+              </v-row>
             </v-tab-item>
           </v-tabs-items>
         </base-material-tabs>

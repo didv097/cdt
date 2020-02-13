@@ -73,7 +73,7 @@
               :items="qiItems"
               item-text="name"
               item-value="id"
-              label="QI:"
+              label="QI Company:"
               prepend-icon="mdi-clipboard-account"
               :readonly="!edit"
             />
