@@ -49,35 +49,6 @@
       </v-tooltip>
 
       <div class="detail-status">
-        <v-badge
-          bottom
-          bordered
-          overlap
-          color="orange"
-          :value="smff"
-        >
-          <template v-slot:badge>
-            <v-icon dark>
-              mdi-star
-            </v-icon>
-          </template>
-          <span>
-            <v-icon
-              v-if="editedItem.active"
-              color="success"
-              size="30"
-            >
-              mdi-shield-check
-            </v-icon>
-            <v-icon
-              v-else
-              color="error"
-              size="30"
-            >
-              mdi-shield-off
-            </v-icon>
-          </span>
-        </v-badge>
         <v-switch
           v-model="editedItem.active"
           label="Coverage Active"
@@ -122,6 +93,37 @@
     >
       {{ snackbarText }}
     </base-material-snackbar>
+    <div class="statusicon-container">
+      <v-badge
+        bottom
+        bordered
+        overlap
+        color="orange"
+        :value="smff"
+      >
+        <template v-slot:badge>
+          <v-icon dark>
+            mdi-star
+          </v-icon>
+        </template>
+        <span>
+          <v-icon
+            v-if="editedItem.active"
+            color="success"
+            size="30"
+          >
+            mdi-shield-check
+          </v-icon>
+          <v-icon
+            v-else
+            color="error"
+            size="30"
+          >
+            mdi-shield-off
+          </v-icon>
+        </span>
+      </v-badge>
+    </div>
   </v-container>
 </template>
 
@@ -260,3 +262,17 @@
     },
   }
 </script>
+
+<style lang="sass">
+  .statusicon-container
+    right: 50px
+    bottom: 50px
+    position: fixed
+    width: 70px
+    height: 70px
+    border-radius: 50%
+    background: black
+    padding-left: 20px
+    padding-top: 20px
+    z-index: 1
+</style>
