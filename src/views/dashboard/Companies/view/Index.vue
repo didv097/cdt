@@ -50,7 +50,7 @@
       <div class="detail-status">
         <v-switch
           v-model="editedItem.active"
-          label="Coverage Active"
+          label="Coverage"
           @click.stop="toggleStatus"
         />
         <v-switch
@@ -270,7 +270,6 @@
     width: 70px
     height: 70px
     border-radius: 50%
-    background: black
     padding-left: 20px
     padding-top: 20px
     z-index: 1

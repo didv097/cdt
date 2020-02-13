@@ -79,7 +79,7 @@
         </v-badge>
         <v-switch
           v-model="editedItem.active"
-          label="Coverage Active"
+          label="Coverage"
           @click.stop="toggleStatus"
         />
         <v-switch
