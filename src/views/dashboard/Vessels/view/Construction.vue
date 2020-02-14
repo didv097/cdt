@@ -17,14 +17,10 @@
           height="36"
         >
           <v-tab>
-            <span class="tab-item">
-              Vessel Relationships
-            </span>
+            Vessel Relationships
           </v-tab>
           <v-tab>
-            <span class="tab-item">
-              Dimensions
-            </span>
+            Dimensions
           </v-tab>
           <v-tabs-items
             v-model="activeTab"
@@ -144,9 +140,6 @@
 </script>
 
 <style lang="sass">
-  .tab-item
-    display: flex
-    margin: 0 !important
   .tabs-container
     margin-top: 2rem
 </style>

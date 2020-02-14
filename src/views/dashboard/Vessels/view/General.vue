@@ -17,24 +17,16 @@
           height="36"
         >
           <v-tab>
-            <span class="tab-item">
-              Vessel Data
-            </span>
+            Vessel Data
           </v-tab>
           <v-tab>
-            <span class="tab-item">
-              Plan Data
-            </span>
+            Plan Data
           </v-tab>
           <v-tab>
-            <span class="tab-item">
-              VRP
-            </span>
+            VRP
           </v-tab>
           <v-tab>
-            <span class="tab-item">
-              Communications
-            </span>
+            Communications
           </v-tab>
           <v-tabs-items
             v-model="activeTab"
@@ -484,9 +476,6 @@
 </script>
 
 <style lang="sass">
-  .tab-item
-    display: flex
-    margin: 0 !important
   .tabs-container
     margin-top: 2rem
   .vessel-info-heading
