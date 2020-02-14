@@ -12,24 +12,17 @@
         <base-material-tabs
           v-model="activeTab"
           color="info"
-          icons-and-text
           :fixed-tabs="$vuetify.breakpoint.smAndUp"
           show-arrows
           height="36"
         >
           <v-tab>
             <span class="tab-item">
-              <v-icon>
-                mdi-ferry
-              </v-icon>
               Vessel Relationships
             </span>
           </v-tab>
           <v-tab>
             <span class="tab-item">
-              <v-icon>
-                mdi-ruler
-              </v-icon>
               Dimensions
             </span>
           </v-tab>
