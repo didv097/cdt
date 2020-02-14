@@ -261,11 +261,11 @@
           value: 'imo',
         },
         {
-          text: 'Official Number',
+          text: 'Official #',
           value: 'official_number',
         },
         {
-          text: 'DJS Coverage?',
+          text: 'Status',
           value: 'djs_coverage',
         },
         {
@@ -273,7 +273,7 @@
           value: 'vessel_type',
         },
         {
-          text: 'Plan Number',
+          text: 'Plan',
           value: 'plan_number',
         },
         {

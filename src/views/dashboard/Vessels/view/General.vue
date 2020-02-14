@@ -12,40 +12,27 @@
         <base-material-tabs
           v-model="activeTab"
           color="info"
-          icons-and-text
           :fixed-tabs="$vuetify.breakpoint.smAndUp"
           show-arrows
           height="36"
         >
           <v-tab>
             <span class="tab-item">
-              <v-icon>
-                mdi-ferry
-              </v-icon>
               Vessel Data
             </span>
           </v-tab>
           <v-tab>
             <span class="tab-item">
-              <v-icon>
-                mdi-projector-screen
-              </v-icon>
               Plan Data
             </span>
           </v-tab>
           <v-tab>
             <span class="tab-item">
-              <v-icon>
-                mdi-hospital-box
-              </v-icon>
-              Class and Insurance
+              VRP
             </span>
           </v-tab>
           <v-tab>
             <span class="tab-item">
-              <v-icon>
-                mdi-forum
-              </v-icon>
               Communications
             </span>
           </v-tab>
@@ -70,12 +57,12 @@
                   cols="12"
                   sm="6"
                 >
-                  <v-select
+                  <v-autocomplete
                     v-model="editedItem.vessel_type_id"
                     :items="vesselTypeItems"
                     item-text="name"
                     item-value="id"
-                    prepend-icon="mdi-arrow-up-down"
+                    prepend-icon="mdi-tag"
                     label="Vessel Type"
                   />
                 </v-col>
@@ -118,7 +105,7 @@
                   <v-text-field
                     v-model="editedItem.deck_area"
                     type="number"
-                    prepend-icon="mdi-sort-numeric"
+                    prepend-icon="mdi-texture-box"
                     label="Deck Area (sq meters)"
                   />
                 </v-col>
@@ -137,8 +124,9 @@
                   cols="12"
                   sm="6"
                 >
-                  <v-text-field
+                  <v-select
                     v-model="editedItem.oil_group"
+                    :items="['I', 'II', 'III', 'IV', 'V']"
                     prepend-icon="mdi-oil"
                     label="Oil Group"
                   />
@@ -147,8 +135,9 @@
                   cols="12"
                   sm="6"
                 >
-                  <v-checkbox
+                  <v-switch
                     v-model="editedItem.tanker"
+                    color="info"
                     label="Is Tank Vessel"
                   />
                 </v-col>
@@ -156,16 +145,6 @@
             </v-tab-item>
             <v-tab-item>
               <v-row>
-                <v-col
-                  cols="12"
-                  sm="6"
-                >
-                  <v-text-field
-                    v-model="editedItem.plan_number"
-                    prepend-icon="mdi-file-document-edit"
-                    label="Plan Number"
-                  />
-                </v-col>
                 <v-col
                   cols="12"
                   sm="6"
@@ -211,10 +190,6 @@
                     label="Operating Company"
                   />
                 </v-col>
-              </v-row>
-            </v-tab-item>
-            <v-tab-item>
-              <v-row>
                 <v-col
                   cols="12"
                   sm="6"
@@ -226,7 +201,7 @@
                     item-value="id"
                     multiple
                     clearable
-                    prepend-icon="mdi-book-variant"
+                    prepend-icon="mdi-axis-arrow-lock"
                     label="Classification Society"
                   />
                 </v-col>
@@ -241,7 +216,7 @@
                     item-value="id"
                     multiple
                     clearable
-                    prepend-icon="mdi-shield"
+                    prepend-icon="mdi-engine"
                     label="H & M Insurer"
                   />
                 </v-col>
@@ -256,7 +231,7 @@
                     item-value="id"
                     multiple
                     clearable
-                    prepend-icon="mdi-shield"
+                    prepend-icon="mdi-chart-bell-curve"
                     label="Damage Stability Provider"
                   />
                 </v-col>
@@ -271,8 +246,23 @@
                     item-value="id"
                     multiple
                     clearable
-                    prepend-icon="mdi-file-document-edit"
+                    prepend-icon="mdi-umbrella"
                     label="P & I Club"
+                  />
+                </v-col>
+              </v-row>
+            </v-tab-item>
+            <v-tab-item>
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                >
+                  <v-text-field
+                    v-model="editedItem.plan_number"
+                    prepend-icon="mdi-file-document-edit"
+                    label="Plan Number"
+                    readonly
                   />
                 </v-col>
               </v-row>
