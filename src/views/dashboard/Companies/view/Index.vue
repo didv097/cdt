@@ -100,7 +100,7 @@
         >
           <template v-slot:image>
             <v-img
-              :src="coverPhoto ? coverPhoto : '@/assets/default-avatar.png'"
+              :src="coverPhoto ? coverPhoto : require('@/assets/default-avatar.png')"
             />
           </template>
           <template v-slot:reveal-actions>
