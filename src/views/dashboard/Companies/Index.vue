@@ -49,7 +49,7 @@
               small
               class="mr-2"
               v-on="on"
-              @click="addDlg = true"
+              @click="addDlg.show = true"
             >
               <v-icon size="28">
                 mdi-plus-circle-outline
@@ -277,6 +277,132 @@
         </template>
       </v-data-table>
     </base-material-card>
+    <v-dialog
+      v-model="addDlg.show"
+      max-width="700"
+    >
+      <validation-observer v-slot="{ valid }">
+        <base-material-wizard
+          v-model="addDlg.tab"
+          :available-steps="availableSteps"
+          :items="addDlg.tabs"
+          class="mx-auto"
+          @click:next="addDlgNextTab(valid)"
+          @click:prev="addDlg.tab--"
+        >
+          <v-tab-item>
+            <form>
+              <div class="text-center display-1 font-weight-light mb-6">
+                Let's start with basic information (with validation)
+              </div>
+              <v-row
+                class="mx-auto"
+                justify="space-around"
+              >
+                <v-col
+                  cols="auto"
+                  class="text-center"
+                >
+                  <input
+                    ref="file"
+                    type="file"
+                    class="d-none"
+                    @change="newPhotoChange"
+                  >
+                  <v-card
+                    :class="addDlg.image ? 'success--text' : 'grey--text'"
+                    class="mx-auto mt-0 d-inline-flex v-card--account"
+                    outlined
+                    height="106"
+                    width="106"
+                    @click="$refs.file.click()"
+                  >
+                    <v-img
+                      v-if="addDlg.image"
+                      :src="addDlg.image"
+                      height="100%"
+                      width="100%"
+                    />
+                    <v-icon
+                      v-else
+                      class="mx-auto"
+                      size="96"
+                    >
+                      mdi-account
+                    </v-icon>
+                  </v-card>
+
+                  <div class="font-weight-bold grey--text">
+                    CHOOSE PICTURE
+                  </div>
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <validation-provider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="Company Name"
+                  >
+                    <v-text-field
+                      v-model="addDlg.company.name"
+                      :error-messages="errors"
+                      label="Company Name *"
+                      prepend-icon="mdi-domain"
+                      validate-on-blur
+                    />
+                  </validation-provider>
+
+                  <validation-provider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="Plan Number"
+                  >
+                    <v-text-field
+                      v-model="addDlg.company.plan_number"
+                      :error-messages="errors"
+                      label="Plan Number *"
+                      prepend-icon="mdi-counter"
+                      validate-on-blur
+                    />
+                  </validation-provider>
+                </v-col>
+                <v-col cols="12">
+                  <v-autocomplete
+                    v-model="addDlg.company.qi_id"
+                    :items="qiItems"
+                    item-text="name"
+                    item-value="id"
+                    label="QI Company"
+                    prepend-icon="mdi-clipboard-account"
+                    clearable
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-autocomplete
+                    v-model="addDlg.company.operating_company_id"
+                    :items="companyItems"
+                    item-text="name"
+                    item-value="id"
+                    label="Operating Company"
+                    prepend-icon="mdi-domain"
+                    clearable
+                  />
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field
+                    v-model="addDlg.company.website"
+                    label="Website"
+                    prepend-icon="mdi-web"
+                  />
+                </v-col>
+              </v-row>
+            </form>
+          </v-tab-item>
+        </base-material-wizard>
+      </validation-observer>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -346,11 +472,32 @@
       total: 0,
       searchTimeout: null,
       advancedSearch: false,
-      addDlg: false,
+      addDlg: {
+        show: false,
+        tab: 0,
+        tabs: ['Information', 'Address', 'Other Details'],
+        company: {
+          name: '',
+          plan_number: null,
+          email: '',
+          phone: '',
+          fax: '',
+          notes: '',
+          qi_id: null,
+          operating_company_id: null,
+          active: true,
+        },
+      },
+      qiItems: [],
+      companyItems: [],
     }),
     computed: {
       computedHeaders () {
         return this.headers
+      },
+      availableSteps () {
+        const steps = [0, 1, 2, 3]
+        return steps
       },
     },
     watch: {
@@ -379,6 +526,14 @@
       axios.get('networks/short')
         .then(res => {
           this.networkItems = res.data.data
+        })
+      axios.get('companies/short')
+        .then(res => {
+          this.companyItems = res.data.data
+        })
+      axios.get('vendors/qi')
+        .then(res => {
+          this.qiItems = res.data.data
         })
       await this.getDataFromApi()
     },
@@ -421,6 +576,15 @@
         }
         return ''
       },
+      addDlgNextTab (valid) {
+        // axios.post('companies/create', this.addDlg.company)
+        //   .then(res => {
+        //     console.log(res)
+        //   }).catch(error => {
+        //     console.log(error)
+        //   })
+      },
+      newPhotoChange () {},
     },
   }
 </script>
