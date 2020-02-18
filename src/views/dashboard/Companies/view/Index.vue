@@ -95,8 +95,31 @@
       >
         <base-material-card
           class="v-card-profile"
-          :avatar="coverPhoto ? coverPhoto : require('@/assets/default-avatar.png')"
+          image
+          hover-reveal
         >
+          <template v-slot:image>
+            <v-img
+              :src="coverPhoto ? coverPhoto : '@/assets/default-avatar.png'"
+            />
+          </template>
+          <template v-slot:reveal-actions>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  color="secondary"
+                  icon
+                  v-on="on"
+                  @click="$refs.file.click()"
+                >
+                  <v-icon>
+                    mdi-pencil
+                  </v-icon>
+                </v-btn>
+              </template>
+              Upload/Change Image
+            </v-tooltip>
+          </template>
           <v-card-text class="text-center">
             <h6 class="display-1 mb-1 grey--text">
               {{ editedItem.plan_number }}
