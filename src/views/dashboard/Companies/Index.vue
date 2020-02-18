@@ -250,9 +250,15 @@
                 <span v-if="company.item.response===1"> and Responder</span>
               </v-tooltip>
             </td>
-            <td>{{ company.item.stats.individuals }}</td>
-            <td>{{ company.item.stats.vessels }}</td>
-            <td>{{ company.item.vrp_stats.vessels }}</td>
+            <td class="d-none d-sm-table-cell">
+              {{ company.item.stats.individuals }}
+            </td>
+            <td class="d-none d-sm-table-cell">
+              {{ company.item.stats.vessels }}
+            </td>
+            <td class="d-none d-sm-table-cell">
+              {{ company.item.vrp_stats.vessels }}
+            </td>
             <td>
               <v-tooltip
                 v-if="getFlagPath(company.item)!==''"
@@ -418,30 +424,37 @@
         {
           text: 'Company',
           value: 'name',
+          showOnMobile: true,
         },
         {
           text: 'Plan',
           value: 'plan_number',
+          showOnMobile: true,
         },
         {
           text: 'Status',
           value: 'djs_coverage',
+          showOnMobile: true,
         },
         {
           text: 'Individuals',
           value: 'individuals',
+          showOnMobile: false,
         },
         {
           text: 'DJS Vessels',
           value: 'djs_vessels',
+          showOnMobile: false,
         },
         {
           text: 'VRP Vessels',
           value: 'vrp_vessels',
+          showOnMobile: false,
         },
         {
           text: 'Country',
           value: 'country',
+          showOnMobile: true,
         },
       ],
       statusItems: [
@@ -493,7 +506,7 @@
     }),
     computed: {
       computedHeaders () {
-        return this.headers
+        return this.headers.filter(item => !this.$vuetify.breakpoint.xs || item.showOnMobile)
       },
       availableSteps () {
         const steps = [0, 1, 2, 3]
