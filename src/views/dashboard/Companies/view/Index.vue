@@ -82,7 +82,63 @@
         <v-icon v-text="tab.icon" />
       </v-tab>
     </base-material-tabs>
-    <router-view />
+    <v-row>
+      <v-col
+        cols="12"
+        sm="8"
+      >
+        <router-view />
+      </v-col>
+      <v-col
+        cols="12"
+        sm="4"
+      >
+        <base-material-card
+          class="v-card-profile"
+          :avatar="coverPhoto ? coverPhoto : require('@/assets/default-avatar.png')"
+        >
+          <v-card-text class="text-center">
+            <h6 class="display-1 mb-1 grey--text">
+              {{ editedItem.plan_number }}
+            </h6>
+            <h4 class="display-2 font-weight-light mb-3 black--text">
+              {{ editedItem.name }}
+            </h4>
+            <p class="font-weight-light grey--text">
+              {{ editedItem.description }}
+            </p>
+            <h6 class="display-1 mb-1 black--text">
+              {{ editedItem.website }}
+            </h6>
+          </v-card-text>
+        </base-material-card>
+        <base-material-card
+          color="primary"
+          icon="mdi-checkbox-multiple-marked"
+        >
+          <template v-slot:after-heading>
+            <div class="display-1 mt-2">
+              Activate Options
+            </div>
+          </template>
+          <v-switch
+            v-model="editedItem.active"
+            label="Donjon-SMIT SMFF Coverage Active"
+            @click.stop="toggleStatus"
+          />
+          <v-switch
+            v-model="smff"
+            label="SMFF and Other Capabilities"
+            @click.stop="toggleSMFF"
+          />
+          <v-switch
+            v-model="vendor"
+            label="Vendor"
+            @click.stop="toggleVendor"
+          />
+        </base-material-card>
+      </v-col>
+    </v-row>
     <base-material-snackbar
       v-model="snackbar"
       :color="snackbarColor"
