@@ -6,65 +6,6 @@
       class="d-none"
       @change="uploadPhoto"
     >
-    <div
-      class="detail-header"
-    >
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-card
-            width="52"
-            height="52"
-            outlined
-            class="detail-avartar"
-            v-on="on"
-            @click="$refs.file.click()"
-          >
-            <v-img
-              v-if="coverPhoto"
-              :src="coverPhoto"
-              height="100%"
-              width="100%"
-            />
-            <v-icon
-              v-else
-              class="mx-auto"
-              size="48"
-            >
-              mdi-domain
-            </v-icon>
-          </v-card>
-        </template>
-        <span>Upload/Change Image</span>
-      </v-tooltip>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <h3
-            class="display-2 title-ellipsis"
-            v-on="on"
-          >
-            {{ editedItem.name }}
-          </h3>
-        </template>
-        <span>{{ editedItem.name }}</span>
-      </v-tooltip>
-      <div class="detail-status">
-        <v-switch
-          v-model="editedItem.active"
-          label="Coverage"
-          @click.stop="toggleStatus"
-        />
-        <v-switch
-          v-model="smff"
-          label="Capabilities"
-          @click.stop="toggleSMFF"
-        />
-        <v-switch
-          v-model="vendor"
-          label="Vendor"
-          @click.stop="toggleVendor"
-        />
-      </div>
-    </div>
     <base-material-tabs
       v-model="activeTab"
       background-color="transparent"
@@ -96,6 +37,7 @@
         <base-material-card
           class="v-card-profile"
           image
+          color="white"
           hover-reveal
         >
           <template v-slot:image>
@@ -300,6 +242,8 @@
           },
         ).then(res => {
           this.getCover()
+        }).catch(error => {
+          this.showSnackBar(error, 'error')
         })
       },
       getDataFromApi () {
