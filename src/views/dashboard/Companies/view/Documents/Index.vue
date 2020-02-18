@@ -1,47 +1,45 @@
 <template>
-  <v-container>
-    <base-material-card
-      color="primary"
-      title="Company Files"
+  <base-material-card
+    color="primary"
+    title="Company Files"
+  >
+    <v-progress-linear
+      v-if="loading"
+      indeterminate
+    />
+    <v-expansion-panels
+      accordion
+      flat
     >
-      <v-progress-linear
-        v-if="loading"
-        indeterminate
-      />
-      <v-expansion-panels
-        accordion
-        flat
+      <v-expansion-panel
+        v-for="(category, i) in Object.keys(categories)"
+        :key="i"
       >
-        <v-expansion-panel
-          v-for="(category, i) in Object.keys(categories)"
-          :key="i"
+        <v-expansion-panel-header
+          class="doc-expansion-header"
         >
-          <v-expansion-panel-header
-            class="doc-expansion-header"
+          {{ category }}
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-row
+            v-for="dir in categories[category]"
+            :key="dir.code"
           >
-            {{ category }}
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <v-row
-              v-for="dir in categories[category]"
-              :key="dir.code"
-            >
-              <v-col>
-                <router-link
-                  :to="'/companies/' + $route.params.id + '/documents/' + dir.code"
-                >
-                  {{ dir.name }}
-                </router-link>
-              </v-col>
-              <v-col>
-                {{ dir.count }}
-              </v-col>
-            </v-row>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </base-material-card>
-  </v-container>
+            <v-col>
+              <router-link
+                :to="'/companies/' + $route.params.id + '/documents/' + dir.code"
+              >
+                {{ dir.name }}
+              </router-link>
+            </v-col>
+            <v-col>
+              {{ dir.count }}
+            </v-col>
+          </v-row>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+  </base-material-card>
 </template>
 
 <script>

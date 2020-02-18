@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <base-material-card
       color="primary"
       title="Address"
@@ -248,7 +248,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script>

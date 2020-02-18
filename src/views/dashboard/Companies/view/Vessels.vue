@@ -1,246 +1,244 @@
 <template>
-  <v-container>
-    <base-material-card
-      color="primary"
-      title="Vessels"
+  <base-material-card
+    color="primary"
+    title="Vessels"
+  >
+    <v-progress-linear
+      v-if="loading"
+      indeterminate
+    />
+    <v-text-field
+      v-model="search"
+      append-icon="mdi-magnify"
+      class="ml-auto"
+      label="Search"
+      hide-details
+      single-line
+      style="max-width: 250px;"
+    />
+
+    <v-divider class="mt-3" />
+
+    <v-data-table
+      :headers="computedHeaders"
+      :items="vessels"
+      :options.sync="options"
+      :server-items-length="total"
     >
-      <v-progress-linear
-        v-if="loading"
-        indeterminate
-      />
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        class="ml-auto"
-        label="Search"
-        hide-details
-        single-line
-        style="max-width: 250px;"
-      />
-
-      <v-divider class="mt-3" />
-
-      <v-data-table
-        :headers="computedHeaders"
-        :items="vessels"
-        :options.sync="options"
-        :server-items-length="total"
-      >
-        <template v-slot:item="vessel">
-          <tr>
-            <td>
-              <router-link
-                class="table-link"
-                :to="'/vessels/' + vessel.item.id"
-              >
-                {{ vessel.item.name }}
-              </router-link>
-            </td>
-            <td>
-              <v-tooltip right>
-                <template v-slot:activator="{ on }">
-                  <span
-                    dark
-                    v-on="on"
+      <template v-slot:item="vessel">
+        <tr>
+          <td>
+            <router-link
+              class="table-link"
+              :to="'/vessels/' + vessel.item.id"
+            >
+              {{ vessel.item.name }}
+            </router-link>
+          </td>
+          <td>
+            <v-tooltip right>
+              <template v-slot:activator="{ on }">
+                <span
+                  dark
+                  v-on="on"
+                >
+                  <v-badge
+                    slot="activator"
+                    :color="vessel.item.vrp_status==='Authorized' ? 'success' : 'error'"
+                    :value="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"
                   >
-                    <v-badge
-                      slot="activator"
-                      :color="vessel.item.vrp_status==='Authorized' ? 'success' : 'error'"
-                      :value="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"
-                    >
-                      <template v-slot:badge>
-                        <v-icon dark>
-                          {{ vessel.item.vrp_status==='Authorized' ? 'mdi-check' : 'mdi-close' }}
-                        </v-icon>
-                      </template>
-                      {{ vessel.item.imo }}
-                    </v-badge>
-                  </span>
-                </template>
-                <span>{{ vessel.item.vrp_status }}</span>
-              </v-tooltip>
-            </td>
-            <td>{{ vessel.item.office_number ? vessel.item.office_number : '-' }}</td>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span
-                    dark
-                    v-on="on"
-                  >
-                    <v-badge
-                      slot="activator"
-                      bottom
-                      bordered
-                      overlap
-                      color="orange"
-                      :value="vessel.item.response===1"
-                    >
-                      <template v-slot:badge>
-                        <v-icon dark>mdi-star</v-icon>
-                      </template>
-                      <span>
-                        <v-icon
-                          v-if="vessel.item.coverage===1"
-                          size="30"
-                          color="success"
-                        >
-                          mdi-shield-check
-                        </v-icon>
-                        <v-icon
-                          v-else
-                          size="30"
-                          color="error"
-                        >
-                          mdi-shield-off
-                        </v-icon>
-                      </span>
-                    </v-badge>
-                  </span>
-                </template>
-                <span v-if="vessel.item.coverage===1">DJS Coverage</span>
-                <span v-else>No DJS Coverage</span>
-                <span v-if="vessel.item.response===1"> and Responder</span>
-              </v-tooltip>
-            </td>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span
-                    dark
-                    v-on="on"
-                  >
-                    <v-badge
-                      slot="activator"
-                      right
-                      :color="vessel.item.tanker ? 'black' : 'blue'"
-                    >
-                      <template v-slot:badge>
-                        <v-icon dark>
-                          {{ vessel.item.tanker ? 'mdi-water' : 'mdi-water-off' }}
-                        </v-icon>
-                      </template>
-                      <span>
-                        {{ vessel.item.type }}
-                      </span>
-                    </v-badge>
-                  </span>
-                </template>
-                <span>{{ vessel.item.tanker ? 'Tank' : 'Non Tank' }}</span>
-              </v-tooltip>
-            </td>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span
-                    dark
-                    v-on="on"
-                  >
-                    <v-badge
-                      slot="activator"
-                      :color="vessel.item.vrp_status==='Authorized' ? 'success' : 'error'"
-                      :value="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"
-                    >
-                      <template v-slot:badge>
-                        <v-icon dark>
-                          {{ vessel.item.vrp_status==='Authorized' ? 'mdi-check' : 'mdi-close' }}
-                        </v-icon>
-                      </template>
-                      <router-link
-                        v-if="vessel.item.vrp_plan_number>0 && vessel.item.company.id>0"
-                        class="table-link"
-                        :to="'/companies/' + vessel.item.company.id"
-                      >
-                        {{ vessel.item.vrp_plan_number }}
-                      </router-link>
-                      <span v-else>{{ vessel.item.vrp_plan_number }}</span>
-                    </v-badge>
-                  </span>
-                </template>
-                <span>{{ vessel.item.vrp_status }}</span>
-              </v-tooltip>
-            </td>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    icon
-                    color="primary"
-                    :to="'/vessels/'+vessel.item.id"
-                    v-on="on"
-                  >
-                    <v-icon>mdi-eye</v-icon>
-                  </v-btn>
-                </template>
-                <span>View Detail</span>
-              </v-tooltip>
-              <v-dialog
-                v-model="deleteMsg[vessel.item.id]"
-                persistent
-                max-width="600"
-              >
-                <template v-slot:activator="{ on: dialog }">
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on: tooltip }">
-                      <v-btn
-                        color="error"
-                        icon
-                        v-on="{ ...tooltip, ...dialog }"
-                      >
-                        <v-icon>mdi-delete</v-icon>
-                      </v-btn>
+                    <template v-slot:badge>
+                      <v-icon dark>
+                        {{ vessel.item.vrp_status==='Authorized' ? 'mdi-check' : 'mdi-close' }}
+                      </v-icon>
                     </template>
-                    <span>Delete</span>
-                  </v-tooltip>
-                </template>
-                <v-card>
-                  <v-card-title class="headline">
-                    You are about to delete or unlink a vessel
-                  </v-card-title>
-                  <v-card-text>
-                    Please confirm that you would like to delete or unlink the following vessel: <b>{{ vessel.item.name }}</b>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-spacer />
-                    <v-btn
-                      color="warning"
-                      text
-                      @click="unlinkVessel(vessel.item.id)"
+                    {{ vessel.item.imo }}
+                  </v-badge>
+                </span>
+              </template>
+              <span>{{ vessel.item.vrp_status }}</span>
+            </v-tooltip>
+          </td>
+          <td>{{ vessel.item.office_number ? vessel.item.office_number : '-' }}</td>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <span
+                  dark
+                  v-on="on"
+                >
+                  <v-badge
+                    slot="activator"
+                    bottom
+                    bordered
+                    overlap
+                    color="orange"
+                    :value="vessel.item.response===1"
+                  >
+                    <template v-slot:badge>
+                      <v-icon dark>mdi-star</v-icon>
+                    </template>
+                    <span>
+                      <v-icon
+                        v-if="vessel.item.coverage===1"
+                        size="30"
+                        color="success"
+                      >
+                        mdi-shield-check
+                      </v-icon>
+                      <v-icon
+                        v-else
+                        size="30"
+                        color="error"
+                      >
+                        mdi-shield-off
+                      </v-icon>
+                    </span>
+                  </v-badge>
+                </span>
+              </template>
+              <span v-if="vessel.item.coverage===1">DJS Coverage</span>
+              <span v-else>No DJS Coverage</span>
+              <span v-if="vessel.item.response===1"> and Responder</span>
+            </v-tooltip>
+          </td>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <span
+                  dark
+                  v-on="on"
+                >
+                  <v-badge
+                    slot="activator"
+                    right
+                    :color="vessel.item.tanker ? 'black' : 'blue'"
+                  >
+                    <template v-slot:badge>
+                      <v-icon dark>
+                        {{ vessel.item.tanker ? 'mdi-water' : 'mdi-water-off' }}
+                      </v-icon>
+                    </template>
+                    <span>
+                      {{ vessel.item.type }}
+                    </span>
+                  </v-badge>
+                </span>
+              </template>
+              <span>{{ vessel.item.tanker ? 'Tank' : 'Non Tank' }}</span>
+            </v-tooltip>
+          </td>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <span
+                  dark
+                  v-on="on"
+                >
+                  <v-badge
+                    slot="activator"
+                    :color="vessel.item.vrp_status==='Authorized' ? 'success' : 'error'"
+                    :value="vessel.item.vrp_status==='Authorized' || vessel.item.vrp_status==='Not Authorized'"
+                  >
+                    <template v-slot:badge>
+                      <v-icon dark>
+                        {{ vessel.item.vrp_status==='Authorized' ? 'mdi-check' : 'mdi-close' }}
+                      </v-icon>
+                    </template>
+                    <router-link
+                      v-if="vessel.item.vrp_plan_number>0 && vessel.item.company.id>0"
+                      class="table-link"
+                      :to="'/companies/' + vessel.item.company.id"
                     >
-                      Remove Link
-                    </v-btn>
+                      {{ vessel.item.vrp_plan_number }}
+                    </router-link>
+                    <span v-else>{{ vessel.item.vrp_plan_number }}</span>
+                  </v-badge>
+                </span>
+              </template>
+              <span>{{ vessel.item.vrp_status }}</span>
+            </v-tooltip>
+          </td>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  icon
+                  color="primary"
+                  :to="'/vessels/'+vessel.item.id"
+                  v-on="on"
+                >
+                  <v-icon>mdi-eye</v-icon>
+                </v-btn>
+              </template>
+              <span>View Detail</span>
+            </v-tooltip>
+            <v-dialog
+              v-model="deleteMsg[vessel.item.id]"
+              persistent
+              max-width="600"
+            >
+              <template v-slot:activator="{ on: dialog }">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on: tooltip }">
                     <v-btn
                       color="error"
-                      text
-                      @click="deleteVessel(vessel.item.id)"
+                      icon
+                      v-on="{ ...tooltip, ...dialog }"
                     >
-                      Delete Vessel
+                      <v-icon>mdi-delete</v-icon>
                     </v-btn>
-                    <v-btn
-                      color="primary"
-                      text
-                      @click="deleteMsg[vessel.item.id] = false"
-                    >
-                      Cancel
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-      <base-material-snackbar
-        v-model="snackbar"
-        :color="snackbarColor"
-        bottom
-        right
-        :type="null"
-      >
-        {{ snackbarText }}
-      </base-material-snackbar>
-    </base-material-card>
-  </v-container>
+                  </template>
+                  <span>Delete</span>
+                </v-tooltip>
+              </template>
+              <v-card>
+                <v-card-title class="headline">
+                  You are about to delete or unlink a vessel
+                </v-card-title>
+                <v-card-text>
+                  Please confirm that you would like to delete or unlink the following vessel: <b>{{ vessel.item.name }}</b>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn
+                    color="warning"
+                    text
+                    @click="unlinkVessel(vessel.item.id)"
+                  >
+                    Remove Link
+                  </v-btn>
+                  <v-btn
+                    color="error"
+                    text
+                    @click="deleteVessel(vessel.item.id)"
+                  >
+                    Delete Vessel
+                  </v-btn>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="deleteMsg[vessel.item.id] = false"
+                  >
+                    Cancel
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
+    <base-material-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      bottom
+      right
+      :type="null"
+    >
+      {{ snackbarText }}
+    </base-material-snackbar>
+  </base-material-card>
 </template>
 
 <script>

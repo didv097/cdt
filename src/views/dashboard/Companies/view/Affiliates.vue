@@ -1,233 +1,231 @@
 <template>
-  <v-container>
-    <base-material-card
-      color="primary"
-      title="Affiliates"
+  <base-material-card
+    color="primary"
+    title="Affiliates"
+  >
+    <v-progress-linear
+      v-if="loading"
+      indeterminate
+    />
+    <v-text-field
+      v-model="search"
+      append-icon="mdi-magnify"
+      class="ml-auto"
+      label="Search"
+      hide-details
+      single-line
+      style="max-width: 250px;"
+    />
+
+    <v-divider class="mt-3" />
+
+    <v-data-table
+      :headers="computedHeaders"
+      :items="companies"
+      :options.sync="options"
+      :server-items-length="total"
     >
-      <v-progress-linear
-        v-if="loading"
-        indeterminate
-      />
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        class="ml-auto"
-        label="Search"
-        hide-details
-        single-line
-        style="max-width: 250px;"
-      />
-
-      <v-divider class="mt-3" />
-
-      <v-data-table
-        :headers="computedHeaders"
-        :items="companies"
-        :options.sync="options"
-        :server-items-length="total"
-      >
-        <template v-slot:item="company">
-          <tr>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span
-                    dark
-                    v-on="on"
+      <template v-slot:item="company">
+        <tr>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <span
+                  dark
+                  v-on="on"
+                >
+                  <v-badge
+                    slot="activator"
+                    right
+                    :color="company.item.vrp_status === 'Authorized' ? 'success' : company.item.vrp_status === 'Not Authorized' ? 'error' : 'warning'"
                   >
-                    <v-badge
-                      slot="activator"
-                      right
-                      :color="company.item.vrp_status === 'Authorized' ? 'success' : company.item.vrp_status === 'Not Authorized' ? 'error' : 'warning'"
-                    >
-                      <template v-slot:badge>
-                        <v-icon dark>
-                          {{ company.item.vrp_status === 'Authorized' ? 'mdi-check' : company.item.vrp_status === 'Not Authorized' ? 'mdi-close' : 'mdi-link' }}
-                        </v-icon>
-                      </template>
-                      <span
-                        class="table-link"
-                        @click="editCompany(company.item)"
-                      >
-                        {{ company.item.name }}
-                      </span>
-                    </v-badge>
-                  </span>
-                </template>
-                <span>{{ company.item.vrp_status }}</span>
-              </v-tooltip>
-            </td>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span
-                    dark
-                    v-on="on"
-                  >
-                    <v-badge
-                      slot="activator"
-                      right
-                      :color="company.item.vrp_stats.plan_type==='Tank' ? 'black' : 'blue'"
-                      :value="company.item.vrp_stats.plan_type==='Tank' || company.item.vrp_stats.plan_type==='Non-Tank'"
-                    >
-                      <template v-slot:badge>
-                        <v-icon dark>
-                          {{ company.item.vrp_stats.plan_type==='Tank' ? 'mdi-water' : 'mdi-water-off' }}
-                        </v-icon>
-                      </template>
-                      <span>
-                        {{ company.item.plan_number }}
-                      </span>
-                    </v-badge>
-                  </span>
-                </template>
-                <span>{{ company.item.vrp_stats.plan_type }}</span>
-              </v-tooltip>
-            </td>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span
-                    dark
-                    v-on="on"
-                  >
-                    <v-badge
-                      slot="activator"
-                      bottom
-                      bordered
-                      overlap
-                      color="orange"
-                      :value="company.item.response===1"
-                    >
-                      <template v-slot:badge>
-                        <v-icon dark>mdi-star</v-icon>
-                      </template>
-                      <span>
-                        <v-icon
-                          v-if="company.item.coverage===1"
-                          color="success"
-                          size="30"
-                        >
-                          mdi-shield-check
-                        </v-icon>
-                        <v-icon
-                          v-else
-                          color="error"
-                          size="30"
-                        >
-                          mdi-shield-off
-                        </v-icon>
-                      </span>
-                    </v-badge>
-                  </span>
-                </template>
-                <span v-if="company.item.coverage===1">DJS Coverage</span>
-                <span v-else>No DJS Coverage</span>
-                <span v-if="company.item.response===1"> and Responder</span>
-              </v-tooltip>
-            </td>
-            <td>{{ company.item.stats.individuals }}</td>
-            <td>{{ company.item.stats.vessels }}</td>
-            <td>{{ company.item.vrp_stats.vessels }}</td>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <span
-                    dark
-                    v-on="on"
-                  >
-                    <div v-if="getFlagPath(company.item)===''">-</div>
-                    <img
-                      v-else
-                      :alt="company.item.location"
-                      :src="getFlagPath(company.item)"
-                    >
-                  </span>
-                </template>
-                <span>{{ company.item.country }}</span>
-              </v-tooltip>
-            </td>
-            <td>
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    icon
-                    color="primary"
-                    :to="'/companies/'+company.item.id"
-                    v-on="on"
-                  >
-                    <v-icon>mdi-eye</v-icon>
-                  </v-btn>
-                </template>
-                <span>View Detail</span>
-              </v-tooltip>
-              <v-dialog
-                v-model="deleteMsg[company.item.id]"
-                persistent
-                max-width="600"
-              >
-                <template v-slot:activator="{ on: dialog }">
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on: tooltip }">
-                      <v-btn
-                        color="error"
-                        icon
-                        v-on="{ ...tooltip, ...dialog }"
-                      >
-                        <v-icon>mdi-delete</v-icon>
-                      </v-btn>
+                    <template v-slot:badge>
+                      <v-icon dark>
+                        {{ company.item.vrp_status === 'Authorized' ? 'mdi-check' : company.item.vrp_status === 'Not Authorized' ? 'mdi-close' : 'mdi-link' }}
+                      </v-icon>
                     </template>
-                    <span>Delete</span>
-                  </v-tooltip>
-                </template>
-                <v-card>
-                  <v-card-title class="headline">
-                    You are about to delete or unlink a company
-                  </v-card-title>
-                  <v-card-text>
-                    Please confirm that you would like to delete or unlink the following company: <b>{{ company.item.name }}</b>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-spacer />
-                    <v-btn
-                      color="warning"
-                      text
-                      @click="removeLink(company.item.id)"
+                    <span
+                      class="table-link"
+                      @click="editCompany(company.item)"
                     >
-                      Remove Link
-                    </v-btn>
+                      {{ company.item.name }}
+                    </span>
+                  </v-badge>
+                </span>
+              </template>
+              <span>{{ company.item.vrp_status }}</span>
+            </v-tooltip>
+          </td>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <span
+                  dark
+                  v-on="on"
+                >
+                  <v-badge
+                    slot="activator"
+                    right
+                    :color="company.item.vrp_stats.plan_type==='Tank' ? 'black' : 'blue'"
+                    :value="company.item.vrp_stats.plan_type==='Tank' || company.item.vrp_stats.plan_type==='Non-Tank'"
+                  >
+                    <template v-slot:badge>
+                      <v-icon dark>
+                        {{ company.item.vrp_stats.plan_type==='Tank' ? 'mdi-water' : 'mdi-water-off' }}
+                      </v-icon>
+                    </template>
+                    <span>
+                      {{ company.item.plan_number }}
+                    </span>
+                  </v-badge>
+                </span>
+              </template>
+              <span>{{ company.item.vrp_stats.plan_type }}</span>
+            </v-tooltip>
+          </td>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <span
+                  dark
+                  v-on="on"
+                >
+                  <v-badge
+                    slot="activator"
+                    bottom
+                    bordered
+                    overlap
+                    color="orange"
+                    :value="company.item.response===1"
+                  >
+                    <template v-slot:badge>
+                      <v-icon dark>mdi-star</v-icon>
+                    </template>
+                    <span>
+                      <v-icon
+                        v-if="company.item.coverage===1"
+                        color="success"
+                        size="30"
+                      >
+                        mdi-shield-check
+                      </v-icon>
+                      <v-icon
+                        v-else
+                        color="error"
+                        size="30"
+                      >
+                        mdi-shield-off
+                      </v-icon>
+                    </span>
+                  </v-badge>
+                </span>
+              </template>
+              <span v-if="company.item.coverage===1">DJS Coverage</span>
+              <span v-else>No DJS Coverage</span>
+              <span v-if="company.item.response===1"> and Responder</span>
+            </v-tooltip>
+          </td>
+          <td>{{ company.item.stats.individuals }}</td>
+          <td>{{ company.item.stats.vessels }}</td>
+          <td>{{ company.item.vrp_stats.vessels }}</td>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <span
+                  dark
+                  v-on="on"
+                >
+                  <div v-if="getFlagPath(company.item)===''">-</div>
+                  <img
+                    v-else
+                    :alt="company.item.location"
+                    :src="getFlagPath(company.item)"
+                  >
+                </span>
+              </template>
+              <span>{{ company.item.country }}</span>
+            </v-tooltip>
+          </td>
+          <td>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn
+                  icon
+                  color="primary"
+                  :to="'/companies/'+company.item.id"
+                  v-on="on"
+                >
+                  <v-icon>mdi-eye</v-icon>
+                </v-btn>
+              </template>
+              <span>View Detail</span>
+            </v-tooltip>
+            <v-dialog
+              v-model="deleteMsg[company.item.id]"
+              persistent
+              max-width="600"
+            >
+              <template v-slot:activator="{ on: dialog }">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on: tooltip }">
                     <v-btn
                       color="error"
-                      text
-                      @click="deleteCompany(company.item.id)"
+                      icon
+                      v-on="{ ...tooltip, ...dialog }"
                     >
-                      Delete Company
+                      <v-icon>mdi-delete</v-icon>
                     </v-btn>
-                    <v-btn
-                      color="primary"
-                      text
-                      @click="deleteMsg[company.item.id] = false"
-                    >
-                      Cancel
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </td>
-          </tr>
-        </template>
-      </v-data-table>
-      <base-material-snackbar
-        v-model="snackbar"
-        :color="snackbarColor"
-        bottom
-        right
-        :type="null"
-      >
-        {{ snackbarText }}
-      </base-material-snackbar>
-    </base-material-card>
-  </v-container>
+                  </template>
+                  <span>Delete</span>
+                </v-tooltip>
+              </template>
+              <v-card>
+                <v-card-title class="headline">
+                  You are about to delete or unlink a company
+                </v-card-title>
+                <v-card-text>
+                  Please confirm that you would like to delete or unlink the following company: <b>{{ company.item.name }}</b>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn
+                    color="warning"
+                    text
+                    @click="removeLink(company.item.id)"
+                  >
+                    Remove Link
+                  </v-btn>
+                  <v-btn
+                    color="error"
+                    text
+                    @click="deleteCompany(company.item.id)"
+                  >
+                    Delete Company
+                  </v-btn>
+                  <v-btn
+                    color="primary"
+                    text
+                    @click="deleteMsg[company.item.id] = false"
+                  >
+                    Cancel
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </td>
+        </tr>
+      </template>
+    </v-data-table>
+    <base-material-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      bottom
+      right
+      :type="null"
+    >
+      {{ snackbarText }}
+    </base-material-snackbar>
+  </base-material-card>
 </template>
 
 <script>

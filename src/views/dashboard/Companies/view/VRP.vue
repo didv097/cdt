@@ -1,73 +1,71 @@
 <template>
-  <v-container>
-    <base-material-card
-      color="primary"
-    >
-      <v-progress-linear
-        v-if="loading"
-        indeterminate
-      />
-      <template v-slot:heading>
-        <div class="display-1 font-weight-light">
-          VRP Express Information (Imported)
-        </div>
+  <base-material-card
+    color="primary"
+  >
+    <v-progress-linear
+      v-if="loading"
+      indeterminate
+    />
+    <template v-slot:heading>
+      <div class="display-1 font-weight-light">
+        VRP Express Information (Imported)
+      </div>
 
-        <div class="subtitle-1 font-weight-light">
-          Plan number must be entered under General tab
-        </div>
-      </template>
-      <v-card-text v-if="planHolder">
-        <v-row>
-          <v-col
-            v-for="(item, i) in fieldData"
-            :key="i"
-            cols="12"
-            sm="6"
+      <div class="subtitle-1 font-weight-light">
+        Plan number must be entered under General tab
+      </div>
+    </template>
+    <v-card-text v-if="planHolder">
+      <v-row>
+        <v-col
+          v-for="(item, i) in fieldData"
+          :key="i"
+          cols="12"
+          sm="6"
+        >
+          <v-text-field
+            v-model="planHolder[item.att]"
+            :label="item.label"
+          />
+        </v-col>
+      </v-row>
+      <v-expansion-panels
+        accordion
+        flat
+      >
+        <v-expansion-panel>
+          <v-expansion-panel-header
+            class="display-2 secondary--text"
           >
-            <v-text-field
-              v-model="planHolder[item.att]"
-              :label="item.label"
-            />
-          </v-col>
-        </v-row>
-        <v-expansion-panels
-          accordion
-          flat
-        >
-          <v-expansion-panel>
-            <v-expansion-panel-header
-              class="display-2 secondary--text"
-            >
-              Plan Holder Address
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <v-row>
-                <v-col
-                  v-for="(item, i) in fieldData1"
-                  :key="i"
-                  cols="12"
-                  sm="6"
-                >
-                  <v-text-field
-                    v-model="planHolder[item.att]"
-                    :label="item.label"
-                  />
-                </v-col>
-              </v-row>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
-      </v-card-text>
-      <v-card-text v-else>
-        <base-material-alert
-          color="warning"
-          dark
-        >
-          No VRP Link
-        </base-material-alert>
-      </v-card-text>
-    </base-material-card>
-  </v-container>
+            Plan Holder Address
+          </v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-row>
+              <v-col
+                v-for="(item, i) in fieldData1"
+                :key="i"
+                cols="12"
+                sm="6"
+              >
+                <v-text-field
+                  v-model="planHolder[item.att]"
+                  :label="item.label"
+                />
+              </v-col>
+            </v-row>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-card-text>
+    <v-card-text v-else>
+      <base-material-alert
+        color="warning"
+        dark
+      >
+        No VRP Link
+      </base-material-alert>
+    </v-card-text>
+  </base-material-card>
 </template>
 
 <script>
