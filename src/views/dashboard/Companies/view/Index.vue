@@ -244,6 +244,7 @@
             },
           },
         ).then(res => {
+          this.showSnackBar(res.data.message, 'success')
           this.getCover()
         }).catch(error => {
           this.showSnackBar(error, 'error')
