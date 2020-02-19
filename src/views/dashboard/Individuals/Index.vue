@@ -56,7 +56,7 @@
               </v-icon>
             </v-btn>
           </template>
-          <span>Add Company</span>
+          <span>Add Individual</span>
         </v-tooltip>
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
@@ -72,7 +72,7 @@
               </v-icon>
             </v-btn>
           </template>
-          <span>Upload Companies</span>
+          <span>Upload Individuals</span>
         </v-tooltip>
       </v-row>
 
@@ -201,15 +201,288 @@
         </template>
       </v-data-table>
     </base-material-card>
+    <v-dialog
+      v-model="addDlg.show"
+      max-width="700"
+    >
+      <validation-observer v-slot="{ valid }">
+        <base-material-wizard
+          v-model="addDlg.tab"
+          :available-steps="availableSteps"
+          :items="addDlg.tabs"
+          class="mx-auto"
+          @click:next="addDlgNextTab(valid)"
+          @click:prev="addDlg.tab--"
+        >
+          <v-tab-item>
+            <form>
+              <v-row
+                class="mx-auto"
+                justify="space-around"
+              >
+                <v-col
+                  cols="12"
+                >
+                  <validation-provider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="Title"
+                  >
+                    <v-select
+                      v-model="addDlg.user.title"
+                      :items="['Mr', 'Mrs', 'Ms']"
+                      :error-messages="errors"
+                      label="Title *"
+                      prepend-icon="mdi-account"
+                      validate-on-blur
+                    />
+                  </validation-provider>
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <validation-provider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="First Name"
+                  >
+                    <v-text-field
+                      v-model="addDlg.user.first_name"
+                      :error-messages="errors"
+                      label="First Name *"
+                      prepend-icon="mdi-account"
+                      validate-on-blur
+                    />
+                  </validation-provider>
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <validation-provider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="Last Name"
+                  >
+                    <v-text-field
+                      v-model="addDlg.user.last_name"
+                      :error-messages="errors"
+                      label="Last Name *"
+                      prepend-icon="mdi-account"
+                      validate-on-blur
+                    />
+                  </validation-provider>
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.suffix"
+                    label="Suffix"
+                    prepend-icon="mdi-account"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.username"
+                    label="User Name"
+                    prepend-icon="mdi-account"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.password"
+                    label="Password"
+                    prepend-icon="mdi-lock"
+                    type="password"
+                    autocomplete="off"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.password_confirmation"
+                    label="Confirm Password"
+                    prepend-icon="mdi-lock"
+                    type="password"
+                    autocomplete="off"
+                  />
+                </v-col>
+              </v-row>
+            </form>
+          </v-tab-item>
+          <v-tab-item>
+            <form>
+              <v-row>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.street"
+                    label="Street"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.unit"
+                    label="Unit"
+                    type="number"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.city"
+                    label="City"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.state"
+                    label="State/Province"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.country"
+                    label="Country"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.zip"
+                    label="Zip"
+                    type="number"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.homeNumber"
+                    label="Home Number"
+                    type="number"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.mobileNumber"
+                    label="Mobile Number"
+                    type="number"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.email"
+                    label="Email"
+                    type="email"
+                  />
+                </v-col>
+              </v-row>
+            </form>
+          </v-tab-item>
+          <v-tab-item>
+            <form>
+              <v-row>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-autocomplete
+                    v-model="addDlg.user.role"
+                    :items="roleItems"
+                    item-text="name"
+                    item-value="id"
+                    label="Role"
+                    clearable
+                    multiple
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                  md="6"
+                >
+                  <v-autocomplete
+                    v-model="addDlg.user.company"
+                    :items="companyItems"
+                    item-text="name"
+                    item-value="id"
+                    label="Company"
+                    clearable
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                >
+                  <v-text-field
+                    v-model="addDlg.user.occupation"
+                    label="Occupation"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
+                >
+                  <v-textarea
+                    v-model="addDlg.user.comments"
+                    label="Comments"
+                    multiline
+                  />
+                </v-col>
+              </v-row>
+            </form>
+          </v-tab-item>
+        </base-material-wizard>
+      </validation-observer>
+    </v-dialog>
+    <base-material-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      bottom
+      right
+      :type="null"
+    >
+      {{ snackbarText }}
+    </base-material-snackbar>
   </v-container>
 </template>
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
-    name: 'Individuals',
-
+    mixins: [snackBar],
     data: () => ({
       search: '',
       headers: [
@@ -258,11 +531,39 @@
         show: false,
         tab: 0,
         tabs: ['Personal', 'Contact', 'Professional'],
+        user: {
+          image: '',
+          first_name: '',
+          last_name: '',
+          title: '',
+          suffix: '',
+          username: '',
+          password: '',
+          password_confirmation: '',
+          street: '',
+          unit: '',
+          city: '',
+          state: '',
+          country: '',
+          zip: '',
+          homeNumber: '',
+          mobileNumber: '',
+          email: '',
+          company: '',
+          role: [],
+          occupation: '',
+          resume_cv: '',
+          comments: '',
+        },
       },
     }),
     computed: {
       computedHeaders () {
         return this.headers
+      },
+      availableSteps () {
+        const steps = [0, 1, 2, 3]
+        return steps
       },
     },
     watch: {
@@ -323,6 +624,22 @@
           // console.error(error)
         }
         this.loading = false
+      },
+      addDlgNextTab (valid) {
+        if (!valid) return
+
+        if (this.addDlg.tab === this.addDlg.tabs.length - 1) {
+          this.addDlg.show = false
+          axios.post('users/create', this.addDlg.user)
+            .then(res => {
+              this.showSnackBar(res.data.message, 'success')
+              this.getDataFromApi()
+            }).catch(error => {
+              this.showSnackBar(error, 'error')
+            })
+        } else {
+          this.addDlg.tab++
+        }
       },
     },
   }
