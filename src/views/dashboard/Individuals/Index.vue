@@ -49,7 +49,7 @@
               small
               class="mr-2"
               v-on="on"
-              @click="addDlg.show = true"
+              @click="addDlg.show = true, addDlg.user = Object.assign({}, addDlg.defaultUser)"
             >
               <v-icon size="28">
                 mdi-plus-circle-outline
@@ -548,6 +548,30 @@
         tab: 0,
         tabs: ['Personal', 'Contact', 'Professional'],
         user: {
+          image: '',
+          first_name: '',
+          last_name: '',
+          title: '',
+          suffix: '',
+          username: '',
+          password: '',
+          password_confirmation: '',
+          street: '',
+          unit: '',
+          city: '',
+          state: '',
+          country: '',
+          zip: '',
+          homeNumber: '',
+          mobileNumber: '',
+          email: '',
+          company: '',
+          role: [],
+          occupation: '',
+          resume_cv: '',
+          comments: '',
+        },
+        defaultUser: {
           image: '',
           first_name: '',
           last_name: '',
