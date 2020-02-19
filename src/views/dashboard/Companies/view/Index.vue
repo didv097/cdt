@@ -35,7 +35,7 @@
         sm="4"
       >
         <base-material-card
-          class="v-card-profile"
+          class="v-card-profile cdt-info-card"
           image
           color="white"
           hover-reveal
@@ -63,18 +63,22 @@
             </v-tooltip>
           </template>
           <v-card-text class="text-center">
-            <h6 class="display-1 mb-1 grey--text">
-              {{ editedItem.plan_number }}
-            </h6>
             <h4 class="display-2 font-weight-light mb-3 black--text">
               {{ editedItem.name }}
             </h4>
-            <p class="font-weight-light grey--text">
+            <h6 class="display-1 mb-1 grey--text">
+              {{ editedItem.plan_number }}
+            </h6>
+            <p class="display-1 font-weight-light grey--text">
               {{ editedItem.description }}
             </p>
-            <h6 class="display-1 mb-1 black--text">
+            <a
+              class="display-1 mb-1 black--text"
+              :href="editedItem.website"
+              target="_blank"
+            >
               {{ editedItem.website }}
-            </h6>
+            </a>
           </v-card-text>
         </base-material-card>
         <base-material-card
