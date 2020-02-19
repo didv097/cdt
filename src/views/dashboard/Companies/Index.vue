@@ -118,7 +118,7 @@
             :items="resourceProviderItems"
             item-text="text"
             item-value="value"
-            label="Resource Provier"
+            label="Resource Provider"
             prepend-icon="mdi-hard-hat"
           />
         </v-col>

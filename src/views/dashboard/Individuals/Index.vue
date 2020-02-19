@@ -14,15 +14,132 @@
         </div>
       </template>
 
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        class="ml-auto"
-        label="Search"
-        hide-details
-        single-line
-        style="max-width: 250px;"
-      />
+      <v-row align="end">
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          class="ml-auto mr-3"
+          label="Search"
+          hide-details
+          single-line
+          style="max-width: 200px;"
+        />
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              icon
+              color="primary"
+              small
+              class="mr-2"
+              v-on="on"
+              @click="advancedSearch = !advancedSearch"
+            >
+              <v-icon size="28">
+                mdi-table-search
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>Advanced Search</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              icon
+              color="warning"
+              small
+              class="mr-2"
+              v-on="on"
+              @click="addDlg.show = true"
+            >
+              <v-icon size="28">
+                mdi-plus-circle-outline
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>Add Company</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              icon
+              color="error"
+              small
+              class="mr-3"
+              v-on="on"
+            >
+              <v-icon size="28">
+                mdi-upload
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>Upload Companies</span>
+        </v-tooltip>
+      </v-row>
+
+      <v-row v-if="advancedSearch">
+        <v-col
+          cols="12"
+          class="display-2"
+        >
+          Advanced Search
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-select
+            v-model="staticSearch.active"
+            :items="statusItems"
+            item-text="text"
+            item-value="value"
+            label="Status"
+            prepend-icon="mdi-check"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-select
+            v-model="staticSearch.resource_provider"
+            :items="resourceProviderItems"
+            item-text="text"
+            item-value="value"
+            label="Resource Provider"
+            prepend-icon="mdi-hard-hat"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.companies"
+            :items="companyItems"
+            item-text="name"
+            item-value="id"
+            label="Companies"
+            prepend-icon="mdi-domain"
+            multiple
+            clearable
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.roles"
+            :items="roleItems"
+            item-text="name"
+            item-value="id"
+            label="Roles"
+            prepend-icon="mdi-account-lock"
+            multiple
+            clearable
+          />
+        </v-col>
+      </v-row>
 
       <v-divider class="mt-3" />
 
@@ -124,6 +241,24 @@
       options: {},
       loading: false,
       searchTimeout: null,
+      advancedSearch: false,
+      statusItems: [
+        { text: 'All', value: -1 },
+        { text: 'Active', value: 1 },
+        { text: 'Inactive', value: 0 },
+      ],
+      resourceProviderItems: [
+        { text: 'All', value: -1 },
+        { text: 'Provider', value: 1 },
+        { text: 'Non-provider', value: 0 },
+      ],
+      companyItems: [],
+      roleItems: [],
+      addDlg: {
+        show: false,
+        tab: 0,
+        tabs: ['Personal', 'Contact', 'Professional'],
+      },
     }),
     computed: {
       computedHeaders () {
@@ -145,8 +280,22 @@
           this.getDataFromApi()
         }, 500)
       },
+      staticSearch: {
+        handler () {
+          this.getDataFromApi()
+        },
+        deep: true,
+      },
     },
     async mounted () {
+      axios.get('companies/short')
+        .then(res => {
+          this.companyItems = res.data.data
+        })
+      axios.get('roles')
+        .then(res => {
+          this.roleItems = res.data.data
+        })
       await this.getDataFromApi()
     },
     methods: {
