@@ -288,11 +288,19 @@
                   cols="12"
                   md="6"
                 >
-                  <v-text-field
-                    v-model="addDlg.user.username"
-                    label="User Name"
-                    prepend-icon="mdi-account"
-                  />
+                  <validation-provider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="User Name"
+                  >
+                    <v-text-field
+                      v-model="addDlg.user.username"
+                      :error-messages="errors"
+                      label="User Name *"
+                      prepend-icon="mdi-account"
+                      validate-on-blur
+                    />
+                  </validation-provider>
                 </v-col>
                 <v-col
                   cols="12"
@@ -403,11 +411,19 @@
                 <v-col
                   cols="12"
                 >
-                  <v-text-field
-                    v-model="addDlg.user.email"
-                    label="Email"
-                    type="email"
-                  />
+                  <validation-provider
+                    v-slot="{ errors }"
+                    rules="required"
+                    name="Email"
+                  >
+                    <v-text-field
+                      v-model="addDlg.user.email"
+                      :error-messages="errors"
+                      label="Email"
+                      type="email"
+                      validate-on-blur=""
+                    />
+                  </validation-provider>
                 </v-col>
               </v-row>
             </form>
@@ -562,7 +578,18 @@
         return this.headers
       },
       availableSteps () {
-        const steps = [0, 1, 2, 3]
+        const steps = [0]
+        if (this.addDlg.user.first_name &&
+          this.addDlg.user.last_name &&
+          this.addDlg.user.title &&
+          this.addDlg.user.username
+        ) {
+          steps.push(1)
+        }
+        if (this.addDlg.user.email) {
+          steps.push(2)
+        }
+        steps.push(3)
         return steps
       },
     },
