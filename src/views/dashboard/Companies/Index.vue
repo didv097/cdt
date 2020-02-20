@@ -299,7 +299,7 @@
         <v-col cols="auto">
           <v-pagination
             v-model="options.page"
-            :length="total"
+            :length="totalPages"
             :total-visible="5"
             circle
           />
@@ -530,6 +530,9 @@
     computed: {
       computedHeaders () {
         return this.headers.filter(item => !this.$vuetify.breakpoint.xs || item.showOnMobile)
+      },
+      totalPages () {
+        return this.options.itemsPerPage > 0 ? Math.ceil(this.total / this.options.itemsPerPage) : this.total
       },
       availableSteps () {
         const steps = [0, 1, 2, 3]
