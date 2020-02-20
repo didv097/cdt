@@ -163,7 +163,7 @@
             <v-autocomplete
               v-if="directory.code === 'nt-smff-annex'"
               v-model="newDocData.qi"
-              :items="qiItems"
+              :items="companyQIItems"
               item-text="name"
               item-value="id"
               label="QI *"
@@ -255,7 +255,7 @@
         },
         addressItems: [],
         vesselItems: [],
-        qiItems: [],
+        companyQIItems: [],
         dpaItems: [],
         contractItems: [],
       }
@@ -277,7 +277,7 @@
         })
       axios.get(`companies/${this.$route.params.id}/qi`)
         .then(res => {
-          this.qiItems = res.data.data
+          this.companyQIItems = res.data.data
         })
       axios.get(`companies/${this.$route.params.id}/contacts/dpa`)
         .then(res => {
