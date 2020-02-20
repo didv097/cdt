@@ -145,8 +145,8 @@
         :headers="computedHeaders"
         :items="companies"
         :options.sync="options"
-        :server-items-length="total"
         :loading="loading"
+        :hide-default-footer="true"
       >
         <template v-slot:item="company">
           <tr>
@@ -282,6 +282,29 @@
           </tr>
         </template>
       </v-data-table>
+      <v-row
+        align="baseline"
+        justify="end"
+      >
+        <v-col
+          cols="10"
+          sm="4"
+        >
+          <v-select
+            v-model="options.itemsPerPage"
+            :items="[5, 10, 20]"
+            label="Items per page"
+          />
+        </v-col>
+        <v-col cols="auto">
+          <v-pagination
+            v-model="options.page"
+            :length="total"
+            :total-visible="5"
+            circle
+          />
+        </v-col>
+      </v-row>
     </base-material-card>
     <v-dialog
       v-model="addDlg.show"
