@@ -3,6 +3,12 @@
     id="individuals"
     tag="section"
   >
+    <input
+      ref="file"
+      type="file"
+      class="d-none"
+      @change="uploadUserCsv"
+    >
     <base-material-card
       color="primary"
       icon="mdi-account-group"
@@ -66,6 +72,7 @@
               small
               class="mr-3"
               v-on="on"
+              @click="$refs.file.click()"
             >
               <v-icon size="28">
                 mdi-upload
@@ -691,6 +698,25 @@
         } else {
           this.addDlg.tab++
         }
+      },
+      uploadUserCsv (event) {
+        const formData = new FormData()
+        formData.append('file', event.target.files[0])
+        axios.post(
+          'users/upload/bulkCsv',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          },
+        ).then(res => {
+          this.showSnackBar(res.data.message, 'success')
+          this.getDataFromApi()
+        }).catch(error => {
+          this.showSnackBar(error.response.statusText, 'error')
+          this.getDataFromApi()
+        })
       },
     },
   }
