@@ -159,10 +159,10 @@
       >
         <template v-slot:item="individual">
           <tr>
-            <td>
+            <td class="pl-5">
               <v-badge
                 slot="activator"
-                right
+                left
                 :color="individual.item.response===1 ? 'success' : 'error'"
               >
                 <template v-slot:badge>

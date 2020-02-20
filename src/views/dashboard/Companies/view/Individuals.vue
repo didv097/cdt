@@ -27,10 +27,10 @@
     >
       <template v-slot:item="user">
         <tr>
-          <td>
+          <td class="pl-5">
             <v-badge
               slot="activator"
-              right
+              left
               :color="user.item.response===1 ? 'success' : 'error'"
             >
               <template v-slot:badge>

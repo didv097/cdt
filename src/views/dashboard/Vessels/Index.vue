@@ -351,7 +351,7 @@
                 <span v-if="vessel.item.response===1"> and Responder</span>
               </v-tooltip>
             </td>
-            <td>
+            <td class="pl-5">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <span
@@ -360,7 +360,7 @@
                   >
                     <v-badge
                       slot="activator"
-                      right
+                      left
                       :color="vessel.item.tanker ? 'black' : 'blue'"
                     >
                       <template v-slot:badge>
