@@ -96,7 +96,7 @@
         >
           <v-select
             v-model="staticSearch.active"
-            :items="statusItems"
+            :items="$store.state.statusItems"
             item-text="text"
             item-value="value"
             label="Status"
@@ -109,7 +109,7 @@
         >
           <v-select
             v-model="staticSearch.resource_provider"
-            :items="resourceProviderItems"
+            :items="$store.state.resourceProviderItems"
             item-text="text"
             item-value="value"
             label="Resource Provider"
@@ -122,7 +122,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.companies"
-            :items="companyItems"
+            :items="$store.state.companyItems"
             item-text="name"
             item-value="id"
             label="Companies"
@@ -137,7 +137,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.roles"
-            :items="roleItems"
+            :items="$store.state.roleItems"
             item-text="name"
             item-value="id"
             label="Roles"
@@ -444,7 +444,7 @@
                 >
                   <v-autocomplete
                     v-model="addDlg.user.role"
-                    :items="roleItems"
+                    :items="$store.state.roleItems"
                     item-text="name"
                     item-value="id"
                     label="Role"
@@ -458,7 +458,7 @@
                 >
                   <v-autocomplete
                     v-model="addDlg.user.company"
-                    :items="companyItems"
+                    :items="$store.state.companyItems"
                     item-text="name"
                     item-value="id"
                     label="Company"
@@ -538,18 +538,6 @@
       loading: false,
       searchTimeout: null,
       advancedSearch: false,
-      statusItems: [
-        { text: 'All', value: -1 },
-        { text: 'Active', value: 1 },
-        { text: 'Inactive', value: 0 },
-      ],
-      resourceProviderItems: [
-        { text: 'All', value: -1 },
-        { text: 'Provider', value: 1 },
-        { text: 'Non-provider', value: 0 },
-      ],
-      companyItems: [],
-      roleItems: [],
       addDlg: {
         show: false,
         tab: 0,
@@ -647,14 +635,6 @@
       },
     },
     async mounted () {
-      axios.get('companies/short')
-        .then(res => {
-          this.companyItems = res.data.data
-        })
-      axios.get('roles')
-        .then(res => {
-          this.roleItems = res.data.data
-        })
       await this.getDataFromApi()
     },
     methods: {

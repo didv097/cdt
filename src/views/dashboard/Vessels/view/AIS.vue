@@ -38,7 +38,7 @@
           >
             <v-autocomplete
               v-model="editedItem.fleets"
-              :items="fleetItems"
+              :items="$store.state.fleetItems"
               item-text="name"
               item-value="id"
               label="Fleets"
@@ -53,7 +53,7 @@
           >
             <v-select
               v-model="editedItem.zone_id"
-              :items="zoneItems"
+              :items="$store.state.zoneItems"
               item-text="name"
               item-value="id"
               label="Zone"
@@ -90,8 +90,6 @@
     data: () => ({
       loading: false,
       editedItem: {},
-      fleetItems: [],
-      zoneItems: [],
     }),
     mounted () {
       this.getDataFromApi()
@@ -99,14 +97,6 @@
     methods: {
       getDataFromApi () {
         this.loading = true
-        axios.get('fleets')
-          .then(res => {
-            this.fleetItems = res.data.data
-          })
-        axios.get('zones/short')
-          .then(res => {
-            this.zoneItems = res.data.data
-          })
         axios.get('vessels/' + this.$route.params.id + '/ais')
           .then(res => {
             this.editedItem = res.data.data[0]

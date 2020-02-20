@@ -127,7 +127,7 @@
                     >
                       <v-select
                         v-model="address.zone_id"
-                        :items="zones"
+                        :items="$store.state.zoneItems"
                         item-text="name"
                         item-value="id"
                         label="Zone"
@@ -264,7 +264,6 @@
     data: () => ({
       activeTab: 0,
       addressesItems: [],
-      zones: [],
       showFormatForm: false,
       documentFormatAddress: {
         document_format: '',
@@ -273,10 +272,6 @@
     }),
     mounted () {
       this.getAddresses()
-      axios.get('zones/short')
-        .then(res => {
-          this.zones = res.data.data
-        })
     },
     methods: {
       getAddresses () {

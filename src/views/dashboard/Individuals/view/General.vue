@@ -76,7 +76,7 @@
           >
             <v-autocomplete
               v-model="user.role_ids"
-              :items="roleItems"
+              :items="$store.state.roleItems"
               item-text="name"
               item-value="id"
               label="User Roles"
@@ -92,7 +92,7 @@
           >
             <v-autocomplete
               v-model="user.company"
-              :items="companyItems"
+              :items="$store.state.companyItems"
               item-text="name"
               item-value="id"
               label="Company"
@@ -179,8 +179,6 @@
     data: () => ({
       loading: false,
       user: {},
-      roleItems: [],
-      companyItems: [],
     }),
     mounted () {
       this.getDataFromApi()
@@ -188,14 +186,6 @@
     methods: {
       getDataFromApi () {
         this.loading = true
-        axios.get('roles')
-          .then(res => {
-            this.roleItems = res.data.data
-          })
-        axios.get('companies/short')
-          .then(res => {
-            this.companyItems = res.data.data
-          })
         axios.get('users/' + this.$route.params.id)
           .then(res => {
             this.user = res.data.data[0]

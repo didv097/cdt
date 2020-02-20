@@ -41,6 +41,8 @@ Vue.config.productionTip = false
 
 Vue.use(VuetifyConfirm, { vuetify })
 
+store.dispatch('initItems')
+
 new Vue({
   router,
   store,

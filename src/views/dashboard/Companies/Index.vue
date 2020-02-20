@@ -96,7 +96,7 @@
         >
           <v-select
             v-model="staticSearch.active"
-            :items="statusItems"
+            :items="$store.state.statusItems"
             item-text="text"
             item-value="value"
             label="Status"
@@ -109,7 +109,7 @@
         >
           <v-select
             v-model="staticSearch.vrp_status"
-            :items="vrpItems"
+            :items="$store.state.vrpItems"
             item-text="text"
             item-value="value"
             label="VRP Status"
@@ -122,7 +122,7 @@
         >
           <v-select
             v-model="staticSearch.resource_provider"
-            :items="resourceProviderItems"
+            :items="$store.state.resourceProviderItems"
             item-text="text"
             item-value="value"
             label="Resource Provider"
@@ -135,7 +135,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.networks"
-            :items="networkItems"
+            :items="$store.state.networkItems"
             item-text="name"
             item-value="id"
             label="Networks"
@@ -407,7 +407,7 @@
                 <v-col cols="12">
                   <v-autocomplete
                     v-model="addDlg.company.qi_id"
-                    :items="qiItems"
+                    :items="$store.state.qiItems"
                     item-text="name"
                     item-value="id"
                     label="QI Company"
@@ -418,7 +418,7 @@
                 <v-col cols="12">
                   <v-autocomplete
                     v-model="addDlg.company.operating_company_id"
-                    :items="companyItems"
+                    :items="$store.state.companyItems"
                     item-text="name"
                     item-value="id"
                     label="Operating Company"
@@ -496,22 +496,6 @@
           showOnMobile: true,
         },
       ],
-      statusItems: [
-        { text: 'All', value: -1 },
-        { text: 'Active', value: 1 },
-        { text: 'Inactive', value: 0 },
-      ],
-      resourceProviderItems: [
-        { text: 'All', value: -1 },
-        { text: 'Provider', value: 1 },
-        { text: 'Non-provider', value: 0 },
-      ],
-      vrpItems: [
-        { text: 'All', value: -1 },
-        { text: 'Authorized', value: 1 },
-        { text: 'Not Authorized', value: 0 },
-      ],
-      networkItems: [],
       companies: [],
       loading: false,
       options: {},
@@ -540,8 +524,6 @@
           active: true,
         },
       },
-      qiItems: [],
-      companyItems: [],
     }),
     computed: {
       computedHeaders () {
@@ -578,18 +560,6 @@
       },
     },
     async mounted () {
-      axios.get('networks/short')
-        .then(res => {
-          this.networkItems = res.data.data
-        })
-      axios.get('companies/short')
-        .then(res => {
-          this.companyItems = res.data.data
-        })
-      axios.get('vendors/qi')
-        .then(res => {
-          this.qiItems = res.data.data
-        })
       await this.getDataFromApi()
     },
     methods: {

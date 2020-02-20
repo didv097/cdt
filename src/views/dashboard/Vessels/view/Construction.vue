@@ -43,7 +43,7 @@
                 >
                   <v-select
                     v-model="editedItem.providers"
-                    :items="providerItems"
+                    :items="$store.state.providerItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -58,7 +58,7 @@
                 >
                   <v-select
                     v-model="editedItem.sister_vessels"
-                    :items="sisterVesselItems"
+                    :items="$store.state.sisterVesselItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -73,7 +73,7 @@
                 >
                   <v-select
                     v-model="editedItem.child_vessels"
-                    :items="childVesselItems"
+                    :items="$store.state.childVesselItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -102,33 +102,13 @@
       loading: false,
       editedItem: {},
       activeTab: 0,
-      providerItems: [],
-      sisterVesselItems: [],
-      childVesselItems: [],
     }),
-    watch: {
-      'editedItem.company_id' () {
-        this.getVesselContactItems()
-      },
-    },
     mounted () {
       this.getDataFromApi()
     },
     methods: {
       getDataFromApi () {
         this.loading = true
-        axios.get('vendors/providers')
-          .then(res => {
-            this.providerItems = res.data.data
-          })
-        axios.get('vessels/sister/list')
-          .then(res => {
-            this.sisterVesselItems = res.data.data
-          })
-        axios.get('vessels/child/list')
-          .then(res => {
-            this.childVesselItems = res.data.data
-          })
         axios.get('vessels/' + this.$route.params.id + '/constructionDetail')
           .then(res => {
             this.editedItem = res.data.data[0]

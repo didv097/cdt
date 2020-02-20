@@ -91,7 +91,7 @@
           >
             <v-select
               v-model="address.zone_id"
-              :items="zoneItems"
+              :items="$store.state.zoneItems"
               item-text="name"
               item-value="id"
               label="Zone"
@@ -164,7 +164,6 @@
     data: () => ({
       loading: false,
       address: {},
-      zoneItems: [],
     }),
     mounted () {
       this.getAddress()
@@ -172,10 +171,6 @@
     methods: {
       getAddress () {
         this.loading = true
-        axios.get('zones/short')
-          .then(res => {
-            this.zoneItems = res.data.data
-          })
         axios.get(`users/${this.$route.params.id}/addresses`)
           .then(res => {
             this.address = res.data

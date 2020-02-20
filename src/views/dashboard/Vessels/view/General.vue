@@ -51,7 +51,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.vessel_type_id"
-                    :items="vesselTypeItems"
+                    :items="$store.state.vesselTypeItems"
                     item-text="name"
                     item-value="id"
                     prepend-icon="mdi-tag"
@@ -143,7 +143,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.qi"
-                    :items="qiItems"
+                    :items="$store.state.qiItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -158,7 +158,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.company_id"
-                    :items="companyItems"
+                    :items="$store.state.companyItems"
                     item-text="name"
                     item-value="id"
                     clearable
@@ -173,7 +173,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.operating_company_id"
-                    :items="companyItems"
+                    :items="$store.state.companyItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -188,7 +188,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.societies"
-                    :items="societyItems"
+                    :items="$store.state.societyItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -203,7 +203,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.insurers"
-                    :items="insurerItems"
+                    :items="$store.state.insurerItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -218,7 +218,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.providers"
-                    :items="providerItems"
+                    :items="$store.state.providerItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -233,7 +233,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.pi"
-                    :items="piItems"
+                    :items="$store.state.piItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -379,13 +379,6 @@
       loading: false,
       editedItem: {},
       activeTab: 0,
-      vesselTypeItems: [],
-      qiItems: [],
-      companyItems: [],
-      societyItems: [],
-      insurerItems: [],
-      providerItems: [],
-      piItems: [],
       vesselContactItems: [],
     }),
     watch: {
@@ -399,34 +392,6 @@
     methods: {
       getDataFromApi () {
         this.loading = true
-        axios.get('vessels/types')
-          .then(res => {
-            this.vesselTypeItems = res.data.data
-          })
-        axios.get('vendors/qi')
-          .then(res => {
-            this.qiItems = res.data.data
-          })
-        axios.get('vendors/pi')
-          .then(res => {
-            this.piItems = res.data.data
-          })
-        axios.get('vendors/societies')
-          .then(res => {
-            this.societyItems = res.data.data
-          })
-        axios.get('vendors/insurers')
-          .then(res => {
-            this.insurerItems = res.data.data
-          })
-        axios.get('vendors/providers')
-          .then(res => {
-            this.providerItems = res.data.data
-          })
-        axios.get('companies/short')
-          .then(res => {
-            this.companyItems = res.data.data
-          })
         this.getVesselContactItems()
         axios.get('vessels/' + this.$route.params.id)
           .then(res => {

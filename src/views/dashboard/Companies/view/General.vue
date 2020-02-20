@@ -69,7 +69,7 @@
         >
           <v-autocomplete
             v-model="editedItem.qi_id"
-            :items="qiItems"
+            :items="$store.state.qiItems"
             item-text="name"
             item-value="id"
             label="QI Company:"
@@ -83,7 +83,7 @@
         >
           <v-autocomplete
             v-model="editedItem.operating_company_id"
-            :items="companyItems"
+            :items="$store.state.companyItems"
             item-text="name"
             item-value="id"
             label="Operating Company:"
@@ -108,7 +108,7 @@
         >
           <v-autocomplete
             v-model="editedItem.company_poc_id"
-            :items="pocItems"
+            :items="$store.state.pocItems"
             item-text="name"
             item-value="id"
             label="Company POC:"
@@ -164,16 +164,10 @@
     data: () => ({
       loading: false,
       editedItem: {},
-      qiItems: [],
-      companyItems: [],
-      pocItems: [],
       edit: false,
     }),
     mounted () {
       this.getDataFromApi()
-      this.getQIItems()
-      this.getCompanyItems()
-      this.getPOCItems()
     },
     methods: {
       getDataFromApi () {
@@ -182,24 +176,6 @@
           .then(res => {
             this.editedItem = res.data.data[0]
             this.loading = false
-          })
-      },
-      getQIItems () {
-        axios.get('vendors/qi')
-          .then(res => {
-            this.qiItems = res.data.data
-          })
-      },
-      getCompanyItems () {
-        axios.get('companies/short')
-          .then(res => {
-            this.companyItems = res.data.data
-          })
-      },
-      getPOCItems () {
-        axios.get('companies/user/poc')
-          .then(res => {
-            this.pocItems = res.data.data
           })
       },
       clickEdit () {
