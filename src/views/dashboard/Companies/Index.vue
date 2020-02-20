@@ -3,6 +3,12 @@
     id="companies"
     tag="section"
   >
+    <input
+      ref="file"
+      type="file"
+      class="d-none"
+      @change="uploadCompanyCsv"
+    >
     <base-material-card
       color="primary"
       icon="mdi-domain"
@@ -66,6 +72,7 @@
               small
               class="mr-3"
               v-on="on"
+              @click="$refs.file.click()"
             >
               <v-icon size="28">
                 mdi-upload
@@ -432,15 +439,24 @@
         </base-material-wizard>
       </validation-observer>
     </v-dialog>
+    <base-material-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      bottom
+      right
+      :type="null"
+    >
+      {{ snackbarText }}
+    </base-material-snackbar>
   </v-container>
 </template>
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
-    name: 'Companies',
-
+    mixins: [snackBar],
     data: () => ({
       search: '',
       headers: [
@@ -624,6 +640,26 @@
         //   })
       },
       newPhotoChange () {},
+      uploadCompanyCsv (event) {
+        const formData = new FormData()
+        formData.append('file', event.target.files[0])
+        axios.post(
+          'companies/upload/bulkCsv',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          },
+        ).then(res => {
+          this.showSnackBar(res.data.message, 'success')
+          this.getDataFromApi()
+        }).catch(error => {
+          console.log(error)
+          this.showSnackBar(error.response.statusText, 'error')
+          this.getDataFromApi()
+        })
+      },
     },
   }
 </script>
