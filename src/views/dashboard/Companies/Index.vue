@@ -655,7 +655,6 @@
           this.showSnackBar(res.data.message, 'success')
           this.getDataFromApi()
         }).catch(error => {
-          console.log(error)
           this.showSnackBar(error.response.statusText, 'error')
           this.getDataFromApi()
         })
