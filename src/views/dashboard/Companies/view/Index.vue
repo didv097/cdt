@@ -42,8 +42,16 @@
         >
           <template v-slot:image>
             <v-img
-              :src="coverPhoto ? coverPhoto : require('@/assets/default-avatar.png')"
+              v-if="coverPhoto"
+              :src="coverPhoto"
             />
+            <v-icon
+              v-else
+              size="100"
+              color="grey"
+            >
+              mdi-domain
+            </v-icon>
           </template>
           <template v-slot:reveal-actions>
             <v-tooltip bottom>
