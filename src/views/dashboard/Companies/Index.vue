@@ -150,7 +150,7 @@
       >
         <template v-slot:item="company">
           <tr>
-            <td>
+            <td class="pl-5">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <span
@@ -160,7 +160,7 @@
                   >
                     <v-badge
                       slot="activator"
-                      right
+                      left
                       :color="company.item.vrp_status === 'Authorized' ? 'success' : company.item.vrp_status === 'Not Authorized' ? 'error' : 'warning'"
                     >
                       <template v-slot:badge>
