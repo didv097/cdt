@@ -3,6 +3,12 @@
     id="vessels"
     tag="section"
   >
+    <input
+      ref="file"
+      type="file"
+      class="d-none"
+      @change="uploadVesselCsv"
+    >
     <base-material-card
       color="primary"
       icon="mdi-ferry"
@@ -14,15 +20,250 @@
         </div>
       </template>
 
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        class="ml-auto"
-        label="Search"
-        hide-details
-        single-line
-        style="max-width: 250px;"
-      />
+      <v-row align="end">
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          class="ml-auto mr-3"
+          label="Search"
+          hide-details
+          single-line
+          style="max-width: 200px;"
+        />
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              icon
+              color="primary"
+              small
+              class="mr-2"
+              v-on="on"
+              @click="advancedSearch = !advancedSearch"
+            >
+              <v-icon size="28">
+                mdi-table-search
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>Advanced Search</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              icon
+              color="warning"
+              small
+              class="mr-2"
+              v-on="on"
+            >
+              <v-icon size="28">
+                mdi-plus-circle-outline
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>Add Vessel</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              icon
+              color="error"
+              small
+              class="mr-3"
+              v-on="on"
+              @click="$refs.file.click()"
+            >
+              <v-icon size="28">
+                mdi-upload
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>Upload Vessels</span>
+        </v-tooltip>
+      </v-row>
+
+      <v-row v-if="advancedSearch">
+        <v-col
+          cols="12"
+          class="display-2"
+        >
+          Advanced Search
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-select
+            v-model="staticSearch.active"
+            :items="$store.state.statusItems"
+            item-text="text"
+            item-value="value"
+            label="Status"
+            prepend-icon="mdi-check"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-select
+            v-model="staticSearch.resource_provider"
+            :items="$store.state.resourceProviderItems"
+            item-text="text"
+            item-value="value"
+            label="Resource Provider"
+            prepend-icon="mdi-hard-hat"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.types"
+            :items="$store.state.vesselTypeItems"
+            item-text="name"
+            item-value="id"
+            label="Companies"
+            prepend-icon="mdi-domain"
+            multiple
+            clearable
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.qi"
+            :items="$store.state.qiItems"
+            item-text="name"
+            item-value="id"
+            label="QI"
+            prepend-icon="mdi-anchor"
+            multiple
+            clearable
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.pi"
+            :items="$store.state.piItems"
+            item-text="name"
+            item-value="id"
+            label="PI"
+            prepend-icon="mdi-umbrella"
+            multiple
+            clearable
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.societies"
+            :items="$store.state.societyItems"
+            item-text="name"
+            item-value="id"
+            label="Societies"
+            prepend-icon="mdi-axis-arrow-lock"
+            multiple
+            clearable
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.insurers"
+            :items="$store.state.insurerItems"
+            item-text="name"
+            item-value="id"
+            label="Insurers"
+            prepend-icon="mdi-engine"
+            multiple
+            clearable
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.providers"
+            :items="$store.state.providerItems"
+            item-text="name"
+            item-value="id"
+            label="Providers"
+            prepend-icon="mdi-chart-bell-curve"
+            multiple
+            clearable
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.fleets"
+            :items="$store.state.fleetItems"
+            item-text="name"
+            item-value="id"
+            label="Fleets"
+            prepend-icon="mdi-anchor"
+            multiple
+            clearable
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.companies"
+            :items="$store.state.companyItems"
+            item-text="name"
+            item-value="id"
+            label="Companies"
+            prepend-icon="mdi-domain"
+            multiple
+            clearable
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-select
+            v-model="staticSearch.vrp_status"
+            :items="$store.state.vrpItems"
+            item-text="text"
+            item-value="value"
+            label="VRP Express"
+            prepend-icon="mdi-check"
+          />
+        </v-col>
+        <v-col
+          cols="12"
+          sm="3"
+        >
+          <v-autocomplete
+            v-model="staticSearch.networks"
+            :items="$store.state.networkItems"
+            item-text="name"
+            item-value="id"
+            label="Networks"
+            prepend-icon="mdi-lan"
+            multiple
+            clearable
+          />
+        </v-col>
+      </v-row>
 
       <v-divider class="mt-3" />
 
@@ -171,15 +412,24 @@
         </template>
       </v-data-table>
     </base-material-card>
+    <base-material-snackbar
+      v-model="snackbar"
+      :color="snackbarColor"
+      bottom
+      right
+      :type="null"
+    >
+      {{ snackbarText }}
+    </base-material-snackbar>
   </v-container>
 </template>
 
 <script>
   import axios from 'axios'
+  import { snackBar } from '@/mixins/snackBar'
 
   export default {
-    name: 'Vessels',
-
+    mixins: [snackBar],
     data: () => ({
       search: '',
       headers: [
@@ -230,6 +480,7 @@
       options: {},
       loading: false,
       searchTimeout: null,
+      advancedSearch: false,
     }),
     computed: {
       computedHeaders () {
@@ -250,6 +501,12 @@
         this.searchTimeout = setTimeout(() => {
           this.getDataFromApi()
         }, 500)
+      },
+      staticSearch: {
+        handler () {
+          this.getDataFromApi()
+        },
+        deep: true,
       },
     },
     async mounted () {
@@ -282,6 +539,25 @@
           // console.error(error)
         }
         this.loading = false
+      },
+      uploadVesselCsv (event) {
+        const formData = new FormData()
+        formData.append('file', event.target.files[0])
+        axios.post(
+          'vessels/upload/bulkCsv',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          },
+        ).then(res => {
+          this.showSnackBar(res.data.message, 'success')
+          this.getDataFromApi()
+        }).catch(error => {
+          this.showSnackBar(error.response.statusText, 'error')
+          this.getDataFromApi()
+        })
       },
     },
   }
