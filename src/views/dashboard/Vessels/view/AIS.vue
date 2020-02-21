@@ -38,7 +38,7 @@
           >
             <v-autocomplete
               v-model="editedItem.fleets"
-              :items="$store.state.fleetItems"
+              :items="$store.state.menuitems.fleetItems"
               item-text="name"
               item-value="id"
               label="Fleets"
@@ -53,7 +53,7 @@
           >
             <v-select
               v-model="editedItem.zone_id"
-              :items="$store.state.zoneItems"
+              :items="$store.state.menuitems.zoneItems"
               item-text="name"
               item-value="id"
               label="Zone"

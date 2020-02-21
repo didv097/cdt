@@ -43,7 +43,7 @@
                 >
                   <v-select
                     v-model="editedItem.providers"
-                    :items="$store.state.providerItems"
+                    :items="$store.state.menuitems.providerItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -58,7 +58,7 @@
                 >
                   <v-select
                     v-model="editedItem.sister_vessels"
-                    :items="$store.state.sisterVesselItems"
+                    :items="$store.state.menuitems.sisterVesselItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -73,7 +73,7 @@
                 >
                   <v-select
                     v-model="editedItem.child_vessels"
-                    :items="$store.state.childVesselItems"
+                    :items="$store.state.menuitems.childVesselItems"
                     item-text="name"
                     item-value="id"
                     multiple

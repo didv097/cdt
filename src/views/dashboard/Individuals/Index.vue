@@ -96,7 +96,7 @@
         >
           <v-select
             v-model="staticSearch.active"
-            :items="$store.state.statusItems"
+            :items="$store.state.menuitems.statusItems"
             item-text="text"
             item-value="value"
             label="Status"
@@ -109,7 +109,7 @@
         >
           <v-select
             v-model="staticSearch.resource_provider"
-            :items="$store.state.resourceProviderItems"
+            :items="$store.state.menuitems.resourceProviderItems"
             item-text="text"
             item-value="value"
             label="Resource Provider"
@@ -122,7 +122,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.companies"
-            :items="$store.state.companyItems"
+            :items="$store.state.menuitems.companyItems"
             item-text="name"
             item-value="id"
             label="Companies"
@@ -137,7 +137,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.roles"
-            :items="$store.state.roleItems"
+            :items="$store.state.menuitems.roleItems"
             item-text="name"
             item-value="id"
             label="Roles"
@@ -444,7 +444,7 @@
                 >
                   <v-autocomplete
                     v-model="addDlg.user.role"
-                    :items="$store.state.roleItems"
+                    :items="$store.state.menuitems.roleItems"
                     item-text="name"
                     item-value="id"
                     label="Role"
@@ -458,7 +458,7 @@
                 >
                   <v-autocomplete
                     v-model="addDlg.user.company"
-                    :items="$store.state.companyItems"
+                    :items="$store.state.menuitems.companyItems"
                     item-text="name"
                     item-value="id"
                     label="Company"

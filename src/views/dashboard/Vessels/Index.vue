@@ -95,7 +95,7 @@
         >
           <v-select
             v-model="staticSearch.active"
-            :items="$store.state.statusItems"
+            :items="$store.state.menuitems.statusItems"
             item-text="text"
             item-value="value"
             label="Status"
@@ -108,7 +108,7 @@
         >
           <v-select
             v-model="staticSearch.resource_provider"
-            :items="$store.state.resourceProviderItems"
+            :items="$store.state.menuitems.resourceProviderItems"
             item-text="text"
             item-value="value"
             label="Resource Provider"
@@ -121,7 +121,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.types"
-            :items="$store.state.vesselTypeItems"
+            :items="$store.state.menuitems.vesselTypeItems"
             item-text="name"
             item-value="id"
             label="Companies"
@@ -136,7 +136,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.qi"
-            :items="$store.state.qiItems"
+            :items="$store.state.menuitems.qiItems"
             item-text="name"
             item-value="id"
             label="QI"
@@ -151,7 +151,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.pi"
-            :items="$store.state.piItems"
+            :items="$store.state.menuitems.piItems"
             item-text="name"
             item-value="id"
             label="PI"
@@ -166,7 +166,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.societies"
-            :items="$store.state.societyItems"
+            :items="$store.state.menuitems.societyItems"
             item-text="name"
             item-value="id"
             label="Societies"
@@ -181,7 +181,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.insurers"
-            :items="$store.state.insurerItems"
+            :items="$store.state.menuitems.insurerItems"
             item-text="name"
             item-value="id"
             label="Insurers"
@@ -196,7 +196,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.providers"
-            :items="$store.state.providerItems"
+            :items="$store.state.menuitems.providerItems"
             item-text="name"
             item-value="id"
             label="Providers"
@@ -211,7 +211,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.fleets"
-            :items="$store.state.fleetItems"
+            :items="$store.state.menuitems.fleetItems"
             item-text="name"
             item-value="id"
             label="Fleets"
@@ -226,7 +226,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.companies"
-            :items="$store.state.companyItems"
+            :items="$store.state.menuitems.companyItems"
             item-text="name"
             item-value="id"
             label="Companies"
@@ -241,7 +241,7 @@
         >
           <v-select
             v-model="staticSearch.vrp_status"
-            :items="$store.state.vrpItems"
+            :items="$store.state.menuitems.vrpItems"
             item-text="text"
             item-value="value"
             label="VRP Express"
@@ -254,7 +254,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.networks"
-            :items="$store.state.networkItems"
+            :items="$store.state.menuitems.networkItems"
             item-text="name"
             item-value="id"
             label="Networks"

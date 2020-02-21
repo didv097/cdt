@@ -96,7 +96,7 @@
         >
           <v-select
             v-model="staticSearch.active"
-            :items="$store.state.statusItems"
+            :items="$store.state.menuitems.statusItems"
             item-text="text"
             item-value="value"
             label="Status"
@@ -109,7 +109,7 @@
         >
           <v-select
             v-model="staticSearch.vrp_status"
-            :items="$store.state.vrpItems"
+            :items="$store.state.menuitems.vrpItems"
             item-text="text"
             item-value="value"
             label="VRP Status"
@@ -122,7 +122,7 @@
         >
           <v-select
             v-model="staticSearch.resource_provider"
-            :items="$store.state.resourceProviderItems"
+            :items="$store.state.menuitems.resourceProviderItems"
             item-text="text"
             item-value="value"
             label="Resource Provider"
@@ -135,7 +135,7 @@
         >
           <v-autocomplete
             v-model="staticSearch.networks"
-            :items="$store.state.networkItems"
+            :items="$store.state.menuitems.networkItems"
             item-text="name"
             item-value="id"
             label="Networks"
@@ -407,7 +407,7 @@
                 <v-col cols="12">
                   <v-autocomplete
                     v-model="addDlg.company.qi_id"
-                    :items="$store.state.qiItems"
+                    :items="$store.state.menuitems.qiItems"
                     item-text="name"
                     item-value="id"
                     label="QI Company"
@@ -418,7 +418,7 @@
                 <v-col cols="12">
                   <v-autocomplete
                     v-model="addDlg.company.operating_company_id"
-                    :items="$store.state.companyItems"
+                    :items="$store.state.menuitems.companyItems"
                     item-text="name"
                     item-value="id"
                     label="Operating Company"

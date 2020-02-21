@@ -279,7 +279,9 @@
     }),
 
     computed: {
-      ...mapState(['barImage']),
+      ...mapState({
+        barImage: state => state.sidebar.barImage,
+      }),
     },
 
     watch: {

@@ -51,7 +51,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.vessel_type_id"
-                    :items="$store.state.vesselTypeItems"
+                    :items="$store.state.menuitems.vesselTypeItems"
                     item-text="name"
                     item-value="id"
                     prepend-icon="mdi-tag"
@@ -143,7 +143,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.qi"
-                    :items="$store.state.qiItems"
+                    :items="$store.state.menuitems.qiItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -158,7 +158,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.company_id"
-                    :items="$store.state.companyItems"
+                    :items="$store.state.menuitems.companyItems"
                     item-text="name"
                     item-value="id"
                     clearable
@@ -173,7 +173,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.operating_company_id"
-                    :items="$store.state.companyItems"
+                    :items="$store.state.menuitems.companyItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -188,7 +188,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.societies"
-                    :items="$store.state.societyItems"
+                    :items="$store.state.menuitems.societyItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -203,7 +203,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.insurers"
-                    :items="$store.state.insurerItems"
+                    :items="$store.state.menuitems.insurerItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -218,7 +218,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.providers"
-                    :items="$store.state.providerItems"
+                    :items="$store.state.menuitems.providerItems"
                     item-text="name"
                     item-value="id"
                     multiple
@@ -233,7 +233,7 @@
                 >
                   <v-autocomplete
                     v-model="editedItem.pi"
-                    :items="$store.state.piItems"
+                    :items="$store.state.menuitems.piItems"
                     item-text="name"
                     item-value="id"
                     multiple

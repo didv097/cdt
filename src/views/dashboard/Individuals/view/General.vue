@@ -76,7 +76,7 @@
           >
             <v-autocomplete
               v-model="user.role_ids"
-              :items="$store.state.roleItems"
+              :items="$store.state.menuitems.roleItems"
               item-text="name"
               item-value="id"
               label="User Roles"
@@ -92,7 +92,7 @@
           >
             <v-autocomplete
               v-model="user.company"
-              :items="$store.state.companyItems"
+              :items="$store.state.menuitems.companyItems"
               item-text="name"
               item-value="id"
               label="Company"

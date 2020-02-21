@@ -127,7 +127,7 @@
                     >
                       <v-select
                         v-model="address.zone_id"
-                        :items="$store.state.zoneItems"
+                        :items="$store.state.menuitems.zoneItems"
                         item-text="name"
                         item-value="id"
                         label="Zone"

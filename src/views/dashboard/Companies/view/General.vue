@@ -69,7 +69,7 @@
         >
           <v-autocomplete
             v-model="editedItem.qi_id"
-            :items="$store.state.qiItems"
+            :items="$store.state.menuitems.qiItems"
             item-text="name"
             item-value="id"
             label="QI Company:"
@@ -83,7 +83,7 @@
         >
           <v-autocomplete
             v-model="editedItem.operating_company_id"
-            :items="$store.state.companyItems"
+            :items="$store.state.menuitems.companyItems"
             item-text="name"
             item-value="id"
             label="Operating Company:"
@@ -108,7 +108,7 @@
         >
           <v-autocomplete
             v-model="editedItem.company_poc_id"
-            :items="$store.state.pocItems"
+            :items="$store.state.menuitems.pocItems"
             item-text="name"
             item-value="id"
             label="Company POC:"

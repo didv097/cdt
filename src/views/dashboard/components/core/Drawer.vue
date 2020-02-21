@@ -136,10 +136,13 @@
     }),
 
     computed: {
-      ...mapState(['barColor', 'barImage']),
+      ...mapState({
+        barColor: state => state.sidebar.barColor,
+        barImage: state => state.sidebar.barImage,
+      }),
       drawer: {
         get () {
-          return this.$store.state.drawer
+          return this.$store.state.sidebar.drawer
         },
         set (val) {
           this.$store.commit('SET_DRAWER', val)
