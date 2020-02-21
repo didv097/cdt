@@ -3,8 +3,8 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
-  mode: 'hash',
+const router = new Router({
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
@@ -17,14 +17,20 @@ export default new Router({
           component: () => import('@/views/pages/Lock'),
         },
         {
-          name: 'Login',
-          path: 'login',
-          component: () => import('@/views/pages/Login'),
-        },
-        {
           name: 'Register',
           path: 'register',
           component: () => import('@/views/pages/Register'),
+        },
+      ],
+    },
+    {
+      path: '/login',
+      component: () => import('@/views/pages/Index'),
+      children: [
+        {
+          name: 'Login',
+          path: '',
+          component: () => import('@/views/pages/Login'),
         },
       ],
     },
@@ -232,4 +238,13 @@ export default new Router({
       ],
     },
   ],
+})
+
+export default router
+
+router.beforeEach((to, from, next) => {
+  if (to.path !== '/login' && !localStorage.getItem('user')) {
+    return next('/login')
+  }
+  next()
 })

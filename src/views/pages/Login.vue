@@ -36,28 +36,21 @@
           </template>
 
           <v-card-text class="text-center">
-            <div class="text-center grey--text body-1 font-weight-light">
-              Or Be Classical
-            </div>
-
             <v-text-field
+              v-model="username"
               color="secondary"
-              label="First Name..."
-              prepend-icon="mdi-face"
+              label="User Name"
+              prepend-icon="mdi-account-outline"
               class="mt-10"
             />
 
             <v-text-field
-              color="secondary"
-              label="Email..."
-              prepend-icon="mdi-email"
-            />
-
-            <v-text-field
+              v-model="password"
               class="mb-8"
               color="secondary"
-              label="Password..."
+              label="Password"
               prepend-icon="mdi-lock-outline"
+              type="password"
             />
 
             <pages-btn
@@ -65,6 +58,7 @@
               color=""
               depressed
               class="v-btn--text success--text"
+              @click="login"
             >
               Let's Go
             </pages-btn>
@@ -98,6 +92,16 @@
           icon: 'mdi-github-box',
         },
       ],
+      username: '',
+      password: '',
     }),
+    methods: {
+      login () {
+        const { username, password } = this
+        if (username && password) {
+          this.$store.dispatch('login', { username, password })
+        }
+      },
+    },
   }
 </script>

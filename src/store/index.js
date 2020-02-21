@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { sidebar } from './sidebar.module'
-import { authentication } from './authentication.module'
-import { menuitems } from './menuitems.module'
+import { sidebar } from './sidebar'
+import { authentication } from './authentication'
+import { menuitems } from './menuitems'
 
 Vue.use(Vuex)
 
