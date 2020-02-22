@@ -22,7 +22,6 @@
               <v-btn
                 v-for="(social, i) in socials"
                 :key="i"
-                :href="social.href"
                 class="ma-1"
                 icon
                 rel="noopener"
@@ -94,12 +93,22 @@
       ],
       username: '',
       password: '',
+      rememberMe: false,
     }),
     methods: {
       login () {
         const { username, password } = this
         if (username && password) {
-          this.$store.dispatch('login', { username, password })
+          this.$store.dispatch('login', {
+            username: this.username,
+            password: this.password,
+            rememberMe: this.rememberMe,
+          }).then(res => {
+            if (this.$store.state.authentication.hasPermissions) {
+              this.$store.dispatch('initItems')
+              this.$router.push('/')
+            }
+          })
         }
       },
     },

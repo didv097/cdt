@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import cookies from 'js-cookie'
 
 Vue.use(Router)
 
@@ -243,7 +244,7 @@ const router = new Router({
 export default router
 
 router.beforeEach((to, from, next) => {
-  if (to.path !== '/login' && !localStorage.getItem('user')) {
+  if (to.path !== '/login' && !cookies.get('x-access-token')) {
     return next('/login')
   }
   next()

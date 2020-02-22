@@ -24,24 +24,19 @@ import i18n from './i18n'
 import VuetifyConfirm from 'vuetify-confirm'
 
 import axios from 'axios'
-// import cookies from 'js-cookie'
+import cookies from 'js-cookie'
 
 axios.defaults.baseURL = 'https://cdt-api-dev.httpsolutions.com/api/'
-axios.defaults.headers.common.Authorization = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8zNS4xODQuNzkuMTY5XC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNTgwMzA5Nzk4LCJleHAiOjE1ODgxOTM3OTgsIm5iZiI6MTU4MDMwOTc5OCwianRpIjoiTlBXRHRrOEpjRDZQOGkwbSIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.ZS2RroktCTAbuo5ReQCg2L0Jl9Jk04yu24-IT8YT7j4'
-// console.log(cookies)
-// const token = cookies.get('x-access-token')
-// console.log(token)
-// if (token) {
-//   axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-// } else {
-//   delete axios.defaults.headers.common['Authorization']
-// }
+const token = cookies.get('x-access-token')
+if (token) {
+  axios.defaults.headers.common.Authorization = 'Bearer ' + token
+} else {
+  delete axios.defaults.headers.common.Authorization
+}
 
 Vue.config.productionTip = false
 
 Vue.use(VuetifyConfirm, { vuetify })
-
-store.dispatch('initItems')
 
 new Vue({
   router,

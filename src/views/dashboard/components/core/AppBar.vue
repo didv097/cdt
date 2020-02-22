@@ -130,20 +130,21 @@
         flat
         nav
       >
-        <template v-for="(p, i) in profile">
+        <template>
+          <v-list-item>
+            Profile
+          </v-list-item>
+          <v-list-item>
+            Settings
+          </v-list-item>
           <v-divider
-            v-if="p.divider"
-            :key="`divider-${i}`"
             class="mb-2 mt-2"
           />
-
-          <app-bar-item
-            v-else
-            :key="`item-${i}`"
-            to="/"
+          <v-list-item
+            @click="logout"
           >
-            <v-list-item-title v-text="p.title" />
-          </app-bar-item>
+            Log out
+          </v-list-item>
         </template>
       </v-list>
     </v-menu>
@@ -151,40 +152,11 @@
 </template>
 
 <script>
-  // Components
-  import { VHover, VListItem } from 'vuetify/lib'
-
   // Utilities
   import { mapState, mapMutations } from 'vuex'
 
   export default {
     name: 'DashboardCoreAppBar',
-
-    components: {
-      AppBarItem: {
-        render (h) {
-          return h(VHover, {
-            scopedSlots: {
-              default: ({ hover }) => {
-                return h(VListItem, {
-                  attrs: this.$attrs,
-                  class: {
-                    'black--text': !hover,
-                    'white--text secondary elevation-12': hover,
-                  },
-                  props: {
-                    activeClass: '',
-                    dark: hover,
-                    link: true,
-                    ...this.$attrs,
-                  },
-                }, this.$slots.default)
-              },
-            },
-          })
-        },
-      },
-    },
 
     props: {
       value: {
@@ -201,12 +173,6 @@
         'Another Notification',
         'Another one',
       ],
-      profile: [
-        { title: 'Profile' },
-        { title: 'Settings' },
-        { divider: true },
-        { title: 'Log out' },
-      ],
     }),
 
     computed: {
@@ -217,6 +183,10 @@
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
+      logout () {
+        this.$store.dispatch('logout')
+        this.$router.push('/login')
+      },
     },
   }
 </script>
