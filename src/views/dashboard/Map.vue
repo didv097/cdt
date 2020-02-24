@@ -83,9 +83,9 @@
                     rotationAngle: vessel[3],
                   }).addTo(this.$refs.vesselMarkers.mapObject)
                     .on('click', e => {
-                      console.log(e)
+                      // console.log(e)
                     }).on('mouseover', e => {
-                      console.log(e)
+                      // console.log(e)
                       if (marker.getTooltip()) {
                         marker.openToolTip()
                       }
