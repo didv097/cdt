@@ -11,6 +11,7 @@
       :src="require(`@/assets/${src || 'clint-mckoy.jpg'}`)"
       gradient="to top, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)"
       min-height="100%"
+      height="100vh"
     >
       <v-responsive
         :style="styles"
