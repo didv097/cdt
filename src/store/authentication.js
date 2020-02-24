@@ -27,14 +27,12 @@ export const authentication = {
     },
   },
   actions: {
-    login ({ commit }, data) {
-      return axios.post('auth/login', data)
-        .then(res => {
-          commit('LOGIN_SUCCESS', res.data)
-          axios.defaults.headers.common.Authorization = 'Bearer ' + res.data.token
-          cookies.set('x-access-token', res.data.token, { expires: data.rememberMe ? 365 : 1 })
-          return res
-        })
+    async login ({ commit }, data) {
+      const res = await axios.post('auth/login', data)
+      commit('LOGIN_SUCCESS', res.data)
+      axios.defaults.headers.common.Authorization = 'Bearer ' + res.data.token
+      cookies.set('x-access-token', res.data.token, { expires: data.rememberMe ? 365 : 1 })
+      return res
     },
     logout ({ commit }) {
       commit('RESET')

@@ -22,6 +22,7 @@ import './plugins/vue-world-map'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import VuetifyConfirm from 'vuetify-confirm'
+import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 
 import axios from 'axios'
 import cookies from 'js-cookie'
@@ -37,6 +38,7 @@ if (token) {
 Vue.config.productionTip = false
 
 Vue.use(VuetifyConfirm, { vuetify })
+Vue.component('v-marker-cluster', Vue2LeafletMarkerCluster)
 
 new Vue({
   router,
