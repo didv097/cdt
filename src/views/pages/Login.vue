@@ -7,7 +7,7 @@
     <v-row justify="center">
       <v-slide-y-transition appear>
         <base-material-card
-          color="success"
+          color="primary"
           light
           max-width="100%"
           width="400"
@@ -35,12 +35,21 @@
           </template>
 
           <v-card-text class="text-center">
+            <v-alert
+              v-model="loginFailed"
+              type="error"
+              class="white--text"
+              dense
+              dismissible
+            >
+              Login failed
+            </v-alert>
+
             <v-text-field
               v-model="username"
               color="secondary"
               label="User Name"
               prepend-icon="mdi-account-outline"
-              class="mt-10"
             />
 
             <v-text-field
@@ -94,6 +103,7 @@
       username: '',
       password: '',
       rememberMe: false,
+      loginFailed: false,
     }),
     methods: {
       login () {
@@ -108,6 +118,8 @@
               this.$store.dispatch('initItems')
               this.$router.push('/')
             }
+          }).catch(() => {
+            this.loginFailed = true
           })
         }
       },
