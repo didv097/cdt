@@ -28,13 +28,6 @@
           sub-text="Just Updated"
         />
       </v-col>
-      <v-col cols="12">
-        <base-material-chart-card
-          :data="systemHeartbeat"
-          color="primary"
-          type="Line"
-        />
-      </v-col>
     </v-row>
   </v-container>
 </template>
