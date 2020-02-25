@@ -22,9 +22,9 @@
         url="https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamFucnVsczEiLCJhIjoiY2swcGlhNXpwMDBzNTNvcmcwZDQxcDB6cyJ9.w3WTQktdZ2nMziZtXNoRKQ"
       />
       <l-layer-group>
-        <v-marker-cluster ref="vesselMarkers" />
+        <v-marker-cluster ref="vesselMarkerClusters" />
       </l-layer-group>
-      <l-layer-group ref="markers" />
+      <l-layer-group ref="vesselMarkers" />
     </l-map>
   </div>
 </template>
@@ -42,7 +42,7 @@
         zoomControl: false,
         updateWhenZooming: false,
         updateWhenIdle: false,
-        touchZoom: true,
+        touchZoom: false,
       },
       loadingVessels: false,
       vessels: [],
@@ -57,11 +57,12 @@
         mapGrouping: false,
       },
     }),
-    mounted () {
+    async mounted () {
+      await this.getVessels()
       this.renderVessels()
     },
     methods: {
-      renderVessels () {
+      async getVessels () {
         const filters = {
           fleets: true,
           networks: true,
@@ -70,37 +71,40 @@
         }
         if (!this.loadingVessels) {
           this.loadingVessels = true
-          axios.get(`/map/vessels/${JSON.stringify(filters)}`)
-            .then(res => {
-              this.vessels = res.data
-              this.$refs.vesselMarkers.mapObject.clearLayers()
-              this.$refs.markers.mapObject.clearLayers()
-              if (this.options.mapGrouping) {
-                this.vessels.forEach(vessel => {
-                  // console.log(this.getVesselIcon(vessel[5], vessel[4]))
-                  const marker = L.marker([vessel[1], vessel[2]], {
-                    icon: L.icon(this.getVesselIcon(vessel[5], vessel[4])),
-                    rotationAngle: vessel[3],
-                  }).addTo(this.$refs.vesselMarkers.mapObject)
-                    .on('click', e => {
-                      // console.log(e)
-                    }).on('mouseover', e => {
-                      // console.log(e)
-                      if (marker.getTooltip()) {
-                        marker.openToolTip()
-                      }
-                    })
-                })
-              } else {
-                for (let i = 0; i < this.vessels.length; i++) {
-                  const marker = L.marker([this.vessels[i][1], this.vessels[i][2]], {
-                    icon: L.icon(this.getVesselIcon(this.vessels[i][5], this.vessels[i][4])),
-                    rotationAngle: this.vessels[i][3],
-                  })
-                  marker.addTo(this.$refs.markers)
+          const res = await axios.get(`/map/vessels/${JSON.stringify(filters)}`)
+          this.vessels = res.data
+          this.loadingVessels = false
+        }
+      },
+      renderVessels () {
+        this.$refs.vesselMarkerClusters.mapObject.clearLayers()
+        this.$refs.vesselMarkers.mapObject.clearLayers()
+        if (this.options.mapGrouping) {
+          this.vessels.forEach(vessel => {
+            const marker = L.marker([vessel[1], vessel[2]], {
+              icon: L.icon(this.getVesselIcon(vessel[5], vessel[4])),
+              rotationAngle: vessel[3],
+            }).addTo(this.$refs.vesselMarkerClusters.mapObject)
+              .on('click', e => {
+                // console.log(e)
+              }).on('mouseover', e => {
+                // console.log(e)
+                if (marker.getTooltip()) {
+                  marker.openToolTip()
                 }
-              }
-            })
+              })
+          })
+        } else {
+          for (let i = 0; i < 2000; i++) {
+            L.marker([this.vessels[i][1], this.vessels[i][2]], {
+              icon: L.icon(this.getVesselIcon(this.vessels[i][5], this.vessels[i][4])),
+              rotationAngle: this.vessels[i][3],
+              riseOnHover: true,
+            }).addTo(this.$refs.vesselMarkers.mapObject)
+              .on('click', e => {
+                // console.log(e)
+              })
+          }
         }
       },
       getVesselIcon (vesselType, aisStatusId) {

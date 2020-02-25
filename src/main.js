@@ -23,6 +23,7 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import VuetifyConfirm from 'vuetify-confirm'
 import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
+import Vue2LeafletRotatedMarker from 'vue2-leaflet-rotatedmarker'
 
 import axios from 'axios'
 import cookies from 'js-cookie'
@@ -39,6 +40,7 @@ Vue.config.productionTip = false
 
 Vue.use(VuetifyConfirm, { vuetify })
 Vue.component('v-marker-cluster', Vue2LeafletMarkerCluster)
+Vue.component('v-rotated-marker', Vue2LeafletRotatedMarker)
 
 new Vue({
   router,
