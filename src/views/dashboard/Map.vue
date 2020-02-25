@@ -102,7 +102,7 @@
               })
           })
         } else {
-          for (let i = 0; i < 100; i++) {
+          for (let i = 0; i < this.vessels.length; i++) {
             L.marker([this.vessels[i][1], this.vessels[i][2]], {
               icon: L.icon(this.getVesselIcon(this.vessels[i][5], this.vessels[i][4])),
               rotationAngle: this.vessels[i][3],
