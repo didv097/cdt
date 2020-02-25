@@ -1,5 +1,12 @@
 <template>
   <div class="cop-map-container">
+    <v-progress-circular
+      v-if="loadingVessels"
+      size="64"
+      color="secondary"
+      class="cop-map-loading"
+      indeterminate
+    />
     <l-map
       id="map"
       ref="map"
@@ -95,7 +102,7 @@
               })
           })
         } else {
-          for (let i = 0; i < this.vessels.length; i++) {
+          for (let i = 0; i < 100; i++) {
             L.marker([this.vessels[i][1], this.vessels[i][2]], {
               icon: L.icon(this.getVesselIcon(this.vessels[i][5], this.vessels[i][4])),
               rotationAngle: this.vessels[i][3],
@@ -130,3 +137,12 @@
     },
   }
 </script>
+
+<style lang="sass">
+  .cop-map-loading
+    position: absolute
+    z-index: 100
+    left: 50%
+    top: 50%
+    transform: translate(-32px, -32px)
+</style>
