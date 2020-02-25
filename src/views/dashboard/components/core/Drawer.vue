@@ -155,7 +155,7 @@
         return {
           avatar: true,
           group: '',
-          title: this.$t('avatar'),
+          title: this.$store.state.authentication.user.full_name,
           children: [
             {
               href: '',

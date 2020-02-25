@@ -30,11 +30,7 @@ import cookies from 'js-cookie'
 
 axios.defaults.baseURL = 'https://cdt-api-dev.httpsolutions.com/api/'
 const token = cookies.get('x-access-token')
-if (token) {
-  axios.defaults.headers.common.Authorization = 'Bearer ' + token
-} else {
-  delete axios.defaults.headers.common.Authorization
-}
+store.dispatch('check', token)
 
 Vue.config.productionTip = false
 
