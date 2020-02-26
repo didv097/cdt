@@ -20,6 +20,7 @@
     "fuse.js": "^3.4.6",
     "js-cookie": "^2.2.1",
     "leaflet": "^1.6.0",
+    "leaflet-easyprint": "^2.1.9",
     "vue": "^2.6.11",
     "vue-i18n": "^8.15.3",
     "vue-router": "^3.1.3",

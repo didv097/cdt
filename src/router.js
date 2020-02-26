@@ -213,7 +213,7 @@ const router = new Router({
         {
           name: 'COP Map',
           path: 'map',
-          component: () => import('@/views/dashboard/Map'),
+          component: () => import('@/views/dashboard/Map/Index'),
         },
         {
           name: 'Fleets',
