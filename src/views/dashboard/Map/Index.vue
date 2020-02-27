@@ -9,6 +9,7 @@
     />
     <v-navigation-drawer
       v-model="showMapMenu"
+      class="cop-map-menu"
       permanent
     >
       <v-list>
@@ -32,35 +33,35 @@
           </template>
           <v-list-item>
             <v-switch
-              v-model="options.grid"
+              v-model="displayOptions.grid"
               label="Grid"
               hide-details
             />
           </v-list-item>
           <v-list-item>
             <v-switch
-              v-model="options.vessels"
+              v-model="displayOptions.vessels"
               label="Vessels"
               hide-details
             />
           </v-list-item>
           <v-list-item>
             <v-switch
-              v-model="options.individuals"
+              v-model="displayOptions.individuals"
               label="Individuals"
               hide-details
             />
           </v-list-item>
           <v-list-item>
             <v-switch
-              v-model="options.companies"
+              v-model="displayOptions.companies"
               label="Companies"
               hide-details
             />
           </v-list-item>
           <v-list-item>
             <v-switch
-              v-model="options.mapGrouping"
+              v-model="displayOptions.grouping"
               label="Grouping"
               hide-details
             />
@@ -100,9 +101,13 @@
           <v-list-item
             v-for="fleet in fleets"
             :key="fleet.id"
+            @click="selectedFleets.indexOf(fleet.id) < 0 ? selectedFleets.push(fleet.id): selectedFleets.splice(selectedFleets.indexOf(fleet.id),1)"
           >
             <v-checkbox
+              v-model="selectedFleets"
+              :value="fleet.id"
               :label="fleet.name"
+              readonly
               hide-details
             />
           </v-list-item>
@@ -119,9 +124,13 @@
           <v-list-item
             v-for="network in networks"
             :key="network.id"
+            @click="selectedNetworks.indexOf(network.id) < 0 ? selectedNetworks.push(network.id): selectedNetworks.splice(selectedNetworks.indexOf(network.id),1)"
           >
             <v-checkbox
+              v-model="selectedNetworks"
+              :value="network.id"
               :label="network.name"
+              readonly
               hide-details
             />
           </v-list-item>
@@ -211,7 +220,6 @@
       <l-layer-group>
         <v-marker-cluster ref="vesselMarkerClusters" />
       </l-layer-group>
-      <l-layer-group ref="vesselMarkers" />
     </l-map>
     <base-material-snackbar
       v-model="snackbar"
@@ -232,6 +240,7 @@
   import { serviceItems } from '@/mixins/serviceItems'
   import { snackBar } from '@/mixins/snackBar'
   import 'leaflet-easyprint'
+  import 'leaflet-graticule'
   import download from 'downloadjs'
 
   export default {
@@ -245,11 +254,12 @@
         updateWhenZooming: false,
         updateWhenIdle: false,
         touchZoom: false,
+        preferCanvas: true,
       },
       loadingVessels: false,
       loading: false,
       vessels: [],
-      options: {
+      displayOptions: {
         grid: false,
         vessels: true,
         individuals: true,
@@ -257,19 +267,61 @@
         wind: false,
         waves: false,
         draw: false,
-        mapGrouping: false,
+        grouping: false,
       },
       showMapMenu: true,
       search: '',
       zones: [],
       fleets: [],
       networks: [],
+      selectedFleets: [],
+      selectedNetworks: [],
       smffFilter: {
         operator: 'and',
         selected: [],
       },
       easyPrinter: null,
+      latlngGrid: null,
+      ciLayer: null,
+      vesselMarkerClusters: null,
     }),
+    watch: {
+      'displayOptions.grid' (value) {
+        if (value) {
+          this.latlngGrid.addTo(this.map)
+        } else {
+          this.map.removeLayer(this.latlngGrid)
+        }
+      },
+      'displayOptions.vessels' (value) {
+        if (value) {
+          if (this.displayOptions.grouping) {
+            this.vesselMarkerClusters.addTo(this.map)
+            this.map.removeLayer(this.ciLayer)
+          } else {
+            this.ciLayer.addTo(this.map)
+            this.map.removeLayer(this.vesselMarkerClusters)
+          }
+        } else {
+          this.map.removeLayer(this.vesselMarkerClusters)
+          this.map.removeLayer(this.ciLayer)
+        }
+      },
+      'displayOptions.grouping' (value) {
+        if (this.displayOptions.vessels) {
+          if (value) {
+            this.vesselMarkerClusters.addTo(this.map)
+            this.map.removeLayer(this.ciLayer)
+          } else {
+            this.ciLayer.addTo(this.map)
+            this.map.removeLayer(this.vesselMarkerClusters)
+          }
+        } else {
+          this.map.removeLayer(this.vesselMarkerClusters)
+          this.map.removeLayer(this.ciLayer)
+        }
+      },
+    },
     async mounted () {
       this.loading = true
       let res = await axios.get('map/zones')
@@ -280,6 +332,8 @@
       this.networks = res.data
 
       this.map = this.$refs.map.mapObject
+      this.vesselMarkerClusters = this.$refs.vesselMarkerClusters.mapObject
+      this.ciLayer = L.canvasIconLayer({}).addTo(this.map)
 
       await this.getVessels()
       this.renderVessels()
@@ -293,12 +347,23 @@
         hideControlContainer: true,
         hidden: true,
       }).addTo(this.map)
+      this.latlngGrid = L.latlngGraticule({
+        interval: 20,
+        showOriginLabel: true,
+        redraw: 'move',
+        zoomIntervals: [
+          { start: 2, end: 3, interval: 20 },
+          { start: 4, end: 4, interval: 10 },
+          { start: 5, end: 7, interval: 5 },
+          { start: 8, end: 10, interval: 1 },
+        ],
+      })
     },
     methods: {
       async getVessels () {
         const filters = {
-          fleets: true,
-          networks: true,
+          fleets: this.selectedFleets,
+          networks: this.selectedNetworks,
           smff_selected: this.smffFilter.selected,
           smff_operator: this.smffFilter.operator,
         }
@@ -311,31 +376,36 @@
       },
       renderVessels () {
         this.$refs.vesselMarkerClusters.mapObject.clearLayers()
-        this.$refs.vesselMarkers.mapObject.clearLayers()
-        if (this.options.mapGrouping) {
-          this.vessels.forEach(vessel => {
-            const marker = L.marker([vessel[1], vessel[2]], {
-              icon: L.icon(this.getVesselIcon(vessel[5], vessel[4])),
-              rotationAngle: vessel[3],
-            }).addTo(this.$refs.vesselMarkerClusters.mapObject)
-              .on('click', e => {
-              }).on('mouseover', e => {
-                if (marker.getTooltip()) {
-                  marker.openToolTip()
-                }
-              })
-          })
+        this.ciLayer.clearLayers()
+
+        if (this.loadingVessels) return
+
+        this.vessels.forEach(vessel => {
+          const marker = L.marker([vessel[1], vessel[2]], {
+            icon: L.icon(this.getVesselIcon(vessel[5], vessel[4])),
+            rotationAngle: vessel[3],
+          }).addTo(this.$refs.vesselMarkerClusters.mapObject)
+            .on('click', e => {
+            }).on('mouseover', e => {
+              if (marker.getTooltip()) {
+                marker.openToolTip()
+              }
+            })
+        })
+        this.vessels.forEach(vessel => {
+          L.marker([vessel[1], vessel[2]], {
+            icon: L.icon(this.getVesselIcon(vessel[5], vessel[4])),
+            rotationAngle: vessel[3],
+          }).addTo(this.ciLayer)
+        })
+        this.ciLayer.redraw()
+
+        if (this.displayOptions.grouping) {
+          this.vesselMarkerClusters.addTo(this.map)
+          this.map.removeLayer(this.ciLayer)
         } else {
-          for (let i = 0; i < 100; i++) {
-            L.marker([this.vessels[i][1], this.vessels[i][2]], {
-              icon: L.icon(this.getVesselIcon(this.vessels[i][5], this.vessels[i][4])),
-              rotationAngle: this.vessels[i][3],
-              riseOnHover: true,
-            }).addTo(this.$refs.vesselMarkers.mapObject)
-              .on('click', () => {
-              }).on('mouseover', () => {
-              })
-          }
+          this.ciLayer.addTo(this.map)
+          this.map.removeLayer(this.vesselMarkerClusters)
         }
       },
       getVesselIcon (vesselType, aisStatusId) {
@@ -404,4 +474,8 @@
     left: 50%
     top: 50%
     transform: translate(-32px, -32px)
+
+  .cop-map-menu
+    .v-input--hide-details
+      margin: 0
 </style>
