@@ -33,7 +33,7 @@ export const menuitems = {
     ],
   },
   mutations: {
-    INIT_ITEMS (state) {
+    INIT_MENU_ITEMS (state) {
       axios.get('companies/short')
         .then(res => {
           state.companyItems = res.data.data
@@ -93,8 +93,8 @@ export const menuitems = {
     },
   },
   actions: {
-    initItems (context) {
-      context.commit('INIT_ITEMS')
+    initMenuItems ({ commit }) {
+      commit('INIT_MENU_ITEMS')
     },
   },
 }

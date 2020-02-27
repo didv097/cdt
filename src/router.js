@@ -247,5 +247,8 @@ router.beforeEach((to, from, next) => {
   if (to.path !== '/login' && !cookies.get('x-access-token')) {
     return next('/login')
   }
+  if (to.path === '/login' && cookies.get('x-access-token')) {
+    return next('/')
+  }
   next()
 })

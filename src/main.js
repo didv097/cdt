@@ -31,6 +31,9 @@ import cookies from 'js-cookie'
 axios.defaults.baseURL = 'https://cdt-api-dev.httpsolutions.com/api/'
 const token = cookies.get('x-access-token')
 store.dispatch('check', token)
+  .then(() => {
+    store.dispatch('initMenuItems')
+  })
 
 Vue.config.productionTip = false
 

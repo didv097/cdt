@@ -115,7 +115,7 @@
             rememberMe: this.rememberMe,
           }).then(res => {
             if (this.$store.state.authentication.hasPermissions) {
-              this.$store.dispatch('initItems')
+              this.$store.dispatch('initMenuItems')
               this.$router.push('/')
             }
           }).catch(() => {
