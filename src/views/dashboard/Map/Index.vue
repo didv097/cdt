@@ -379,7 +379,7 @@
         }
       },
       renderVessels () {
-        this.$refs.vesselMarkerClusters.mapObject.clearLayers()
+        this.vesselMarkerClusters.clearLayers()
         this.ciLayer.clearLayers()
 
         if (this.loadingVessels) return
@@ -388,7 +388,7 @@
           const marker = L.marker([vessel[1], vessel[2]], {
             icon: L.icon(this.getVesselIcon(vessel[5], vessel[4])),
             rotationAngle: vessel[3],
-          }).addTo(this.$refs.vesselMarkerClusters.mapObject)
+          }).addTo(this.vesselMarkerClusters)
             .on('click', e => {
             }).on('mouseover', e => {
               if (marker.getTooltip()) {
