@@ -1,12 +1,16 @@
 <template>
   <div class="cop-map-container">
-    <v-progress-circular
+    <div
       v-if="loadingVessels || loading"
-      size="64"
-      color="secondary"
-      class="cop-map-loading"
-      indeterminate
-    />
+      class="cop-map-loading-container"
+    >
+      <v-progress-circular
+        size="64"
+        color="secondary"
+        class="cop-map-loading"
+        indeterminate
+      />
+    </div>
     <v-navigation-drawer
       v-model="showMapMenu"
       class="cop-map-menu"
@@ -267,7 +271,7 @@
         wind: false,
         waves: false,
         draw: false,
-        grouping: false,
+        grouping: true,
       },
       showMapMenu: true,
       search: '',
@@ -468,12 +472,19 @@
     .v-navigation-drawer
       min-width: 256px
 
-  .cop-map-loading
+  .cop-map-loading-container
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
     position: absolute
-    z-index: 100
-    left: 50%
-    top: 50%
-    transform: translate(-32px, -32px)
+    z-index: 99
+    .cop-map-loading
+      position: absolute
+      z-index: 100
+      left: 50%
+      top: 50%
+      transform: translate(-32px, -32px)
 
   .cop-map-menu
     .v-input--hide-details
