@@ -277,12 +277,13 @@
                     v-on="on"
                   >
                     <img
-                      :alt="company.item.location"
+                      :alt="company.item.country"
                       :src="getFlagPath(company.item)"
+                      class="flag-icon"
                     >
                   </span>
                 </template>
-                <span>{{ company.item.country }}</span>
+                <span>{{ company.item.location }}</span>
               </v-tooltip>
               <span v-else>-</span>
             </td>
@@ -591,13 +592,11 @@
         }
       },
       getFlagPath (item) {
-        if (!item) {
-          return ''
-        }
+        if (!item) return ''
         if (item.location && item.location.length === 2) {
-          return require('@/assets/flags/' + item.location + '.png')
+          return `http://catamphetamine.github.io/country-flag-icons/3x2/${item.location}.svg`
         } else if (item.country && item.country.length === 2) {
-          return require('@/assets/flags/' + item.country + '.png')
+          return `http://catamphetamine.github.io/country-flag-icons/3x2/${item.country}.svg`
         }
         return ''
       },
@@ -632,3 +631,8 @@
     },
   }
 </script>
+
+<style lang="sass">
+  .flag-icon
+    width: 30px
+</style>
