@@ -203,11 +203,27 @@
       v-model="infoDrawer.show"
       absolute
       floating
+      temporary
+      width="300"
+      style="z-index: 5"
     >
       <vessel-info
         v-if="infoDrawer.type === 'vessel'"
         :id="infoDrawer.id"
       />
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            block
+            text
+            v-on="on"
+            @click="infoDrawer.show = false"
+          >
+            Close
+          </v-btn>
+        </template>
+        Close the sidebar
+      </v-tooltip>
     </v-navigation-drawer>
     <l-map
       id="map"
@@ -282,7 +298,7 @@
         wind: false,
         waves: false,
         draw: false,
-        grouping: true,
+        grouping: false,
       },
       showMapMenu: true,
       search: '',

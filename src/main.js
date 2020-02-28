@@ -23,6 +23,7 @@ import './plugins/leaflet.canvas-markers'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import VuetifyConfirm from 'vuetify-confirm'
+import VueClipboard from 'vue-clipboard2'
 import Vue2LeafletMarkerCluster from 'vue2-leaflet-markercluster'
 import Vue2LeafletRotatedMarker from 'vue2-leaflet-rotatedmarker'
 
@@ -41,6 +42,7 @@ if (token) {
 Vue.config.productionTip = false
 
 Vue.use(VuetifyConfirm, { vuetify })
+Vue.use(VueClipboard)
 Vue.component('v-marker-cluster', Vue2LeafletMarkerCluster)
 Vue.component('v-rotated-marker', Vue2LeafletRotatedMarker)
 
