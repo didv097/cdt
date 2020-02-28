@@ -94,8 +94,8 @@
     onAdd: function (map) {
       // console.log('+++++++++++','onAdd')
       this._map = map
-      this._onClickListeners = []
-      this._onHoverListeners = []
+      // this._onClickListeners = []
+      // this._onHoverListeners = []
 
       if (!this._canvas) {
         this._initCanvas()

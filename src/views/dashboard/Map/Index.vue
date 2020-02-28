@@ -199,6 +199,16 @@
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
+    <v-navigation-drawer
+      v-model="infoDrawer.show"
+      absolute
+      floating
+    >
+      <vessel-info
+        v-if="infoDrawer.type === 'vessel'"
+        :id="infoDrawer.id"
+      />
+    </v-navigation-drawer>
     <l-map
       id="map"
       ref="map"
@@ -246,9 +256,10 @@
   import 'leaflet-easyprint'
   import 'leaflet-graticule'
   import download from 'downloadjs'
+  import vesselInfo from './components/vesselInfo'
 
   export default {
-    components: { LMap, LTileLayer, LControlZoom, LControlLayers, LControlScale, LLayerGroup },
+    components: { LMap, LTileLayer, LControlZoom, LControlLayers, LControlScale, LLayerGroup, vesselInfo },
     mixins: [serviceItems, snackBar],
     data: () => ({
       map: null,
@@ -288,6 +299,12 @@
       latlngGrid: null,
       ciLayer: null,
       vesselMarkerClusters: null,
+      infoDrawer: {
+        show: false,
+        type: '',
+        id: 0,
+        addressId: 0,
+      },
     }),
     watch: {
       'displayOptions.grid' (value) {
@@ -388,19 +405,23 @@
           const marker = L.marker([vessel[1], vessel[2]], {
             icon: L.icon(this.getVesselIcon(vessel[5], vessel[4])),
             rotationAngle: vessel[3],
-          }).addTo(this.vesselMarkerClusters)
-            .on('click', e => {
-            }).on('mouseover', e => {
-              if (marker.getTooltip()) {
-                marker.openToolTip()
-              }
-            })
+            vesselId: vessel[0],
+          }).on('click', e => {
+          }).on('mouseover', e => {
+            if (marker.getTooltip()) {
+              marker.openToolTip()
+            }
+          })
+          marker.addTo(this.ciLayer)
+          marker.addTo(this.vesselMarkerClusters)
         })
-        this.vessels.forEach(vessel => {
-          L.marker([vessel[1], vessel[2]], {
-            icon: L.icon(this.getVesselIcon(vessel[5], vessel[4])),
-            rotationAngle: vessel[3],
-          }).addTo(this.ciLayer)
+        this.ciLayer.addOnClickListener((e, data) => {
+          this.infoDrawer.show = true
+          this.infoDrawer.type = 'vessel'
+          this.infoDrawer.id = data.options.vesselId
+        })
+        this.ciLayer.addOnHoverListener((e, data) => {
+          // console.log(e, data)
         })
         this.ciLayer.redraw()
 
