@@ -272,7 +272,7 @@
   import 'leaflet-easyprint'
   import 'leaflet-graticule'
   import download from 'downloadjs'
-  import vesselInfo from './components/vesselInfo'
+  import vesselInfo from './components/VesselInfo'
 
   export default {
     components: { LMap, LTileLayer, LControlZoom, LControlLayers, LControlScale, LLayerGroup, vesselInfo },
@@ -422,7 +422,10 @@
             icon: L.icon(this.getVesselIcon(vessel[5], vessel[4])),
             rotationAngle: vessel[3],
             vesselId: vessel[0],
-          }).on('click', e => {
+          }).on('click', () => {
+            this.infoDrawer.show = true
+            this.infoDrawer.type = 'vessel'
+            this.infoDrawer.id = vessel[0]
           }).on('mouseover', e => {
             if (marker.getTooltip()) {
               marker.openToolTip()

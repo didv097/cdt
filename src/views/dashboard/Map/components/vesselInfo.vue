@@ -5,9 +5,7 @@
       indeterminate
       class="cop-info-loading"
     />
-    <div
-      v-else
-    >
+    <div v-else>
       <v-img
         v-if="vessel.photo"
         :src="vessel.photo"
