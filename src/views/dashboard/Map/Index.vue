@@ -286,6 +286,7 @@
         updateWhenIdle: false,
         touchZoom: false,
         preferCanvas: true,
+        maxBounds: [[-90, -360], [90, 360]],
       },
       loadingVessels: false,
       loading: false,
@@ -298,7 +299,7 @@
         wind: false,
         waves: false,
         draw: false,
-        grouping: false,
+        grouping: true,
       },
       showMapMenu: true,
       search: '',
@@ -321,6 +322,7 @@
         id: 0,
         addressId: 0,
       },
+      loadingTooltip: [],
     }),
     watch: {
       'displayOptions.grid' (value) {
@@ -426,9 +428,16 @@
             this.infoDrawer.show = true
             this.infoDrawer.type = 'vessel'
             this.infoDrawer.id = vessel[0]
-          }).on('mouseover', e => {
-            if (marker.getTooltip()) {
-              marker.openToolTip()
+          }).on('mousemove', () => {
+            if (marker.getTooltip() === undefined && !this.loadingTooltip.includes(vessel[0])) {
+              this.loadingTooltip.push(vessel[0])
+              axios.get(`map/vessels/tooltip/${vessel[0]}`)
+                .then(res => {
+                  const data = res.data
+                  const content = `${data.name} [${data.imo || '--'}] / ${data.speed} knots / ${data.course}&deg;<br>AIS Status: ${data.nav_status.value}<br>Position received: ${this.prettyDateForm(new Date(data.ais_last_update))}<br>Destination: ${data.destination || 'Unknown'}<br>ETA: ${data.eta || 'Unknown'}`
+                  marker.bindTooltip(content, { className: 'vessel-tooltip' }).openTooltip()
+                  this.loadingTooltip.splice(this.loadingTooltip.indexOf(vessel[0]), 1)
+                })
             }
           })
           marker.addTo(this.ciLayer)
@@ -440,7 +449,17 @@
           this.infoDrawer.id = data.options.vesselId
         })
         this.ciLayer.addOnHoverListener((e, data) => {
-          // console.log(e, data)
+          // console.log(data)
+          // if (this.ciLayer.getTooltip() === undefined && !this.loadingTooltip) {
+          //   this.loadingTooltip = true
+          //   axios.get(`map/vessels/tooltip/${data.options.vesselId}`)
+          //     .then(res => {
+          //       const data = res.data
+          //       const content = `${data.name} [${data.imo || '--'}] / ${data.speed} knots / ${data.course}&deg;<br>AIS Status: ${data.nav_status.value}<br>Position received: ${this.prettyDateForm(new Date(data.ais_last_update))}<br>Destination: ${data.destination}<br>ETA: ${data.eta}`
+          //       this.ciLayer.bindTooltip(content, { className: 'vessel-tooltip' }).openTooltip()
+          //       this.loadingTooltip = false
+          //     })
+          // }
         })
         this.ciLayer.redraw()
 
@@ -495,6 +514,17 @@
           }).catch(() => {
             this.showSnackBar('Cannot download', 'error')
           })
+      },
+      prettyDateForm (date) {
+        const today = new Date()
+        const startDate = new Date(date)
+        today.setMinutes(today.getMinutes() + today.getTimezoneOffset())
+        const secs = Math.floor((today.getTime() - startDate.getTime()) / 1000)
+        if (secs < 60) return secs + ' sec(s) ago'
+        if (secs < 3600) return Math.floor(secs / 60) + ' min(s) ago'
+        if (secs < 86400) return Math.floor(secs / 3600) + ' hour(s) ago'
+        if (secs < 604800) return Math.floor(secs / 86400) + ' day(s) ago'
+        return 'more than a week ago'
       },
     },
   }
