@@ -234,7 +234,6 @@
       :world-copy-jump="true"
       :options="mapOptions"
     >
-      <l-control-zoom position="topright" />
       <l-control-layers
         ref="layerControl"
         position="topright"
@@ -264,7 +263,7 @@
 </template>
 
 <script>
-  import { LMap, LTileLayer, LControlZoom, LControlLayers, LControlScale, LLayerGroup } from 'vue2-leaflet'
+  import { LMap, LTileLayer, LControlLayers, LControlScale, LLayerGroup } from 'vue2-leaflet'
   import axios from 'axios'
   import * as L from 'leaflet'
   import { serviceItems } from '@/mixins/serviceItems'
@@ -275,7 +274,7 @@
   import vesselInfo from './components/VesselInfo'
 
   export default {
-    components: { LMap, LTileLayer, LControlZoom, LControlLayers, LControlScale, LLayerGroup, vesselInfo },
+    components: { LMap, LTileLayer, LControlLayers, LControlScale, LLayerGroup, vesselInfo },
     mixins: [serviceItems, snackBar],
     data: () => ({
       map: null,
@@ -323,6 +322,7 @@
         addressId: 0,
       },
       loadingTooltip: [],
+      windLayer: null,
     }),
     watch: {
       'displayOptions.grid' (value) {
@@ -360,24 +360,21 @@
           this.map.removeLayer(this.ciLayer)
         }
       },
+      'displayOptions.wind' (value) {
+        if (value) {
+          this.windLayer.addTo(this.map)
+        } else {
+          this.map.removeLayer(this.windLayer)
+        }
+      },
     },
     async mounted () {
       this.loading = true
-      let res = await axios.get('map/zones')
-      this.zones = res.data.data
-      res = await axios.get('map/fleets')
-      this.fleets = res.data
-      res = await axios.get('map/networks')
-      this.networks = res.data
 
       this.map = this.$refs.map.mapObject
-      this.vesselMarkerClusters = this.$refs.vesselMarkerClusters.mapObject
-      this.ciLayer = L.canvasIconLayer({}).addTo(this.map)
 
-      await this.getVessels()
-      this.renderVessels()
+      this.addControls()
 
-      this.loading = false
       this.easyPrinter = L.easyPrint({
         title: 'Print map',
         position: 'topright',
@@ -397,6 +394,34 @@
           { start: 8, end: 10, interval: 1 },
         ],
       })
+      let res = await fetch('/storage/wind-global.json')
+      res = await res.json()
+      this.windLayer = L.velocityLayer({
+        displayValues: true,
+        displayOptions: {
+          velocityType: 'Wind',
+          emptyString: 'No wind data',
+          displayEmptyString: 'No wind data',
+          angleConvention: 'bearingCW',
+          speedUnit: 'kt',
+        },
+        data: res,
+      })
+
+      res = await axios.get('map/zones')
+      this.zones = res.data.data
+      res = await axios.get('map/fleets')
+      this.fleets = res.data
+      res = await axios.get('map/networks')
+      this.networks = res.data
+
+      this.vesselMarkerClusters = this.$refs.vesselMarkerClusters.mapObject
+      this.ciLayer = L.canvasIconLayer({}).addTo(this.map)
+
+      await this.getVessels()
+      this.renderVessels()
+
+      this.loading = false
     },
     methods: {
       async getVessels () {
@@ -525,6 +550,33 @@
         if (secs < 86400) return Math.floor(secs / 3600) + ' hour(s) ago'
         if (secs < 604800) return Math.floor(secs / 86400) + ' day(s) ago'
         return 'more than a week ago'
+      },
+      addControls () {
+        this.map.addControl(new L.Control.Zoom({ position: 'topright' }))
+        this.map.addControl(new L.Control.Fullscreen({ position: 'topright' }))
+        const vm = this
+        L.easyButton({
+          states: [
+            {
+              stateName: 'show-wind',
+              icon: '<i class="mdi mdi-weather-windy" style="font-size:18px;"></i>',
+              title: 'Show wind',
+              onClick: function (btn, map) {
+                vm.displayOptions.wind = true
+                btn.state('hide-wind')
+              },
+            }, {
+              stateName: 'hide-wind',
+              icon: '<i class="mdi mdi-weather-windy" style="font-size:18px; color: #00a3e4"></i>',
+              title: 'Hide wind',
+              onClick: function (btn, map) {
+                vm.displayOptions.wind = false
+                btn.state('show-wind')
+              },
+            },
+          ],
+          position: 'topright',
+        }).addTo(this.map)
       },
     },
   }
