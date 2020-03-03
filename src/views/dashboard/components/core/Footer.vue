@@ -1,9 +1,6 @@
 <template>
   <v-footer
-    id="pages-core-footer"
-    absolute
-    color="transparent"
-    dark
+    id="dashboard-core-footer"
   >
     <v-container>
       <v-row
@@ -13,13 +10,12 @@
         <v-col
           v-for="(link, i) in links"
           :key="i"
-          class="text-center"
-          cols="6"
-          md="auto"
+          class="text-center mb-sm-0 mb-5"
+          cols="auto"
         >
           <a
             :href="link.href"
-            class="mr-0"
+            class="mr-0 grey--text text--darken-3"
             rel="noopener"
             v-text="link.text"
           />
@@ -42,13 +38,13 @@
 
 <script>
   export default {
-    name: 'PagesCoreFooter',
+    name: 'DashboardCoreFooter',
 
     data: () => ({
       links: [
         {
           href: '#',
-          text: 'Donjon Smit',
+          text: 'Donjon-Smit',
         },
         {
           href: '#',
@@ -64,9 +60,8 @@
 </script>
 
 <style lang="sass">
-  #pages-core-footer
+  #dashboard-core-footer
     a
-      color: #FFFFFF
       font-size: .825rem
       font-weight: 500
       text-decoration: none

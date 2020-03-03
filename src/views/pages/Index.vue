@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <pages-core-view />
+    <pages-core-footer />
   </v-app>
 </template>
 
@@ -10,6 +11,7 @@
 
     components: {
       PagesCoreView: () => import('./components/core/View'),
+      PagesCoreFooter: () => import('./components/core/Footer'),
     },
 
     created () {
