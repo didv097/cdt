@@ -566,19 +566,18 @@
     },
     methods: {
       async getDataFromApi () {
+        if (this.loading) return
         this.loading = true
-        // get by search keyword
         const { sortBy, sortDesc, page, itemsPerPage } = this.options
         try {
           if (this.search) {
-            const res = await axios.post(`companies-filter-vrp?query=${this.search}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
+            const res = await axios.post(`companies?query=${this.search}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
             this.companies = res.data.data
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
-          // get by sort option
           if (sortBy[0] && !this.search) {
             const direction = sortDesc[0] ? 'desc' : 'asc'
-            const res = await axios.post(`companies-order?direction=${direction}&sortBy=${sortBy[0]}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
+            const res = await axios.post(`companies?direction=${direction}&sortBy=${sortBy[0]}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
             this.companies = res.data.data
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
@@ -587,10 +586,10 @@
             this.companies = res.data.data
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
-          this.loading = false
         } catch (error) {
-          // console.error(error)
+          this.showSnackBar(error, 'error')
         }
+        this.loading = false
       },
       getFlagPath (item) {
         if (!item) return ''

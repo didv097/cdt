@@ -395,7 +395,7 @@
                         </v-icon>
                       </template>
                       <router-link
-                        v-if="vessel.item.vrp_plan_number>0 && vessel.item.company.id>0"
+                        v-if="vessel.item.vrp_plan_number>0 && vessel.item.company && vessel.item.company.id>0"
                         class="table-link"
                         :to="'/companies/' + vessel.item.company.id"
                       >
@@ -514,19 +514,18 @@
     },
     methods: {
       async getDataFromApi () {
+        if (this.loading) return
         this.loading = true
-        // get by search keyword
         const { sortBy, descending, page, itemsPerPage } = this.options
         try {
           if (this.search) {
-            const res = await axios.post(`vessels-filter-vrp?query=${this.search}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
+            const res = await axios.post(`vessels?query=${this.search}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
             this.vessels = res.data.data
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
-          // get by sort option
           if (sortBy[0] && !this.search) {
             const direction = descending ? 'desc' : 'asc'
-            const res = await axios.post(`vessels-order?direction=${direction}&sortBy=${sortBy[0]}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
+            const res = await axios.post(`vessels?direction=${direction}&sortBy=${sortBy[0]}&page=${page}&per_page=${itemsPerPage}`, { staticSearch: this.staticSearch })
             this.vessels = res.data.data
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
@@ -536,7 +535,7 @@
             this.total = res.data.meta ? res.data.meta.total : res.data.total
           }
         } catch (error) {
-          // console.error(error)
+          this.showSnackBar(error, 'error')
         }
         this.loading = false
       },
