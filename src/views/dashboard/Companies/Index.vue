@@ -280,6 +280,7 @@
                       :alt="company.item.country"
                       :src="getFlagPath(company.item)"
                       class="flag-icon"
+                      width="30"
                     >
                   </span>
                 </template>
@@ -631,8 +632,3 @@
     },
   }
 </script>
-
-<style lang="sass">
-  .flag-icon
-    width: 30px
-</style>
