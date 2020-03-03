@@ -37,13 +37,6 @@
           </template>
           <v-list-item>
             <v-switch
-              v-model="displayOptions.grid"
-              label="Grid"
-              hide-details
-            />
-          </v-list-item>
-          <v-list-item>
-            <v-switch
               v-model="displayOptions.vessels"
               label="Vessels"
               hide-details
@@ -234,10 +227,6 @@
       :world-copy-jump="true"
       :options="mapOptions"
     >
-      <l-control-layers
-        ref="layerControl"
-        position="topright"
-      />
       <l-control-scale
         :imperial="true"
         :metric="true"
@@ -263,7 +252,7 @@
 </template>
 
 <script>
-  import { LMap, LTileLayer, LControlLayers, LControlScale, LLayerGroup } from 'vue2-leaflet'
+  import { LMap, LTileLayer, LControlScale, LLayerGroup } from 'vue2-leaflet'
   import axios from 'axios'
   import * as L from 'leaflet'
   import { serviceItems } from '@/mixins/serviceItems'
@@ -274,7 +263,7 @@
   import vesselInfo from './components/VesselInfo'
 
   export default {
-    components: { LMap, LTileLayer, LControlLayers, LControlScale, LLayerGroup, vesselInfo },
+    components: { LMap, LTileLayer, LControlScale, LLayerGroup, vesselInfo },
     mixins: [serviceItems, snackBar],
     data: () => ({
       map: null,
@@ -291,12 +280,12 @@
       loading: false,
       vessels: [],
       displayOptions: {
-        grid: false,
         vessels: true,
         individuals: true,
         companies: true,
+        grid: false,
         wind: false,
-        waves: false,
+        wave: false,
         draw: false,
         grouping: true,
       },
@@ -323,15 +312,9 @@
       },
       loadingTooltip: [],
       windLayer: null,
+      waveLayer: null,
     }),
     watch: {
-      'displayOptions.grid' (value) {
-        if (value) {
-          this.latlngGrid.addTo(this.map)
-        } else {
-          this.map.removeLayer(this.latlngGrid)
-        }
-      },
       'displayOptions.vessels' (value) {
         if (value) {
           if (this.displayOptions.grouping) {
@@ -360,11 +343,25 @@
           this.map.removeLayer(this.ciLayer)
         }
       },
+      'displayOptions.grid' (value) {
+        if (value) {
+          this.latlngGrid.addTo(this.map)
+        } else {
+          this.map.removeLayer(this.latlngGrid)
+        }
+      },
       'displayOptions.wind' (value) {
         if (value) {
           this.windLayer.addTo(this.map)
         } else {
           this.map.removeLayer(this.windLayer)
+        }
+      },
+      'displayOptions.wave' (value) {
+        if (value) {
+          this.waveLayer.addTo(this.map)
+        } else {
+          this.map.removeLayer(this.waveLayer)
         }
       },
     },
@@ -402,6 +399,19 @@
           velocityType: 'Wind',
           emptyString: 'No wind data',
           displayEmptyString: 'No wind data',
+          angleConvention: 'bearingCW',
+          speedUnit: 'kt',
+        },
+        data: res,
+      })
+      res = await fetch('/storage/wave-global.json')
+      res = await res.json()
+      this.waveLayer = L.velocityLayer({
+        displayValues: true,
+        displayOptions: {
+          velocityType: 'Wave',
+          emptyString: 'No wave data',
+          displayEmptyString: 'No wave data',
           angleConvention: 'bearingCW',
           speedUnit: 'kt',
         },
@@ -555,28 +565,71 @@
         this.map.addControl(new L.Control.Zoom({ position: 'topright' }))
         this.map.addControl(new L.Control.Fullscreen({ position: 'topright' }))
         const vm = this
-        L.easyButton({
-          states: [
-            {
-              stateName: 'show-wind',
-              icon: '<i class="mdi mdi-weather-windy" style="font-size:18px;"></i>',
-              title: 'Show wind',
-              onClick: function (btn, map) {
-                vm.displayOptions.wind = true
-                btn.state('hide-wind')
+        L.easyBar([
+          L.easyButton({
+            states: [
+              {
+                stateName: 'show-grid',
+                icon: '<i class="mdi mdi-grid" style="font-size:18px;"></i>',
+                title: 'Show grid',
+                onClick: function (btn, map) {
+                  vm.displayOptions.grid = true
+                  btn.state('hide-grid')
+                },
+              }, {
+                stateName: 'hide-grid',
+                icon: '<i class="mdi mdi-grid" style="font-size:18px; color: #00a3e4"></i>',
+                title: 'Hide grid',
+                onClick: function (btn, map) {
+                  vm.displayOptions.grid = false
+                  btn.state('show-grid')
+                },
               },
-            }, {
-              stateName: 'hide-wind',
-              icon: '<i class="mdi mdi-weather-windy" style="font-size:18px; color: #00a3e4"></i>',
-              title: 'Hide wind',
-              onClick: function (btn, map) {
-                vm.displayOptions.wind = false
-                btn.state('show-wind')
+            ],
+          }),
+          L.easyButton({
+            states: [
+              {
+                stateName: 'show-wind',
+                icon: '<i class="mdi mdi-weather-windy" style="font-size:18px;"></i>',
+                title: 'Show wind',
+                onClick: function (btn, map) {
+                  vm.displayOptions.wind = true
+                  btn.state('hide-wind')
+                },
+              }, {
+                stateName: 'hide-wind',
+                icon: '<i class="mdi mdi-weather-windy" style="font-size:18px; color: #00a3e4"></i>',
+                title: 'Hide wind',
+                onClick: function (btn, map) {
+                  vm.displayOptions.wind = false
+                  btn.state('show-wind')
+                },
               },
-            },
-          ],
-          position: 'topright',
-        }).addTo(this.map)
+            ],
+          }),
+          L.easyButton({
+            states: [
+              {
+                stateName: 'show-wave',
+                icon: '<i class="mdi mdi-waves" style="font-size:18px;"></i>',
+                title: 'Show wave',
+                onClick: function (btn, map) {
+                  vm.displayOptions.wave = true
+                  btn.state('hide-wave')
+                },
+              }, {
+                stateName: 'hide-wave',
+                icon: '<i class="mdi mdi-waves" style="font-size:18px; color: #00a3e4"></i>',
+                title: 'Hide wave',
+                onClick: function (btn, map) {
+                  vm.displayOptions.wave = false
+                  btn.state('show-wave')
+                },
+              },
+            ],
+          }),
+        ], { position: 'topright' }).addTo(this.map)
       },
     },
   }
