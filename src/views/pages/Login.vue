@@ -14,24 +14,11 @@
           class="px-5 py-3"
         >
           <template v-slot:heading>
-            <div class="text-center">
-              <h1 class="display-2 font-weight-bold mb-2">
-                Login
-              </h1>
-
-              <v-btn
-                v-for="(social, i) in socials"
-                :key="i"
-                class="ma-1"
-                icon
-                rel="noopener"
-                target="_blank"
-              >
-                <v-icon
-                  v-text="social.icon"
-                />
-              </v-btn>
-            </div>
+            <v-img
+              src="@/assets/djs-logo.png"
+              width="150"
+              class="mx-auto"
+            />
           </template>
 
           <v-card-text class="text-center">
@@ -50,6 +37,7 @@
               color="secondary"
               label="User Name"
               prepend-icon="mdi-account-outline"
+              hide-details
             />
 
             <v-text-field
@@ -59,6 +47,7 @@
               label="Password"
               prepend-icon="mdi-lock-outline"
               type="password"
+              hide-details
             />
 
             <pages-btn
@@ -86,20 +75,6 @@
     },
 
     data: () => ({
-      socials: [
-        {
-          href: '#',
-          icon: 'mdi-facebook-box',
-        },
-        {
-          href: '#',
-          icon: 'mdi-twitter',
-        },
-        {
-          href: '#',
-          icon: 'mdi-github-box',
-        },
-      ],
       username: '',
       password: '',
       rememberMe: false,
