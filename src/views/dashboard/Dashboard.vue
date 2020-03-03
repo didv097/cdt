@@ -94,25 +94,25 @@
         cnt: [
           {
             title: 'Companies',
-            value: 3731,
+            value: 0,
             color: 'cyan',
             icon: 'mdi-domain',
           },
           {
             title: 'Individuals',
-            value: 4572,
+            value: 0,
             color: 'red',
             icon: 'mdi-account-group',
           },
           {
             title: 'Vessels',
-            value: 18771,
+            value: 0,
             color: 'green',
             icon: 'mdi-ferry',
           },
           {
             title: 'Fleets',
-            value: 8,
+            value: 0,
             color: 'purple',
             icon: 'mdi-anchor',
           },
@@ -140,8 +140,11 @@
                 percent: countryVesselCount[key].percent_total,
               })
             })
-
           this.topCountries = temp
+          this.cnt[0].value = res.data.result.companies
+          this.cnt[1].value = res.data.result.individuals
+          this.cnt[2].value = res.data.result.vessels
+          this.cnt[3].value = res.data.result.fleets
         })
     },
 
