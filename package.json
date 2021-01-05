@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@mdi/font": "^4.9.95",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.4",
     "downloadjs": "^1.4.7",
     "js-cookie": "^2.2.1",
